@@ -587,96 +587,21 @@ result = quantum(
     <section id="pricing" class="pricing">
         <div class="container">
             <div class="section-header">
-                <h2>Pay-Per-Use Pricing</h2>
-                <p>Pay only for the quantum shots you use. Flexible plans with included quotas.</p>
+                <h2>Pay-Per-Shot Pricing</h2>
+                <p>Pay only for the quantum shots you execute. No subscriptions, no hidden fees.</p>
                 <div style="background: rgba(0, 212, 255, 0.1); border-left: 4px solid var(--color-quantum-blue); padding: 1rem; margin: 1.5rem auto; max-width: 800px; border-radius: var(--radius-md);">
                     <strong style="color: var(--color-quantum-blue);">💳 Secure Payments via Stripe</strong>
                     <p style="margin: 0.5rem 0 0 0; color: var(--color-text-secondary); font-size: 0.95rem;">
-                        All billing managed through Stripe. Cancel anytime. Usage tracked in real-time.
-                    </p>
-                </div>
-            </div>
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <h3>Free</h3>
-                        <div class="price">
-                            <span class="currency">$</span>
-                            <span class="amount">0</span>
-                            <span class="period">/month</span>
-                        </div>
-                    </div>
-                    <ul class="pricing-features">
-                        <li>✓ <strong>1,000 shots/month</strong> simulators (free)</li>
-                        <li>✓ <strong>100 shots/month</strong> quantum hardware (free)</li>
-                        <li>✓ All 7 drug discovery modules</li>
-                        <li>✓ Natural language interface</li>
-                        <li>✓ 50 LLM API calls/month</li>
-                        <li>✓ Community support</li>
-                        <li>✗ Pay-per-shot after quota</li>
-                    </ul>
-                    <a href="#demo" class="btn-pricing">Start Free</a>
-                    <p style="text-align: center; font-size: 0.85rem; color: var(--color-text-muted); margin-top: 1rem;">
-                        Extra usage: $0.01/shot (sim), $3/shot (HW)
-                    </p>
-                </div>
-
-                <div class="pricing-card featured">
-                    <div class="pricing-badge">Most Popular</div>
-                    <div class="pricing-header">
-                        <h3>Pro</h3>
-                        <div class="price">
-                            <span class="currency">$</span>
-                            <span class="amount">99</span>
-                            <span class="period">/month</span>
-                        </div>
-                    </div>
-                    <ul class="pricing-features">
-                        <li>✓ <strong>10,000 shots/month</strong> simulators (free)</li>
-                        <li>✓ <strong>500 shots/month</strong> quantum hardware (free)</li>
-                        <li>✓ All advanced features</li>
-                        <li>✓ 500 LLM API calls/month</li>
-                        <li>✓ Priority queue</li>
-                        <li>✓ CRISPR-QAI module</li>
-                        <li>✓ Email support (48h response)</li>
-                    </ul>
-                    <a href="#pricing" class="btn-pricing btn-primary">Get Started</a>
-                    <p style="text-align: center; font-size: 0.85rem; color: var(--color-text-muted); margin-top: 1rem;">
-                        Extra usage: $0.01/shot (sim), $3/shot (HW)
-                    </p>
-                </div>
-
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <h3>Enterprise</h3>
-                        <div class="price">
-                            <span class="currency">$</span>
-                            <span class="amount">499</span>
-                            <span class="period">/month</span>
-                        </div>
-                    </div>
-                    <ul class="pricing-features">
-                        <li>✓ <strong>100,000 shots/month</strong> simulators (free)</li>
-                        <li>✓ <strong>5,000 shots/month</strong> quantum hardware (free)</li>
-                        <li>✓ Unlimited LLM API calls</li>
-                        <li>✓ Dedicated support team</li>
-                        <li>✓ SLA 99.9% uptime</li>
-                        <li>✓ 21 CFR Part 11 compliance</li>
-                        <li>✓ Custom integrations</li>
-                        <li>✓ Priority support (24h response)</li>
-                    </ul>
-                    <a href="#pricing" class="btn-pricing">Contact Sales</a>
-                    <p style="text-align: center; font-size: 0.85rem; color: var(--color-text-muted); margin-top: 1rem;">
-                        Custom pricing for high-volume usage
+                        All billing managed through Stripe. Usage tracked in real-time. Pay as you go.
                     </p>
                 </div>
             </div>
 
             <!-- Pay-per-shot pricing table -->
-            <div style="max-width: 900px; margin: 4rem auto; background: var(--color-bg-card); border-radius: var(--radius-xl); padding: 2.5rem;">
-                <h3 style="text-align: center; font-size: 1.75rem; margin-bottom: 1rem;">Pay-Per-Shot Pricing (After Quota)</h3>
+            <div style="max-width: 900px; margin: 2rem auto; background: var(--color-bg-card); border-radius: var(--radius-xl); padding: 2.5rem;">
+                <h3 style="text-align: center; font-size: 1.75rem; margin-bottom: 1rem;">Quantum Backend Pricing</h3>
                 <p style="text-align: center; color: var(--color-text-secondary); margin-bottom: 2rem;">
-                    Pay only for what you use beyond your included quota
+                    Choose your backend and pay per shot executed
                 </p>
 
                 <div style="overflow-x: auto;">
@@ -751,8 +676,8 @@ result = quantum(
                 <div style="background: rgba(157, 78, 221, 0.1); border-left: 4px solid var(--color-quantum-purple); padding: 1rem; margin-top: 2rem; border-radius: var(--radius-md);">
                     <strong style="color: var(--color-quantum-purple);">💡 How It Works</strong>
                     <p style="margin: 0.5rem 0 0 0; color: var(--color-text-secondary); font-size: 0.95rem;">
-                        Each plan includes a monthly quota of free shots. Once you exceed your quota, you're charged per shot based on the backend used.
-                        All billing is handled securely through Stripe with real-time usage tracking.
+                        You're charged per shot executed based on the quantum backend you choose. Simulators cost $0.01-0.02 per shot, while quantum hardware ranges from $2-5 per shot.
+                        All billing is handled securely through Stripe with real-time usage tracking. No minimum commitment required.
                     </p>
                 </div>
             </div>
