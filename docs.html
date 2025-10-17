@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - BioQL Quantum Drug Discovery</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        .docs-hero {
+            padding: 8rem 0 4rem;
+            background: var(--color-bg-dark);
+            text-align: center;
+        }
+
+        .docs-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .docs-grid {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .docs-sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .docs-nav {
+            background: var(--color-bg-card);
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+        }
+
+        .docs-nav h3 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .docs-nav ul {
+            list-style: none;
+        }
+
+        .docs-nav ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .docs-nav ul li a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-normal);
+        }
+
+        .docs-nav ul li a:hover,
+        .docs-nav ul li a.active {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--color-quantum-blue);
+        }
+
+        .docs-content {
+            background: var(--color-bg-card);
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+        }
+
+        .docs-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .docs-content h3 {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .docs-content p {
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .docs-content code {
+            background: var(--color-bg-darker);
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-code);
+            font-size: 0.9em;
+            color: var(--color-quantum-blue);
+        }
+
+        .docs-content pre {
+            background: var(--color-bg-darker);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        .docs-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .docs-card {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .docs-card h4 {
+            color: var(--color-quantum-blue);
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <div class="logo">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="18" stroke="url(#gradient)" stroke-width="2"/>
+                        <path d="M20 8V32M8 20H32" stroke="url(#gradient)" stroke-width="2"/>
+                        <circle cx="20" cy="20" r="4" fill="url(#gradient)"/>
+                        <defs>
+                            <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" stop-color="#00D4FF"/>
+                                <stop offset="100%" stop-color="#9D4EDD"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <span>BioQL</span>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#backends">Backends</a></li>
+                <li><a href="index.html#pricing">Pricing</a></li>
+                <li><a href="docs.html" class="active">Docs</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="index.html#demo" class="btn-secondary">Try Demo</a>
+                <a href="index.html#pricing" class="btn-primary">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="docs-hero">
+        <div class="container">
+            <h1>Documentation</h1>
+            <p style="font-size: 1.25rem; color: var(--color-text-secondary); max-width: 600px; margin: 1rem auto;">
+                Complete guides, API reference, and examples for BioQL v5.7.5
+            </p>
+        </div>
+    </section>
+
+    <!-- Docs Content -->
+    <div class="docs-container">
+        <div class="docs-grid">
+            <!-- Sidebar -->
+            <aside class="docs-sidebar">
+                <nav class="docs-nav">
+                    <h3>Getting Started</h3>
+                    <ul>
+                        <li><a href="#installation" class="active">Installation</a></li>
+                        <li><a href="#quick-start">Quick Start</a></li>
+                        <li><a href="#authentication">Authentication</a></li>
+                    </ul>
+
+                    <h3>Core Concepts</h3>
+                    <ul>
+                        <li><a href="#natural-language">Natural Language</a></li>
+                        <li><a href="#quantum-backends">Quantum Backends</a></li>
+                        <li><a href="#drug-discovery">Drug Discovery</a></li>
+                    </ul>
+
+                    <h3>Modules</h3>
+                    <ul>
+                        <li><a href="#docking">Molecular Docking</a></li>
+                        <li><a href="#binding">Binding Affinity</a></li>
+                        <li><a href="#adme">ADME Prediction</a></li>
+                        <li><a href="#toxicity">Toxicity</a></li>
+                        <li><a href="#crispr">CRISPR-QAI</a></li>
+                    </ul>
+
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="api.html">API Reference</a></li>
+                        <li><a href="#examples">Examples</a></li>
+                        <li><a href="#changelog">Changelog</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="docs-content">
+                <section id="installation">
+                    <h2>Installation</h2>
+                    <p>Get started with BioQL in seconds using pip:</p>
+
+                    <pre><code>pip install bioql</code></pre>
+
+                    <h3>Requirements</h3>
+                    <ul style="color: var(--color-text-secondary); line-height: 2;">
+                        <li>Python 3.8 or higher</li>
+                        <li>Qiskit 1.3.0+ (automatically installed)</li>
+                        <li>NumPy, Matplotlib (dependencies handled)</li>
+                    </ul>
+
+                    <div class="docs-card">
+                        <h4>💡 Optional Dependencies</h4>
+                        <p style="color: var(--color-text-secondary); margin: 0;">
+                            For full drug discovery features, install with extras:
+                        </p>
+                        <pre style="margin-top: 1rem;"><code>pip install bioql[vina,viz,quantum_chemistry]</code></pre>
+                    </div>
+                </section>
+
+                <section id="quick-start">
+                    <h2>Quick Start</h2>
+                    <p>Your first quantum drug discovery computation in 3 lines:</p>
+
+                    <pre><code><span class="keyword">from</span> bioql <span class="keyword">import</span> quantum
+
+result = quantum(
+    <span class="string">"dock aspirin to COX-1 receptor"</span>,
+    backend=<span class="string">'simulator'</span>,
+    api_key=<span class="string">'your_api_key'</span>,
+    shots=<span class="number">4096</span>
+)
+
+<span class="keyword">print</span>(f<span class="string">"Binding Energy: {result.binding_energy} kcal/mol"</span>)</code></pre>
+
+                    <h3>What Just Happened?</h3>
+                    <ol style="color: var(--color-text-secondary); line-height: 2;">
+                        <li><strong>Natural Language Parsing:</strong> Your request was analyzed and converted to a quantum circuit</li>
+                        <li><strong>Molecular Docking:</strong> Aspirin was docked to COX-1 using VQE algorithm</li>
+                        <li><strong>Quantum Execution:</strong> Circuit ran on quantum simulator with 4096 shots</li>
+                        <li><strong>Results Returned:</strong> Binding energy and affinity metrics calculated</li>
+                    </ol>
+                </section>
+
+                <section id="authentication">
+                    <h2>Authentication</h2>
+                    <p>BioQL uses API keys for authentication. Get yours at the <a href="index.html#pricing" style="color: var(--color-quantum-blue);">pricing page</a>.</p>
+
+                    <h3>Using Environment Variables</h3>
+                    <pre><code><span class="comment"># .env file</span>
+BIOQL_API_KEY=bioql_your_api_key_here
+IBM_QUANTUM_TOKEN=your_ibm_token_here
+IONQ_API_KEY=your_ionq_key_here</code></pre>
+
+                    <pre><code><span class="keyword">from</span> bioql <span class="keyword">import</span> quantum
+<span class="keyword">import</span> os
+
+result = quantum(
+    <span class="string">"predict ADME properties for ibuprofen"</span>,
+    backend=<span class="string">'ibm_quantum'</span>,
+    api_key=os.getenv(<span class="string">'BIOQL_API_KEY'</span>)
+)</code></pre>
+                </section>
+
+                <section id="natural-language">
+                    <h2>Natural Language Interface</h2>
+                    <p>BioQL understands over 164 billion natural language patterns. Here are some examples:</p>
+
+                    <h3>Molecular Docking</h3>
+                    <pre><code><span class="string">"dock molecule SMILES CC(=O)OC1=CC=CC=C1C(=O)O to protein PDB 1PTK"</span>
+<span class="string">"perform molecular docking of aspirin to COX-1 receptor"</span>
+<span class="string">"bind ligand to target protein and calculate affinity"</span></code></pre>
+
+                    <h3>ADME Prediction</h3>
+                    <pre><code><span class="string">"predict ADME properties for compound SMILES CC(=O)NC1=CC=C(O)C=C1"</span>
+<span class="string">"calculate bioavailability and half-life for ibuprofen"</span>
+<span class="string">"analyze pharmacokinetics of molecule"</span></code></pre>
+
+                    <h3>CRISPR Guide Design</h3>
+                    <pre><code><span class="string">"design CRISPR guide RNA for target sequence ATCGATCG"</span>
+<span class="string">"optimize guide RNA with minimal off-target effects"</span>
+<span class="string">"predict CRISPR efficiency for sequence"</span></code></pre>
+                </section>
+
+                <section id="drug-discovery">
+                    <h2>Drug Discovery Pipeline</h2>
+                    <p>Complete workflow from molecular docking to toxicity prediction:</p>
+
+                    <pre><code><span class="keyword">from</span> bioql <span class="keyword">import</span> run_complete_pipeline
+
+results = run_complete_pipeline(
+    molecule_smiles=<span class="string">"CC(=O)OC1=CC=CC=C1C(=O)O"</span>,
+    target_protein_pdb=<span class="string">"cox1.pdb"</span>,
+    backend=<span class="string">'simulator'</span>,
+    api_key=<span class="string">'your_api_key'</span>
+)
+
+<span class="comment"># Results include:</span>
+<span class="keyword">print</span>(f<span class="string">"1. Docking Score: {results.docking.best_energy}"</span>)
+<span class="keyword">print</span>(f<span class="string">"2. Binding Affinity Kd: {results.affinity.kd} nM"</span>)
+<span class="keyword">print</span>(f<span class="string">"3. ADME Bioavailability: {results.adme.bioavailability}%"</span>)
+<span class="keyword">print</span>(f<span class="string">"4. Toxicity Risk: {results.toxicity.overall_risk}"</span>)
+<span class="keyword">print</span>(f<span class="string">"5. Drug-likeness: {results.lipinski_compliant}"</span>)</code></pre>
+                </section>
+
+                <section id="examples">
+                    <h2>Examples</h2>
+
+                    <div class="docs-card">
+                        <h4>🧬 Example 1: Molecular Docking</h4>
+                        <p>Dock aspirin to COX-1 and analyze binding poses</p>
+                        <a href="https://github.com/bioql/examples/docking" style="color: var(--color-quantum-blue);">View full example →</a>
+                    </div>
+
+                    <div class="docs-card">
+                        <h4>💊 Example 2: ADME/Tox Pipeline</h4>
+                        <p>Complete pharmacokinetics and toxicity analysis</p>
+                        <a href="https://github.com/bioql/examples/adme" style="color: var(--color-quantum-blue);">View full example →</a>
+                    </div>
+
+                    <div class="docs-card">
+                        <h4>🔬 Example 3: CRISPR Guide Design</h4>
+                        <p>Design and optimize CRISPR guide RNAs with quantum AI</p>
+                        <a href="https://github.com/bioql/examples/crispr" style="color: var(--color-quantum-blue);">View full example →</a>
+                    </div>
+                </section>
+
+                <section id="changelog">
+                    <h2>Changelog</h2>
+
+                    <h3>v5.7.5 (Current - October 2025)</h3>
+                    <ul style="color: var(--color-text-secondary); line-height: 2;">
+                        <li>✅ Complete drug discovery pipeline with 6 modules</li>
+                        <li>✅ CRISPR-QAI module for gene editing optimization</li>
+                        <li>✅ IBM Quantum Torino (133 qubits) support</li>
+                        <li>✅ Advanced error mitigation (ZNE, PEC)</li>
+                        <li>✅ 21 CFR Part 11 compliance logging</li>
+                        <li>✅ Real Vina docking integration</li>
+                    </ul>
+
+                    <h3>v5.6.0 (September 2025)</h3>
+                    <ul style="color: var(--color-text-secondary); line-height: 2;">
+                        <li>Added bioisosteric replacement database (12+ replacements)</li>
+                        <li>Similarity search across ChEMBL and PubChem</li>
+                        <li>Off-target screening panel (30+ proteins)</li>
+                        <li>Resistance profiling for mutations</li>
+                    </ul>
+
+                    <p><a href="#" style="color: var(--color-quantum-blue);">View complete changelog →</a></p>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">
+                        <div class="logo">
+                            <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="20" cy="20" r="18" stroke="url(#gradient2)" stroke-width="2"/>
+                                <path d="M20 8V32M8 20H32" stroke="url(#gradient2)" stroke-width="2"/>
+                                <circle cx="20" cy="20" r="4" fill="url(#gradient2)"/>
+                                <defs>
+                                    <linearGradient id="gradient2" x1="0" y1="0" x2="40" y2="40">
+                                        <stop offset="0%" stop-color="#00D4FF"/>
+                                        <stop offset="100%" stop-color="#9D4EDD"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <span>BioQL</span>
+                        </div>
+                        <p>Enterprise Quantum Computing for Drug Discovery</p>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="index.html#modules">Modules</a></li>
+                        <li><a href="index.html#backends">Backends</a></li>
+                        <li><a href="index.html#pricing">Pricing</a></li>
+                        <li><a href="index.html#demo">Demo</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="docs.html">Documentation</a></li>
+                        <li><a href="api.html">API Reference</a></li>
+                        <li><a href="docs.html#examples">Examples</a></li>
+                        <li><a href="#github">GitHub</a></li>
+                        <li><a href="docs.html#changelog">Changelog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BioQL by SpectrixRD. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms of Service</a>
+                    <a href="#security">Security</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

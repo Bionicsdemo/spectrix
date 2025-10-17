@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BioQL - Enterprise Quantum Computing Platform for Drug Discovery. Natural language interface for molecular docking, binding affinity, ADME/Tox prediction, and CRISPR-QAI.">
+    <meta name="keywords" content="quantum computing, drug discovery, molecular docking, ADME, toxicity prediction, CRISPR, IBM Quantum, IonQ, bioinformatics">
+    <title>BioQL - Quantum Computing for Drug Discovery</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <div class="logo">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="18" stroke="url(#gradient)" stroke-width="2"/>
+                        <path d="M20 8V32M8 20H32" stroke="url(#gradient)" stroke-width="2"/>
+                        <circle cx="20" cy="20" r="4" fill="url(#gradient)"/>
+                        <defs>
+                            <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" stop-color="#00D4FF"/>
+                                <stop offset="100%" stop-color="#9D4EDD"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <span>BioQL</span>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#modules">Modules</a></li>
+                <li><a href="#backends">Backends</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#docs">Docs</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="#demo" class="btn-secondary">Try Demo</a>
+                <a href="#pricing" class="btn-primary">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <img src="image2.png" alt="BioQL Quantum Lab" class="hero-bg-image">
+            <div class="quantum-particles"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-icon">⚛️</span>
+                    <span>Version 5.7.5 - Production Ready</span>
+                </div>
+                <h1 class="hero-title">
+                    Quantum Computing for
+                    <span class="gradient-text">Drug Discovery</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Enterprise-grade quantum platform for molecular docking, binding affinity prediction,
+                    ADME/Tox analysis, and CRISPR gene editing optimization. Natural language interface
+                    powered by real quantum hardware.
+                </p>
+                <div class="hero-cta">
+                    <a href="#demo" class="btn-large btn-primary">
+                        <span>Start Free Trial</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M7 3L15 10L7 17" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </a>
+                    <a href="#docs" class="btn-large btn-secondary">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        <span>View Documentation</span>
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-value">133+</div>
+                        <div class="stat-label">Quantum Qubits</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">Discovery Modules</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">5</div>
+                        <div class="stat-label">Quantum Backends</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">99.9%</div>
+                        <div class="stat-label">QEC Fidelity</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="code-window">
+                    <div class="code-header">
+                        <div class="code-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <div class="code-title">quantum_drug_discovery.py</div>
+                    </div>
+                    <pre class="code-content"><code><span class="keyword">from</span> bioql <span class="keyword">import</span> quantum
+
+<span class="comment"># Natural language quantum programming</span>
+result = quantum(
+    <span class="string">"dock aspirin to COX-1 and predict binding affinity"</span>,
+    backend=<span class="string">'ibm_quantum'</span>,
+    api_key=<span class="string">'your_api_key'</span>,
+    shots=<span class="number">4096</span>
+)
+
+<span class="comment"># Results with quantum advantage</span>
+<span class="keyword">print</span>(f<span class="string">"Binding Energy: {result.binding_energy} kcal/mol"</span>)
+<span class="keyword">print</span>(f<span class="string">"Affinity Kd: {result.affinity_kd} nM"</span>)
+<span class="keyword">print</span>(f<span class="string">"Drug-likeness: {result.lipinski_compliant}"</span>)</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose BioQL?</h2>
+                <p>The most complete quantum drug discovery platform with proven results</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧬</div>
+                    <h3>Natural Language Interface</h3>
+                    <p>Write drug discovery workflows in plain English. No quantum gates knowledge required. 164B+ NLP patterns.</p>
+                    <ul class="feature-list">
+                        <li>✓ Zero quantum programming experience needed</li>
+                        <li>✓ Automatic circuit optimization</li>
+                        <li>✓ Context-aware semantic parsing</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚛️</div>
+                    <h3>Real Quantum Hardware</h3>
+                    <p>Run on IBM Torino (133 qubits), IonQ trapped ions, Google Cirq, Azure Quantum, and AWS Braket.</p>
+                    <ul class="feature-list">
+                        <li>✓ Multi-backend support</li>
+                        <li>✓ Automatic error mitigation (ZNE, PEC)</li>
+                        <li>✓ Quantum Error Correction (QEC)</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💊</div>
+                    <h3>Complete Drug Pipeline</h3>
+                    <p>6 production-ready modules: Docking, Binding Affinity, ADME, Toxicity, Pharmacophore, Protein Folding.</p>
+                    <ul class="feature-list">
+                        <li>✓ Validated vs. experimental data</li>
+                        <li>✓ 50+ biochemical constants</li>
+                        <li>✓ Real Vina docking integration</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔬</div>
+                    <h3>CRISPR-QAI Module</h3>
+                    <p>Quantum-enhanced CRISPR guide RNA optimization with off-target prediction and phenotype inference.</p>
+                    <ul class="feature-list">
+                        <li>✓ Guide sequence encoding</li>
+                        <li>✓ Energy collapse estimation</li>
+                        <li>✓ Multi-backend support</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Enterprise Compliance</h3>
+                    <p>21 CFR Part 11 aligned provenance logging, cryptographic audit trails, and full reproducibility tracking.</p>
+                    <ul class="feature-list">
+                        <li>✓ Signed execution records</li>
+                        <li>✓ Compliance dashboards</li>
+                        <li>✓ Export to regulatory formats</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Performance Optimized</h3>
+                    <p>Smart caching (24x speedup), job batching (30% cost savings), circuit optimization (35% gate reduction).</p>
+                    <ul class="feature-list">
+                        <li>✓ &lt;5% profiling overhead</li>
+                        <li>✓ Interactive HTML dashboards</li>
+                        <li>✓ Automatic cost optimization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modules Section -->
+    <section id="modules" class="modules">
+        <div class="container">
+            <div class="section-header">
+                <h2>Drug Discovery Modules</h2>
+                <p>Production-ready quantum algorithms for every stage of drug development</p>
+            </div>
+            <div class="modules-showcase">
+                <div class="module-card active" data-module="docking">
+                    <div class="module-number">01</div>
+                    <h3>Molecular Docking</h3>
+                    <p>Predict ligand-receptor binding poses with quantum advantage</p>
+                    <div class="module-metrics">
+                        <div class="metric">
+                            <span class="metric-label">Accuracy</span>
+                            <span class="metric-value">±0.3 kcal/mol</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Poses</span>
+                            <span class="metric-value">20+ per run</span>
+                        </div>
+                    </div>
+                    <pre class="module-code"><code><span class="keyword">from</span> bioql.circuits <span class="keyword">import</span> MolecularDockingCircuit
+
+docking = MolecularDockingCircuit(
+    ligand_smiles=<span class="string">'CC(=O)OC1=CC=CC=C1C(=O)O'</span>,
+    receptor_pdb=<span class="string">'cox1.pdb'</span>,
+    num_poses=<span class="number">20</span>
+)
+
+result = docking.run_docking(shots=<span class="number">4096</span>)
+<span class="keyword">print</span>(result.best_energy)  <span class="comment"># -8.5 kcal/mol</span></code></pre>
+                </div>
+
+                <div class="module-card" data-module="affinity">
+                    <div class="module-number">02</div>
+                    <h3>Binding Affinity</h3>
+                    <p>VQE-based quantum chemistry for precise Kd/Ki calculation</p>
+                    <div class="module-metrics">
+                        <div class="metric">
+                            <span class="metric-label">Range</span>
+                            <span class="metric-value">0.01-100 µM</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Parameters</span>
+                            <span class="metric-value">ΔG, Kd, Ki, IC50</span>
+                        </div>
+                    </div>
+                    <pre class="module-code"><code><span class="keyword">from</span> bioql.circuits <span class="keyword">import</span> BindingAffinityCircuit
+
+circuit = BindingAffinityCircuit(
+    ligand_smiles=<span class="string">"CC(=O)OC1=CC=CC=C1C(=O)O"</span>,
+    receptor_pdb=<span class="string">"protein.pdb"</span>,
+    n_qubits=<span class="number">12</span>,
+    vqe_depth=<span class="number">3</span>
+)
+
+result = circuit.estimate_affinity()
+<span class="keyword">print</span>(result.binding_affinity_kd)  <span class="comment"># 1.45 nM</span></code></pre>
+                </div>
+
+                <div class="module-card" data-module="adme">
+                    <div class="module-number">03</div>
+                    <h3>ADME Prediction</h3>
+                    <p>Quantum ML for pharmacokinetics: Absorption, Distribution, Metabolism, Excretion</p>
+                    <div class="module-metrics">
+                        <div class="metric">
+                            <span class="metric-label">Accuracy</span>
+                            <span class="metric-value">R² = 0.82</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Properties</span>
+                            <span class="metric-value">6+ parameters</span>
+                        </div>
+                    </div>
+                    <pre class="module-code"><code><span class="keyword">from</span> bioql.circuits <span class="keyword">import</span> ADMECircuit
+
+circuit = ADMECircuit(
+    molecule_smiles=<span class="string">"CC(=O)OC1=CC=CC=C1C(=O)O"</span>
+)
+
+result = circuit.batch_predict()
+<span class="keyword">print</span>(result.bioavailability)  <span class="comment"># 65.3%</span>
+<span class="keyword">print</span>(result.half_life)  <span class="comment"># 4.2 hours</span></code></pre>
+                </div>
+
+                <div class="module-card" data-module="toxicity">
+                    <div class="module-number">04</div>
+                    <h3>Toxicity Prediction</h3>
+                    <p>Multi-endpoint toxicity screening with quantum classifiers</p>
+                    <div class="module-metrics">
+                        <div class="metric">
+                            <span class="metric-label">Endpoints</span>
+                            <span class="metric-value">5 toxicity types</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">AUC-ROC</span>
+                            <span class="metric-value">0.88 avg</span>
+                        </div>
+                    </div>
+                    <pre class="module-code"><code><span class="keyword">from</span> bioql.circuits <span class="keyword">import</span> ToxicityPredictionCircuit
+
+circuit = ToxicityPredictionCircuit(
+    molecule_smiles=<span class="string">"c1ccccc1N(=O)=O"</span>
+)
+
+result = circuit.predict_toxicity()
+<span class="keyword">print</span>(result.overall_risk)  <span class="comment"># 0.65 (high)</span>
+<span class="keyword">print</span>(result.alerts)  <span class="comment"># ['nitro_aromatic']</span></code></pre>
+                </div>
+
+                <div class="module-card" data-module="pharmacophore">
+                    <div class="module-number">05</div>
+                    <h3>Pharmacophore Modeling</h3>
+                    <p>3D feature extraction for virtual screening and lead optimization</p>
+                    <div class="module-metrics">
+                        <div class="metric">
+                            <span class="metric-label">Features</span>
+                            <span class="metric-value">5 types</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Conformers</span>
+                            <span class="metric-value">20+ analyzed</span>
+                        </div>
+                    </div>
+                    <pre class="module-code"><code><span class="keyword">from</span> bioql.circuits <span class="keyword">import</span> PharmacophoreCircuit
+
+circuit = PharmacophoreCircuit(
+    molecule_smiles=<span class="string">"CC(=O)OC1=CC=CC=C1C(=O)O"</span>,
+    n_conformers=<span class="number">20</span>
+)
+
+model = circuit.generate_pharmacophore()
+<span class="keyword">print</span>(model.features)  <span class="comment"># H-bond donors/acceptors...</span></code></pre>
+                </div>
+
+                <div class="module-card" data-module="folding">
+                    <div class="module-number">06</div>
+                    <h3>Protein Folding</h3>
+                    <p>QAOA-based optimization for tertiary structure prediction</p>
+                    <div class="module-metrics">
+                        <div class="metric">
+                            <span class="metric-label">Algorithm</span>
+                            <span class="metric-value">QAOA</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Lattice</span>
+                            <span class="metric-value">2D/3D</span>
+                        </div>
+                    </div>
+                    <pre class="module-code"><code><span class="keyword">from</span> bioql.circuits <span class="keyword">import</span> ProteinFoldingCircuit
+
+folding = ProteinFoldingCircuit()
+circuit = folding.build(
+    sequence_length=<span class="number">10</span>,
+    lattice_dimensions=<span class="number">2</span>,
+    qaoa_layers=<span class="number">3</span>
+)
+
+result = folding.optimize()
+<span class="keyword">print</span>(result.folding_energy)</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Backends Section -->
+    <section id="backends" class="backends">
+        <div class="backends-hero-image">
+            <img src="image.png" alt="Quantum Computing Chip" class="quantum-chip-image">
+        </div>
+        <div class="container">
+            <div class="section-header">
+                <h2>Multi-Backend Quantum Ecosystem</h2>
+                <p>Run on the world's most advanced quantum computers</p>
+            </div>
+            <div class="backends-grid">
+                <div class="backend-card">
+                    <div class="backend-logo">
+                        <div class="logo-placeholder ibm">IBM</div>
+                    </div>
+                    <h3>IBM Quantum</h3>
+                    <div class="backend-specs">
+                        <div class="spec">
+                            <span class="spec-label">Device</span>
+                            <span class="spec-value">IBM Torino</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Qubits</span>
+                            <span class="spec-value">133</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Technology</span>
+                            <span class="spec-value">Superconducting</span>
+                        </div>
+                    </div>
+                    <div class="backend-status">
+                        <span class="status-dot active"></span>
+                        <span>Production Ready</span>
+                    </div>
+                </div>
+
+                <div class="backend-card">
+                    <div class="backend-logo">
+                        <div class="logo-placeholder ionq">IonQ</div>
+                    </div>
+                    <h3>IonQ Aria</h3>
+                    <div class="backend-specs">
+                        <div class="spec">
+                            <span class="spec-label">Device</span>
+                            <span class="spec-value">IonQ Aria</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Qubits</span>
+                            <span class="spec-value">25</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Technology</span>
+                            <span class="spec-value">Trapped Ions</span>
+                        </div>
+                    </div>
+                    <div class="backend-status">
+                        <span class="status-dot active"></span>
+                        <span>Production Ready</span>
+                    </div>
+                </div>
+
+                <div class="backend-card">
+                    <div class="backend-logo">
+                        <div class="logo-placeholder google">Google</div>
+                    </div>
+                    <h3>Google Cirq</h3>
+                    <div class="backend-specs">
+                        <div class="spec">
+                            <span class="spec-label">Platform</span>
+                            <span class="spec-value">Cirq + Sycamore</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Qubits</span>
+                            <span class="spec-value">70+</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Technology</span>
+                            <span class="spec-value">Superconducting</span>
+                        </div>
+                    </div>
+                    <div class="backend-status">
+                        <span class="status-dot active"></span>
+                        <span>Production Ready</span>
+                    </div>
+                </div>
+
+                <div class="backend-card">
+                    <div class="backend-logo">
+                        <div class="logo-placeholder azure">Azure</div>
+                    </div>
+                    <h3>Azure Quantum</h3>
+                    <div class="backend-specs">
+                        <div class="spec">
+                            <span class="spec-label">Platform</span>
+                            <span class="spec-value">Azure Quantum</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Providers</span>
+                            <span class="spec-value">Multiple</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Technology</span>
+                            <span class="spec-value">Cloud Access</span>
+                        </div>
+                    </div>
+                    <div class="backend-status">
+                        <span class="status-dot active"></span>
+                        <span>Production Ready</span>
+                    </div>
+                </div>
+
+                <div class="backend-card">
+                    <div class="backend-logo">
+                        <div class="logo-placeholder aws">AWS</div>
+                    </div>
+                    <h3>AWS Braket</h3>
+                    <div class="backend-specs">
+                        <div class="spec">
+                            <span class="spec-label">Platform</span>
+                            <span class="spec-value">Amazon Braket</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Providers</span>
+                            <span class="spec-value">Rigetti, IonQ, D-Wave</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Technology</span>
+                            <span class="spec-value">Multi-tech</span>
+                        </div>
+                    </div>
+                    <div class="backend-status">
+                        <span class="status-dot active"></span>
+                        <span>Production Ready</span>
+                    </div>
+                </div>
+
+                <div class="backend-card">
+                    <div class="backend-logo">
+                        <div class="logo-placeholder simulator">SIM</div>
+                    </div>
+                    <h3>Local Simulator</h3>
+                    <div class="backend-specs">
+                        <div class="spec">
+                            <span class="spec-label">Platform</span>
+                            <span class="spec-value">Qiskit Aer</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Qubits</span>
+                            <span class="spec-value">30+</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Technology</span>
+                            <span class="spec-value">Classical Simulation</span>
+                        </div>
+                    </div>
+                    <div class="backend-status">
+                        <span class="status-dot active"></span>
+                        <span>Always Available</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2>Simple, Transparent Pricing</h2>
+                <p>Choose the plan that fits your research needs</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Free</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">0</span>
+                            <span class="period">/month</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Unlimited simulator access</li>
+                        <li>✓ All 6 drug discovery modules</li>
+                        <li>✓ Natural language interface</li>
+                        <li>✓ Community support</li>
+                        <li>✓ 100 quantum jobs/month</li>
+                        <li>✗ Real quantum hardware</li>
+                        <li>✗ Priority support</li>
+                    </ul>
+                    <a href="#demo" class="btn-pricing">Start Free</a>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Most Popular</div>
+                    <div class="pricing-header">
+                        <h3>Professional</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">299</span>
+                            <span class="period">/month</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Everything in Free</li>
+                        <li>✓ IBM Quantum access (20 hours)</li>
+                        <li>✓ IonQ simulator unlimited</li>
+                        <li>✓ CRISPR-QAI module</li>
+                        <li>✓ Error mitigation (ZNE, PEC)</li>
+                        <li>✓ 1,000 quantum jobs/month</li>
+                        <li>✓ Email support (24h response)</li>
+                    </ul>
+                    <a href="#pricing" class="btn-pricing btn-primary">Get Started</a>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Enterprise</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">999</span>
+                            <span class="period">/month</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Everything in Professional</li>
+                        <li>✓ IBM Quantum unlimited</li>
+                        <li>✓ IonQ Aria access (10 hours)</li>
+                        <li>✓ Azure/AWS Braket access</li>
+                        <li>✓ 21 CFR Part 11 compliance</li>
+                        <li>✓ Unlimited quantum jobs</li>
+                        <li>✓ Priority support (2h response)</li>
+                        <li>✓ Custom integrations</li>
+                    </ul>
+                    <a href="#pricing" class="btn-pricing">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="demo">
+        <div class="container">
+            <div class="section-header">
+                <h2>Try BioQL Now</h2>
+                <p>No installation required. Run quantum drug discovery in your browser.</p>
+            </div>
+            <div class="demo-container">
+                <div class="demo-interface">
+                    <div class="demo-tabs">
+                        <button class="demo-tab active" data-demo="docking">Molecular Docking</button>
+                        <button class="demo-tab" data-demo="affinity">Binding Affinity</button>
+                        <button class="demo-tab" data-demo="adme">ADME Prediction</button>
+                    </div>
+                    <div class="demo-content">
+                        <div class="demo-input">
+                            <label>Natural Language Query</label>
+                            <textarea id="demoQuery" rows="3" placeholder="Try: dock aspirin to COX-1 receptor and calculate binding affinity">dock aspirin to COX-1 receptor and calculate binding affinity</textarea>
+                        </div>
+                        <div class="demo-settings">
+                            <div class="setting">
+                                <label>Backend</label>
+                                <select id="demoBackend">
+                                    <option value="simulator">Simulator (Free)</option>
+                                    <option value="ibm_quantum">IBM Quantum</option>
+                                    <option value="ionq">IonQ</option>
+                                </select>
+                            </div>
+                            <div class="setting">
+                                <label>Shots</label>
+                                <select id="demoShots">
+                                    <option value="1024">1024</option>
+                                    <option value="4096" selected>4096</option>
+                                    <option value="8192">8192</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn-demo" id="runDemo">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 3L15 10L5 17V3Z" fill="currentColor"/>
+                            </svg>
+                            <span>Run Quantum Simulation</span>
+                        </button>
+                        <div class="demo-output">
+                            <div class="output-header">
+                                <span>Results</span>
+                                <span class="output-time">Execution time: 2.3s</span>
+                            </div>
+                            <pre id="demoResult"><code>{
+  "binding_energy": -8.5,
+  "affinity_kd": 1.45,
+  "best_pose": {
+    "rotation": [0.12, 0.45, 0.89],
+    "translation": [2.3, -1.2, 0.5]
+  },
+  "lipinski_compliant": true,
+  "quantum_advantage": "2.3x speedup vs classical"
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">
+                        <div class="logo">
+                            <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="20" cy="20" r="18" stroke="url(#gradient2)" stroke-width="2"/>
+                                <path d="M20 8V32M8 20H32" stroke="url(#gradient2)" stroke-width="2"/>
+                                <circle cx="20" cy="20" r="4" fill="url(#gradient2)"/>
+                                <defs>
+                                    <linearGradient id="gradient2" x1="0" y1="0" x2="40" y2="40">
+                                        <stop offset="0%" stop-color="#00D4FF"/>
+                                        <stop offset="100%" stop-color="#9D4EDD"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <span>BioQL</span>
+                        </div>
+                        <p>Enterprise Quantum Computing for Drug Discovery</p>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#modules">Modules</a></li>
+                        <li><a href="#backends">Backends</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#demo">Demo</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="docs.html">Documentation</a></li>
+                        <li><a href="api.html">API Reference</a></li>
+                        <li><a href="docs.html#examples">Examples</a></li>
+                        <li><a href="https://github.com/bioql" target="_blank">GitHub</a></li>
+                        <li><a href="docs.html#changelog">Changelog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="mailto:careers@spectrixrd.com">Careers</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BioQL by SpectrixRD. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms of Service</a>
+                    <a href="#security">Security</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
