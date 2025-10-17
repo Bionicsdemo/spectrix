@@ -229,26 +229,55 @@
 
                 <section id="quick-start">
                     <h2>Quick Start</h2>
+
+                    <div style="background: rgba(0, 212, 255, 0.1); border-left: 4px solid var(--color-quantum-blue); padding: 1rem; margin: 1.5rem 0; border-radius: var(--radius-md);">
+                        <strong style="color: var(--color-quantum-blue);">🔑 Demo API Key (Unlimited Simulator Access):</strong>
+                        <pre style="margin: 0.5rem 0; background: var(--color-bg-darker); padding: 0.75rem; border-radius: var(--radius-sm);"><code>bioql_test_8a3f9d2c1e5b4f7a9c2d6e1f8b3a5c7d</code></pre>
+                        <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: var(--color-text-secondary);">Free unlimited access to IonQ simulator for testing and development</p>
+                    </div>
+
                     <p>Your first quantum drug discovery computation in 3 lines:</p>
 
                     <pre><code><span class="keyword">from</span> bioql <span class="keyword">import</span> quantum
 
+<span class="comment"># Example 1: Molecular Docking</span>
 result = quantum(
     <span class="string">"dock aspirin to COX-1 receptor"</span>,
-    backend=<span class="string">'simulator'</span>,
-    api_key=<span class="string">'your_api_key'</span>,
+    backend=<span class="string">'ionq_simulator'</span>,
+    api_key=<span class="string">'bioql_test_8a3f9d2c1e5b4f7a9c2d6e1f8b3a5c7d'</span>,
     shots=<span class="number">4096</span>
 )
 
-<span class="keyword">print</span>(f<span class="string">"Binding Energy: {result.binding_energy} kcal/mol"</span>)</code></pre>
+<span class="keyword">print</span>(f<span class="string">"Binding Energy: {result.binding_energy} kcal/mol"</span>)
+
+<span class="comment"># Example 2: Create Quantum Entanglement</span>
+result = quantum(
+    <span class="string">"create a bell state with two qubits and measure both"</span>,
+    backend=<span class="string">'ionq_simulator'</span>,
+    api_key=<span class="string">'bioql_test_8a3f9d2c1e5b4f7a9c2d6e1f8b3a5c7d'</span>,
+    shots=<span class="number">1000</span>
+)
+
+<span class="comment"># Example 3: Drug Simulation with VQE</span>
+result = quantum(
+    <span class="string">"simulate aspirin molecule using variational quantum eigensolver "</span>
+    <span class="string">"with 4 qubits to find ground state energy"</span>,
+    backend=<span class="string">'ionq_simulator'</span>,
+    api_key=<span class="string">'bioql_test_8a3f9d2c1e5b4f7a9c2d6e1f8b3a5c7d'</span>,
+    shots=<span class="number">2048</span>
+)</code></pre>
 
                     <h3>What Just Happened?</h3>
                     <ol style="color: var(--color-text-secondary); line-height: 2;">
-                        <li><strong>Natural Language Parsing:</strong> Your request was analyzed and converted to a quantum circuit</li>
-                        <li><strong>Molecular Docking:</strong> Aspirin was docked to COX-1 using VQE algorithm</li>
-                        <li><strong>Quantum Execution:</strong> Circuit ran on quantum simulator with 4096 shots</li>
-                        <li><strong>Results Returned:</strong> Binding energy and affinity metrics calculated</li>
+                        <li><strong>Natural Language Parsing:</strong> Your request was analyzed using 164B+ patterns and converted to a quantum circuit</li>
+                        <li><strong>Algorithm Selection:</strong> BioQL automatically chose VQE for molecular simulation</li>
+                        <li><strong>Quantum Execution:</strong> Circuit ran on IonQ simulator with error mitigation</li>
+                        <li><strong>Results Returned:</strong> Binding energy, affinity metrics, and quantum advantage calculated</li>
                     </ol>
+
+                    <h3>30-Second Demo</h3>
+                    <p>Run this one-liner to test BioQL:</p>
+                    <pre><code>pip install bioql && python -c "from bioql import quantum; print(quantum('create bell state', backend='ionq_simulator', api_key='bioql_test_8a3f9d2c1e5b4f7a9c2d6e1f8b3a5c7d'))"</code></pre>
                 </section>
 
                 <section id="authentication">
@@ -273,22 +302,62 @@ result = quantum(
 
                 <section id="natural-language">
                     <h2>Natural Language Interface</h2>
-                    <p>BioQL understands over 164 billion natural language patterns. Here are some examples:</p>
+                    <p style="margin-bottom: 1.5rem;">BioQL understands over <strong style="color: var(--color-quantum-blue);">164 billion natural language patterns</strong> across drug discovery, quantum chemistry, and bioinformatics. No quantum gates knowledge required!</p>
 
-                    <h3>Molecular Docking</h3>
-                    <pre><code><span class="string">"dock molecule SMILES CC(=O)OC1=CC=CC=C1C(=O)O to protein PDB 1PTK"</span>
-<span class="string">"perform molecular docking of aspirin to COX-1 receptor"</span>
-<span class="string">"bind ligand to target protein and calculate affinity"</span></code></pre>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                        <div>
+                            <h3>🧬 Molecular Docking</h3>
+                            <pre><code><span class="string">"dock aspirin to COX-1"</span>
+<span class="string">"dock ligand SMILES CC(=O)OC... to protein PDB 1PTK"</span>
+<span class="string">"bind ibuprofen to cyclooxygenase"</span>
+<span class="string">"calculate binding affinity"</span></code></pre>
+                        </div>
 
-                    <h3>ADME Prediction</h3>
-                    <pre><code><span class="string">"predict ADME properties for compound SMILES CC(=O)NC1=CC=C(O)C=C1"</span>
-<span class="string">"calculate bioavailability and half-life for ibuprofen"</span>
-<span class="string">"analyze pharmacokinetics of molecule"</span></code></pre>
+                        <div>
+                            <h3>💊 Drug Discovery</h3>
+                            <pre><code><span class="string">"predict ADME properties for ibuprofen"</span>
+<span class="string">"calculate bioavailability and half-life"</span>
+<span class="string">"analyze toxicity of compound"</span>
+<span class="string">"optimize drug-target interaction"</span></code></pre>
+                        </div>
 
-                    <h3>CRISPR Guide Design</h3>
-                    <pre><code><span class="string">"design CRISPR guide RNA for target sequence ATCGATCG"</span>
-<span class="string">"optimize guide RNA with minimal off-target effects"</span>
-<span class="string">"predict CRISPR efficiency for sequence"</span></code></pre>
+                        <div>
+                            <h3>🔬 Quantum Chemistry</h3>
+                            <pre><code><span class="string">"simulate water molecule using VQE"</span>
+<span class="string">"calculate dipole moment with 4 qubits"</span>
+<span class="string">"find ground state energy of H2"</span>
+<span class="string">"compute bond angles and lengths"</span></code></pre>
+                        </div>
+
+                        <div>
+                            <h3>✂️ CRISPR-QAI</h3>
+                            <pre><code><span class="string">"design CRISPR guide for ATCGATCG"</span>
+<span class="string">"optimize guide RNA with minimal off-targets"</span>
+<span class="string">"predict editing efficiency"</span>
+<span class="string">"analyze PAM sequence compatibility"</span></code></pre>
+                        </div>
+
+                        <div>
+                            <h3>🧮 Quantum Algorithms</h3>
+                            <pre><code><span class="string">"create bell state with 2 qubits"</span>
+<span class="string">"apply grover search on 3 qubits"</span>
+<span class="string">"run QAOA optimization"</span>
+<span class="string">"implement quantum fourier transform"</span></code></pre>
+                        </div>
+
+                        <div>
+                            <h3>🧪 Protein Analysis</h3>
+                            <pre><code><span class="string">"fold protein sequence MKLLVLCL"</span>
+<span class="string">"predict protein stability"</span>
+<span class="string">"analyze protein-ligand interaction"</span>
+<span class="string">"calculate binding free energy"</span></code></pre>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(157, 78, 221, 0.1); border-left: 4px solid var(--color-quantum-purple); padding: 1rem; margin: 2rem 0; border-radius: var(--radius-md);">
+                        <strong style="color: var(--color-quantum-purple);">💡 Pro Tip:</strong>
+                        <p style="margin: 0.5rem 0 0 0; color: var(--color-text-secondary);">BioQL automatically detects the domain (docking, folding, chemistry) and selects the optimal quantum algorithm (VQE, QAOA, QNN). You just write natural English!</p>
+                    </div>
                 </section>
 
                 <section id="drug-discovery">
