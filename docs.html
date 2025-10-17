@@ -183,6 +183,7 @@
                         <li><a href="#natural-language">Natural Language</a></li>
                         <li><a href="#quantum-backends">Quantum Backends</a></li>
                         <li><a href="#drug-discovery">Drug Discovery</a></li>
+                        <li><a href="#vscode-agent">VSCode/Cursor Agent</a></li>
                     </ul>
 
                     <h3>Modules</h3>
@@ -379,6 +380,75 @@ results = run_complete_pipeline(
 <span class="keyword">print</span>(f<span class="string">"3. ADME Bioavailability: {results.adme.bioavailability}%"</span>)
 <span class="keyword">print</span>(f<span class="string">"4. Toxicity Risk: {results.toxicity.overall_risk}"</span>)
 <span class="keyword">print</span>(f<span class="string">"5. Drug-likeness: {results.lipinski_compliant}"</span>)</code></pre>
+                </section>
+
+                <section id="vscode-agent">
+                    <h2>VSCode/Cursor Agent</h2>
+                    <p style="margin-bottom: 1.5rem;">Interactive AI agent extension for Visual Studio Code and Cursor that generates quantum code with automatic visualizations and error correction.</p>
+
+                    <div style="background: rgba(0, 212, 255, 0.1); border-left: 4px solid var(--color-quantum-blue); padding: 1.5rem; margin: 1.5rem 0; border-radius: var(--radius-md);">
+                        <h3 style="margin-top: 0; color: var(--color-quantum-blue);">🚀 BioQL Code Assistant v4.13+</h3>
+                        <p style="color: var(--color-text-secondary); margin-bottom: 1rem;">Generate production-ready quantum code from natural language with automatic Qualtran visualizations, QEC support, and multi-backend execution.</p>
+                    </div>
+
+                    <h3>Key Features</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+                        <div style="background: var(--color-bg-card); padding: 1rem; border-radius: var(--radius-md); border: 1px solid rgba(0, 212, 255, 0.2);">
+                            <strong>📊 Automatic Visualizations</strong>
+                            <p style="font-size: 0.9rem; color: var(--color-text-secondary); margin: 0.5rem 0 0 0;">Measurement histograms, circuit diagrams, and QEC overhead analysis automatically saved as high-res PNG (300 DPI)</p>
+                        </div>
+                        <div style="background: var(--color-bg-card); padding: 1rem; border-radius: var(--radius-md); border: 1px solid rgba(0, 212, 255, 0.2);">
+                            <strong>🔧 Interactive Parameters</strong>
+                            <p style="font-size: 0.9rem; color: var(--color-text-secondary); margin: 0.5rem 0 0 0;">Agent asks for missing parameters (qubits, backend, shots) and maintains conversation state</p>
+                        </div>
+                        <div style="background: var(--color-bg-card); padding: 1rem; border-radius: var(--radius-md); border: 1px solid rgba(0, 212, 255, 0.2);">
+                            <strong>🛡️ Quantum Error Correction</strong>
+                            <p style="font-size: 0.9rem; color: var(--color-text-secondary); margin: 0.5rem 0 0 0;">Surface Code, Steane Code, and Shor Code support with automatic resource estimation</p>
+                        </div>
+                        <div style="background: var(--color-bg-card); padding: 1rem; border-radius: var(--radius-md); border: 1px solid rgba(0, 212, 255, 0.2);">
+                            <strong>🌐 Multi-Backend</strong>
+                            <p style="font-size: 0.9rem; color: var(--color-text-secondary); margin: 0.5rem 0 0 0;">AWS Braket, IBM Quantum (133 qubits), IonQ, and local simulators</p>
+                        </div>
+                    </div>
+
+                    <h3>Installation</h3>
+                    <pre><code><span class="comment"># Download latest VSIX from releases</span>
+<span class="comment"># Install in VS Code or Cursor:</span>
+code --install-extension bioql-assistant-4.13.x.vsix
+
+<span class="comment"># Or use Command Palette:</span>
+<span class="comment"># Cmd+Shift+P → "Extensions: Install from VSIX"</span></code></pre>
+
+                    <h3>Configuration</h3>
+                    <pre><code><span class="comment">// settings.json</span>
+{
+  <span class="string">"bioql.apiKey"</span>: <span class="string">"your_bioql_api_key"</span>,
+  <span class="string">"bioql.defaultBackend"</span>: <span class="string">"simulator"</span>,
+  <span class="string">"bioql.enableQEC"</span>: <span class="keyword">false</span>,
+  <span class="string">"bioql.enableVisualizations"</span>: <span class="keyword">true</span>,
+  <span class="string">"bioql.defaultShots"</span>: <span class="number">1000</span>
+}</code></pre>
+
+                    <h3>Usage Examples</h3>
+                    <pre><code><span class="comment"># Generate code with keyboard shortcut</span>
+<span class="comment"># Cmd+Shift+G (Mac) / Ctrl+Shift+G (Windows)</span>
+
+<span class="comment"># Chat interface</span>
+@bioql create a bell state with surface code QEC
+@bioql dock metformin to AMPK with 4096 shots
+@bioql optimize this quantum circuit for AWS Braket
+@bioql explain this VQE implementation
+
+<span class="comment"># Commands</span>
+<span class="comment"># - BioQL: Generate Code (Cmd+Shift+G)</span>
+<span class="comment"># - BioQL: Fix Code (Cmd+Shift+F)</span>
+<span class="comment"># - BioQL: Explain Code</span>
+<span class="comment"># - BioQL: Run on Quantum Computer</span></code></pre>
+
+                    <div style="background: rgba(157, 78, 221, 0.1); border-left: 4px solid var(--color-quantum-purple); padding: 1rem; margin: 2rem 0; border-radius: var(--radius-md);">
+                        <strong style="color: var(--color-quantum-purple);">💡 Pro Tip:</strong>
+                        <p style="margin: 0.5rem 0 0 0; color: var(--color-text-secondary);">The agent generates complete, production-ready code with imports, visualizations, error handling, and automatic QEC resource calculations. All visualizations are saved to <code>bioql_visualizations/</code> directory.</p>
+                    </div>
                 </section>
 
                 <section id="examples">

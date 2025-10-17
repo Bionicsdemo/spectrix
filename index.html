@@ -76,7 +76,7 @@
                         <div class="stat-label">Quantum Qubits</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-value">6</div>
+                        <div class="stat-value">7</div>
                         <div class="stat-label">Discovery Modules</div>
                     </div>
                     <div class="stat">
@@ -182,11 +182,12 @@ result = quantum(
                 <div class="feature-card">
                     <div class="feature-icon">💊</div>
                     <h3>Complete Drug Pipeline</h3>
-                    <p>6 production-ready modules: Docking, Binding Affinity, ADME, Toxicity, Pharmacophore, Protein Folding.</p>
+                    <p>7 production-ready modules: Docking, Binding Affinity, ADME, Toxicity, Pharmacophore, Protein Folding, De Novo Design.</p>
                     <ul class="feature-list">
                         <li>✓ Validated vs. experimental data</li>
                         <li>✓ 50+ biochemical constants</li>
                         <li>✓ Real Vina docking integration</li>
+                        <li>✓ Quantum-enhanced molecule generation</li>
                     </ul>
                 </div>
                 <div class="feature-card">
@@ -385,6 +386,34 @@ circuit = folding.build(
 result = folding.optimize()
 <span class="keyword">print</span>(result.folding_energy)</code></pre>
                 </div>
+
+                <div class="module-card" data-module="denovo">
+                    <div class="module-number">07</div>
+                    <h3>De Novo Drug Design</h3>
+                    <p>Quantum-enhanced generation of novel drug-like molecules from scratch</p>
+                    <div class="module-metrics">
+                        <div class="metric">
+                            <span class="metric-label">Scaffolds</span>
+                            <span class="metric-value">4 types</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Validation</span>
+                            <span class="metric-value">Lipinski + PAINS</span>
+                        </div>
+                    </div>
+                    <pre class="module-code"><code><span class="keyword">from</span> bioql <span class="keyword">import</span> quantum
+
+<span class="comment"># Design new drug for specific target</span>
+result = quantum(
+    <span class="string">"design new GLP-1 agonist with high bioavailability"</span>,
+    backend=<span class="string">'ibm_quantum'</span>,
+    api_key=<span class="string">'your_key'</span>,
+    shots=<span class="number">4096</span>
+)
+
+<span class="keyword">print</span>(result.designed_molecules)  <span class="comment"># Novel drug candidates</span>
+<span class="keyword">print</span>(result.best_molecule.smiles)  <span class="comment"># Top candidate</span></code></pre>
+                </div>
             </div>
         </div>
     </section>
@@ -573,7 +602,7 @@ result = folding.optimize()
                     <ul class="pricing-features">
                         <li>✓ 1,000 shots/month on simulators</li>
                         <li>✓ 100 shots/month on quantum hardware</li>
-                        <li>✓ All 6 drug discovery modules</li>
+                        <li>✓ All 7 drug discovery modules</li>
                         <li>✓ Natural language interface</li>
                         <li>✓ 50 LLM API calls/month</li>
                         <li>✓ Community support</li>
