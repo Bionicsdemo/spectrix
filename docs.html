@@ -387,8 +387,15 @@ results = run_complete_pipeline(
                     <p style="margin-bottom: 1.5rem;">Interactive AI agent extension for Visual Studio Code and Cursor that generates quantum code with automatic visualizations and error correction.</p>
 
                     <div style="background: rgba(0, 212, 255, 0.1); border-left: 4px solid var(--color-quantum-blue); padding: 1.5rem; margin: 1.5rem 0; border-radius: var(--radius-md);">
-                        <h3 style="margin-top: 0; color: var(--color-quantum-blue);">🚀 BioQL Code Assistant v4.13+</h3>
-                        <p style="color: var(--color-text-secondary); margin-bottom: 1rem;">Generate production-ready quantum code from natural language with automatic Qualtran visualizations, QEC support, and multi-backend execution.</p>
+                        <h3 style="margin-top: 0; color: var(--color-quantum-blue);">🚀 BioQL Code Assistant v4.13.5</h3>
+                        <p style="color: var(--color-text-secondary); margin-bottom: 1.5rem;">Generate production-ready quantum code from natural language with automatic Qualtran visualizations, QEC support, and multi-backend execution.</p>
+
+                        <div style="text-align: center;">
+                            <a href="bioql-assistant-4.13.5.vsix" download style="display: inline-block; padding: 1rem 2rem; background: linear-gradient(135deg, var(--color-quantum-blue) 0%, var(--color-quantum-purple) 100%); color: white; text-decoration: none; border-radius: var(--radius-lg); font-weight: 600; font-size: 1.1rem; box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3); transition: transform 0.2s ease;">
+                                📥 Download Extension (v4.13.5)
+                            </a>
+                            <p style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--color-text-secondary);">Size: 2.4 MB | Compatible with VS Code & Cursor</p>
+                        </div>
                     </div>
 
                     <h3>Key Features</h3>
@@ -412,12 +419,15 @@ results = run_complete_pipeline(
                     </div>
 
                     <h3>Installation</h3>
-                    <pre><code><span class="comment"># Download latest VSIX from releases</span>
-<span class="comment"># Install in VS Code or Cursor:</span>
-code --install-extension bioql-assistant-4.13.x.vsix
+                    <pre><code><span class="comment"># Step 1: Download the VSIX file above (📥 Download Extension button)</span>
 
-<span class="comment"># Or use Command Palette:</span>
-<span class="comment"># Cmd+Shift+P → "Extensions: Install from VSIX"</span></code></pre>
+<span class="comment"># Step 2: Install via command line</span>
+code --install-extension bioql-assistant-4.13.5.vsix
+
+<span class="comment"># Or via Command Palette in VS Code/Cursor:</span>
+<span class="comment"># 1. Press Cmd+Shift+P (Mac) or Ctrl+Shift+P (Windows/Linux)</span>
+<span class="comment"># 2. Type: "Extensions: Install from VSIX"</span>
+<span class="comment"># 3. Select the downloaded bioql-assistant-4.13.5.vsix file</span></code></pre>
 
                     <h3>Configuration</h3>
                     <pre><code><span class="comment">// settings.json</span>
