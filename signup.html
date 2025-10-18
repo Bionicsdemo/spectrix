@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - BioQL</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <style>
+        .signup-container {
+            max-width: 600px;
+            margin: 8rem auto 4rem;
+            padding: 0 2rem;
+        }
+
+        .signup-card {
+            background: var(--color-bg-card);
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .signup-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .signup-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .signup-header p {
+            color: var(--color-text-secondary);
+            font-size: 1.125rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--color-text-primary);
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.875rem;
+            background: var(--color-bg-darker);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: var(--radius-md);
+            color: var(--color-text-primary);
+            font-size: 1rem;
+            font-family: var(--font-main);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--color-quantum-blue);
+        }
+
+        #card-element {
+            padding: 0.875rem;
+            background: var(--color-bg-darker);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: var(--radius-md);
+        }
+
+        .stripe-info {
+            background: rgba(0, 212, 255, 0.1);
+            border-left: 4px solid var(--color-quantum-blue);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+        }
+
+        .terms-checkbox {
+            display: flex;
+            align-items: start;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+
+        .terms-checkbox input[type="checkbox"] {
+            margin-top: 0.25rem;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .terms-checkbox label {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            cursor: pointer;
+        }
+
+        .terms-checkbox a {
+            color: var(--color-quantum-blue);
+            text-decoration: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: var(--radius-md);
+            color: white;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .success-message {
+            display: none;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--color-quantum-blue);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-message h3 {
+            color: var(--color-quantum-blue);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .api-key-display {
+            background: var(--color-bg-darker);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            font-family: var(--font-code);
+            color: var(--color-quantum-blue);
+            word-break: break-all;
+        }
+
+        .error-message {
+            display: none;
+            background: rgba(255, 59, 48, 0.1);
+            border: 1px solid rgba(255, 59, 48, 0.5);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            color: #ff3b30;
+            margin-top: 1rem;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .pricing-summary {
+            background: rgba(157, 78, 221, 0.1);
+            border-left: 4px solid var(--color-quantum-purple);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: var(--radius-md);
+        }
+
+        .pricing-summary h4 {
+            color: var(--color-quantum-purple);
+            margin-bottom: 0.75rem;
+        }
+
+        .pricing-summary ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pricing-summary li {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+            padding: 0.25rem 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <div class="logo">
+                    <img src="logo.jpeg" alt="Spectrix Logo" style="height: 40px; width: auto; margin-right: 0.5rem;">
+                    <span>BioQL</span>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="docs.html">Docs</a></li>
+                <li><a href="api.html">API</a></li>
+                <li><a href="agent.html">Agent</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="signup.html" class="btn-primary">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="signup-container">
+        <div class="signup-card">
+            <div class="signup-header">
+                <h1>Get Started with BioQL</h1>
+                <p>Create your account and start running quantum drug discovery</p>
+            </div>
+
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Dr. Jane Smith">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="jane@university.edu">
+                </div>
+
+                <div class="stripe-info">
+                    <strong>💳 Payment Information</strong>
+                    <p style="margin: 0.5rem 0 0 0;">
+                        Secure payment via Stripe. You'll be charged based on usage. No upfront costs.
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="card-element">Credit Card</label>
+                    <div id="card-element"></div>
+                </div>
+
+                <div class="pricing-summary">
+                    <h4>Pay-Per-Shot Pricing</h4>
+                    <ul>
+                        <li>✓ Simulators: $0.01 - $0.02 per shot</li>
+                        <li>✓ Quantum Hardware: $2.00 - $5.00 per shot</li>
+                        <li>✓ Free tier: 100 shots/month on simulators</li>
+                        <li>✓ Automatic invoicing every $3,000</li>
+                        <li>✓ No monthly subscription required</li>
+                    </ul>
+                </div>
+
+                <div class="terms-checkbox">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">
+                        I agree to the <a href="#terms">Terms of Service</a> and <a href="#privacy">Privacy Policy</a>.
+                        I understand that I will be charged based on my quantum computing usage.
+                    </label>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submit-btn">
+                    <span id="button-text">Create Account & Get API Key</span>
+                    <span id="button-spinner" style="display: none;" class="loading-spinner"></span>
+                </button>
+
+                <div id="error-message" class="error-message"></div>
+            </form>
+
+            <div id="success-message" class="success-message">
+                <h3>🎉 Account Created Successfully!</h3>
+                <p>Your API key has been generated and sent to your email:</p>
+                <div class="api-key-display" id="api-key-display"></div>
+                <p style="color: var(--color-text-secondary); margin-top: 1rem;">
+                    Check your email for setup instructions and your API key.
+                </p>
+                <a href="docs.html" class="btn-primary" style="display: inline-block; margin-top: 1.5rem; text-decoration: none;">
+                    View Documentation
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 BioQL by SpectrixRD. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Configuration - UPDATE THESE VALUES
+        const CONFIG = {
+            STRIPE_PUBLISHABLE_KEY: 'pk_live_51SG9nS8N85z8U7algbG3PoqbZc5kCC1ECveDawmt8jtTdfLCN1Z0U8uKCjfVvHYADp5qvXe28zZMhW8AbIuTty7F006eI727wu',
+            BIOQL_SERVER_URL: 'https://YOUR_NGROK_URL_HERE.ngrok-free.app', // UPDATE THIS
+            EMAILJS_PUBLIC_KEY: 'YOUR_EMAILJS_PUBLIC_KEY', // UPDATE THIS
+            EMAILJS_SERVICE_ID: 'YOUR_SERVICE_ID', // UPDATE THIS
+            EMAILJS_TEMPLATE_ID: 'YOUR_TEMPLATE_ID' // UPDATE THIS
+        };
+
+        // Initialize Stripe
+        const stripe = Stripe(CONFIG.STRIPE_PUBLISHABLE_KEY);
+        const elements = stripe.elements();
+        const cardElement = elements.create('card', {
+            style: {
+                base: {
+                    color: '#e5e5e5',
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: '16px',
+                    '::placeholder': {
+                        color: '#8e8e93'
+                    }
+                },
+                invalid: {
+                    color: '#ff3b30'
+                }
+            }
+        });
+        cardElement.mount('#card-element');
+
+        // Initialize EmailJS
+        emailjs.init(CONFIG.EMAILJS_PUBLIC_KEY);
+
+        // Form submission
+        const form = document.getElementById('signup-form');
+        const submitButton = document.getElementById('submit-btn');
+        const buttonText = document.getElementById('button-text');
+        const buttonSpinner = document.getElementById('button-spinner');
+        const errorMessage = document.getElementById('error-message');
+        const successMessage = document.getElementById('success-message');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Disable submit button
+            submitButton.disabled = true;
+            buttonText.style.display = 'none';
+            buttonSpinner.style.display = 'inline-block';
+            errorMessage.classList.remove('show');
+
+            try {
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+
+                // Step 1: Create Stripe PaymentMethod
+                const {paymentMethod, error: stripeError} = await stripe.createPaymentMethod({
+                    type: 'card',
+                    card: cardElement,
+                    billing_details: {
+                        name: name,
+                        email: email
+                    }
+                });
+
+                if (stripeError) {
+                    throw new Error(stripeError.message);
+                }
+
+                console.log('✅ Stripe PaymentMethod created:', paymentMethod.id);
+
+                // Step 2: Register user with BioQL server
+                const response = await fetch(`${CONFIG.BIOQL_SERVER_URL}/auth/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        payment_method_id: paymentMethod.id,
+                        create_stripe_account: true
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Registration failed');
+                }
+
+                console.log('✅ User registered:', data);
+
+                // Step 3: Send email with API key via EmailJS
+                const emailParams = {
+                    to_name: name,
+                    to_email: email,
+                    api_key: data.user.api_key,
+                    user_id: data.user.id,
+                    stripe_customer_id: data.user.stripe_customer_id || 'N/A'
+                };
+
+                await emailjs.send(
+                    CONFIG.EMAILJS_SERVICE_ID,
+                    CONFIG.EMAILJS_TEMPLATE_ID,
+                    emailParams
+                );
+
+                console.log('✅ Email sent via EmailJS');
+
+                // Step 4: Show success message
+                form.style.display = 'none';
+                document.getElementById('api-key-display').textContent = data.user.api_key;
+                successMessage.classList.add('show');
+
+            } catch (error) {
+                console.error('❌ Error:', error);
+                errorMessage.textContent = error.message;
+                errorMessage.classList.add('show');
+                submitButton.disabled = false;
+                buttonText.style.display = 'inline';
+                buttonSpinner.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
