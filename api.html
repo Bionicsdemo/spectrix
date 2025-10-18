@@ -82,6 +82,68 @@ results = run_complete_pipeline(
                 <p style="color: var(--color-text-muted); font-size: 0.9em;">Methods: predict_toxicity(), get_alerts(), calculate_risk_score()</p>
             </div>
 
+            <h2 style="font-size: 2rem; margin: 3rem 0 2rem; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Quantum Backends</h2>
+
+            <p style="color: var(--color-text-secondary); margin-bottom: 2rem;">BioQL supports multiple quantum computing platforms for running your drug discovery workflows.</p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 2rem 0;">
+                <div style="background: var(--color-bg-darker); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: var(--radius-md); padding: 2rem; text-align: center; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='rgba(0, 212, 255, 0.5)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(0, 212, 255, 0.2)'">
+                    <img src="ibmquantum.jpg" alt="IBM Quantum" style="height: 80px; width: auto; margin-bottom: 1rem; object-fit: contain;">
+                    <h4 style="color: var(--color-quantum-blue); margin-bottom: 0.5rem;">IBM Quantum</h4>
+                    <p style="color: var(--color-text-muted); font-size: 0.9em;">backend='ibm_quantum'</p>
+                    <p style="color: var(--color-text-secondary); font-size: 0.85em; margin-top: 0.5rem;">Access to IBM's quantum computers with up to 127 qubits</p>
+                </div>
+
+                <div style="background: var(--color-bg-darker); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: var(--radius-md); padding: 2rem; text-align: center; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='rgba(0, 212, 255, 0.5)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(0, 212, 255, 0.2)'">
+                    <img src="ionq.jpg" alt="IonQ" style="height: 80px; width: auto; margin-bottom: 1rem; object-fit: contain;">
+                    <h4 style="color: var(--color-quantum-blue); margin-bottom: 0.5rem;">IonQ</h4>
+                    <p style="color: var(--color-text-muted); font-size: 0.9em;">backend='ionq'</p>
+                    <p style="color: var(--color-text-secondary); font-size: 0.85em; margin-top: 0.5rem;">Trapped-ion quantum computers with high fidelity</p>
+                </div>
+
+                <div style="background: var(--color-bg-darker); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: var(--radius-md); padding: 2rem; text-align: center; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='rgba(0, 212, 255, 0.5)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(0, 212, 255, 0.2)'">
+                    <img src="microsoft.png" alt="Azure Quantum" style="height: 80px; width: auto; margin-bottom: 1rem; object-fit: contain;">
+                    <h4 style="color: var(--color-quantum-blue); margin-bottom: 0.5rem;">Azure Quantum</h4>
+                    <p style="color: var(--color-text-muted); font-size: 0.9em;">backend='azure_quantum'</p>
+                    <p style="color: var(--color-text-secondary); font-size: 0.85em; margin-top: 0.5rem;">Microsoft's cloud-based quantum computing service</p>
+                </div>
+
+                <div style="background: var(--color-bg-darker); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: var(--radius-md); padding: 2rem; text-align: center; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='rgba(0, 212, 255, 0.5)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(0, 212, 255, 0.2)'">
+                    <img src="aws.jpg" alt="AWS Braket" style="height: 80px; width: auto; margin-bottom: 1rem; object-fit: contain;">
+                    <h4 style="color: var(--color-quantum-blue); margin-bottom: 0.5rem;">AWS Braket</h4>
+                    <p style="color: var(--color-text-muted); font-size: 0.9em;">backend='aws_braket'</p>
+                    <p style="color: var(--color-text-secondary); font-size: 0.85em; margin-top: 0.5rem;">Amazon's quantum computing service with multiple providers</p>
+                </div>
+            </div>
+
+            <div style="border-left: 4px solid var(--color-quantum-blue); padding-left: 2rem; margin: 2rem 0;">
+                <h3 style="font-family: var(--font-code); color: var(--color-quantum-blue);">Backend Usage Example</h3>
+                <pre style="background: var(--color-bg-darker); padding: 1.5rem; border-radius: var(--radius-md); overflow-x: auto;"><code>from bioql import quantum
+
+# Run on IBM Quantum
+result = quantum(
+    program="dock aspirin to COX-1",
+    backend='ibm_quantum',
+    api_key='your_ibm_key',
+    shots=4096
+)
+
+# Run on IonQ
+result = quantum(
+    program="dock aspirin to COX-1",
+    backend='ionq',
+    api_key='your_ionq_key',
+    shots=4096
+)
+
+# Or use the fast simulator for development
+result = quantum(
+    program="dock aspirin to COX-1",
+    backend='simulator',
+    shots=1024
+)</code></pre>
+            </div>
+
             <p style="margin-top: 3rem; text-align: center;">
                 <a href="docs.html" style="color: var(--color-quantum-blue); font-weight: 600;">← Back to Documentation</a>
             </p>
