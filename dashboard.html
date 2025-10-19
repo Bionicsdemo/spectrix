@@ -613,11 +613,17 @@
     </div>
 
     <script>
-        // Configuration
+        // Configuration - Auto-detect environment
+        const isProduction = window.location.protocol === 'https:' && !window.location.hostname.includes('localhost');
         const CONFIG = {
             STRIPE_PUBLISHABLE_KEY: 'pk_live_51SG9nS8N85z8U7algbG3PoqbZc5kCC1ECveDawmt8jtTdfLCN1Z0U8uKCjfVvHYADp5qvXe28zZMhW8AbIuTty7F006eI727wu',
-            BIOQL_SERVER_URL: 'http://127.0.0.1:5001'
+            BIOQL_SERVER_URL: isProduction
+                ? 'https://bioql-agent-bioql.modal.run'  // Production Modal endpoint
+                : 'http://127.0.0.1:5001'  // Local development
         };
+
+        console.log('🌐 Dashboard Environment:', isProduction ? 'PRODUCTION' : 'LOCAL');
+        console.log('🔗 API Server:', CONFIG.BIOQL_SERVER_URL);
 
         // Initialize Stripe
         const stripe = Stripe(CONFIG.STRIPE_PUBLISHABLE_KEY);

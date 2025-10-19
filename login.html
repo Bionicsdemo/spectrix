@@ -247,10 +247,16 @@
     </footer>
 
     <script>
-        // Configuration
+        // Configuration - Auto-detect environment
+        const isProduction = window.location.protocol === 'https:' && !window.location.hostname.includes('localhost');
         const CONFIG = {
-            BIOQL_SERVER_URL: 'http://127.0.0.1:5001'
+            BIOQL_SERVER_URL: isProduction
+                ? 'https://bioql-agent-bioql.modal.run'  // Production Modal endpoint
+                : 'http://127.0.0.1:5001'  // Local development
         };
+
+        console.log('🌐 Environment:', isProduction ? 'PRODUCTION' : 'LOCAL');
+        console.log('🔗 API Server:', CONFIG.BIOQL_SERVER_URL);
 
         // Form submission
         const form = document.getElementById('login-form');
