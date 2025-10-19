@@ -413,7 +413,8 @@
                 // Step 3: Send email with API key via EmailJS
                 const emailParams = {
                     to_name: name,
-                    user_email: email, // Email address to send to
+                    to_email: email,        // For EmailJS recipient field
+                    user_email: email,      // For template content
                     api_key: data.user.api_key,
                     user_id: data.user.id,
                     stripe_customer_id: data.user.stripe_customer_id || 'N/A'
