@@ -249,14 +249,26 @@
     <script>
         // Configuration - Auto-detect environment
         const isProduction = window.location.protocol === 'https:' && !window.location.hostname.includes('localhost');
+
+        // IMPORTANT: For HTTPS sites, you must use an HTTPS auth server
+        // Options:
+        // 1. Use local site: file:///Users/heinzjungbluth/Desktop/bioql_website/login.html
+        // 2. Deploy auth server to Modal/VPS with HTTPS
+        // 3. Use ngrok/cloudflare tunnel for local server
+
         const CONFIG = {
             BIOQL_SERVER_URL: isProduction
-                ? 'https://bioql-agent-bioql.modal.run'  // Production Modal endpoint
+                ? 'https://spectrix--bioql-agent-create-fastapi-app.modal.run'  // Production Modal
                 : 'http://127.0.0.1:5001'  // Local development
         };
 
-        console.log('🌐 Environment:', isProduction ? 'PRODUCTION' : 'LOCAL');
-        console.log('🔗 API Server:', CONFIG.BIOQL_SERVER_URL);
+        console.log('🌐 Environment:', isProduction ? 'PRODUCTION (HTTPS)' : 'LOCAL (HTTP)');
+        console.log('🔗 Auth Server:', CONFIG.BIOQL_SERVER_URL);
+
+        if (isProduction) {
+            console.warn('⚠️  HTTPS site detected. Auth server must also be HTTPS to avoid Mixed Content blocking.');
+            console.warn('💡 For testing, use: file:///Users/heinzjungbluth/Desktop/bioql_website/login.html');
+        }
 
         // Form submission
         const form = document.getElementById('login-form');
