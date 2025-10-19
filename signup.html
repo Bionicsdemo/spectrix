@@ -419,17 +419,30 @@
                     stripe_customer_id: data.user.stripe_customer_id || 'N/A'
                 };
 
+                console.log('📧 Attempting to send email via EmailJS...');
+                console.log('Service ID:', CONFIG.EMAILJS_SERVICE_ID);
+                console.log('Template ID:', CONFIG.EMAILJS_TEMPLATE_ID);
+                console.log('Email params:', emailParams);
+
                 try {
                     const emailResponse = await emailjs.send(
                         CONFIG.EMAILJS_SERVICE_ID,
                         CONFIG.EMAILJS_TEMPLATE_ID,
                         emailParams
                     );
-                    console.log('✅ Email sent via EmailJS:', emailResponse);
+                    console.log('✅ Email sent via EmailJS successfully!');
+                    console.log('Response:', emailResponse);
+                    alert('✅ Registration successful! Check your email for the API key.');
                 } catch (emailError) {
-                    console.error('⚠️ Email sending failed:', emailError);
-                    // Don't fail registration if email fails - user still got API key
-                    console.warn('Registration succeeded but email delivery failed. API Key shown on screen.');
+                    console.error('❌ Email sending failed with error:');
+                    console.error('Error object:', emailError);
+                    console.error('Error message:', emailError.text || emailError.message);
+                    console.error('Error status:', emailError.status);
+
+                    // Show detailed error to user
+                    alert('⚠️ Registration successful but email failed to send.\n\n' +
+                          'Error: ' + (emailError.text || emailError.message) + '\n\n' +
+                          'Your API key is shown on screen. Please copy it now!');
                 }
 
                 // Step 4: Show success message
