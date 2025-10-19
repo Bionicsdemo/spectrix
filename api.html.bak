@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Reference - BioQL</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <div class="logo">
+                    <img src="logo.jpeg" alt="Spectrix Logo" style="height: 40px; width: auto; margin-right: 0.5rem;">
+                    <span>BioQL</span>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="docs.html">Docs</a></li>
+                <li><a href="api.html" class="active">API</a></li>
+                <li><a href="agent.html">Agent</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section style="position: relative; padding: 8rem 2rem 4rem; background: var(--color-bg-dark); text-align: center; overflow: hidden;">
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0;">
+            <img src="quantum-bg-2.png" alt="Quantum Background" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.2; filter: blur(1px);">
+            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(10, 10, 15, 0.9) 0%, rgba(10, 10, 15, 0.8) 50%, rgba(10, 10, 15, 0.9) 100%);"></div>
+        </div>
+        <div class="container" style="position: relative; z-index: 1;">
+            <h1 style="font-size: 3rem; margin-bottom: 1rem;">API Reference</h1>
+            <p style="font-size: 1.25rem; color: var(--color-text-secondary);">Complete API documentation for BioQL v5.7.5</p>
+        </div>
+    </section>
+
+    <div style="max-width: 1200px; margin: 4rem auto; padding: 0 2rem;">
+        <div style="background: var(--color-bg-card); border-radius: var(--radius-xl); padding: 3rem;">
+            <h2 style="font-size: 2rem; margin-bottom: 2rem; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Core Functions</h2>
+            
+            <div style="border-left: 4px solid var(--color-quantum-blue); padding-left: 2rem; margin: 2rem 0;">
+                <h3 style="font-family: var(--font-code); color: var(--color-quantum-blue);">quantum(program, backend, api_key, shots)</h3>
+                <p style="color: var(--color-text-secondary); margin: 1rem 0;">Main entry point for quantum computations with natural language interface.</p>
+                <pre style="background: var(--color-bg-darker); padding: 1.5rem; border-radius: var(--radius-md); overflow-x: auto;"><code>from bioql import quantum
+
+result = quantum(
+    program="dock aspirin to COX-1",
+    backend='simulator',
+    api_key='your_key',
+    shots=4096
+)</code></pre>
+            </div>
+
+            <div style="border-left: 4px solid var(--color-quantum-blue); padding-left: 2rem; margin: 2rem 0;">
+                <h3 style="font-family: var(--font-code); color: var(--color-quantum-blue);">run_complete_pipeline(molecule_smiles, target_protein_pdb)</h3>
+                <p style="color: var(--color-text-secondary); margin: 1rem 0;">Execute complete drug discovery pipeline: docking, affinity, ADME, toxicity.</p>
+                <pre style="background: var(--color-bg-darker); padding: 1.5rem; border-radius: var(--radius-md); overflow-x: auto;"><code>from bioql import run_complete_pipeline
+
+results = run_complete_pipeline(
+    molecule_smiles="CC(=O)OC1=CC=CC=C1C(=O)O",
+    target_protein_pdb="cox1.pdb",
+    backend='ibm_quantum'
+)</code></pre>
+            </div>
+
+            <h2 style="font-size: 2rem; margin: 3rem 0 2rem; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Module Classes</h2>
+
+            <div style="background: rgba(0, 212, 255, 0.05); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: var(--radius-md); padding: 1.5rem; margin: 1.5rem 0;">
+                <h4 style="color: var(--color-quantum-blue); font-family: var(--font-code);">MolecularDockingCircuit</h4>
+                <p style="color: var(--color-text-secondary);">Quantum molecular docking with VQE algorithm.</p>
+                <p style="color: var(--color-text-muted); font-size: 0.9em;">Methods: run_docking(), get_poses(), calculate_affinity()</p>
+            </div>
+
+            <div style="background: rgba(0, 212, 255, 0.05); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: var(--radius-md); padding: 1.5rem; margin: 1.5rem 0;">
+                <h4 style="color: var(--color-quantum-blue); font-family: var(--font-code);">ADMECircuit</h4>
+                <p style="color: var(--color-text-secondary);">Quantum ML for pharmacokinetics prediction.</p>
+                <p style="color: var(--color-text-muted); font-size: 0.9em;">Methods: batch_predict(), predict_absorption(), calculate_bioavailability()</p>
+            </div>
+
+            <div style="background: rgba(0, 212, 255, 0.05); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: var(--radius-md); padding: 1.5rem; margin: 1.5rem 0;">
+                <h4 style="color: var(--color-quantum-blue); font-family: var(--font-code);">ToxicityPredictionCircuit</h4>
+                <p style="color: var(--color-text-secondary);">Multi-endpoint toxicity screening with quantum classifiers.</p>
+                <p style="color: var(--color-text-muted); font-size: 0.9em;">Methods: predict_toxicity(), get_alerts(), calculate_risk_score()</p>
+            </div>
+
+            <h2 style="font-size: 2rem; margin: 3rem 0 2rem; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Quantum Backends</h2>
+
+            <p style="color: var(--color-text-secondary); margin-bottom: 2rem;">BioQL supports multiple quantum computing platforms for running your drug discovery workflows.</p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 2rem 0;">
+                <div style="background: var(--color-bg-darker); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: var(--radius-md); padding: 2rem; text-align: center; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='rgba(0, 212, 255, 0.5)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(0, 212, 255, 0.2)'">
+                    <img src="ibmquantum.jpg" alt="IBM Quantum" style="height: 80px; width: auto; margin-bottom: 1rem; object-fit: contain;">
+                    <h4 style="color: var(--color-quantum-blue); margin-bottom: 0.5rem;">IBM Quantum</h4>
+                    <p style="color: var(--color-text-muted); font-size: 0.9em;">backend='ibm_quantum'</p>
+                    <p style="color: var(--color-text-secondary); font-size: 0.85em; margin-top: 0.5rem;">Access to IBM's quantum computers with up to 127 qubits</p>
+                </div>
+
+                <div style="background: var(--color-bg-darker); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: var(--radius-md); padding: 2rem; text-align: center; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='rgba(0, 212, 255, 0.5)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(0, 212, 255, 0.2)'">
+                    <img src="ionq.jpg" alt="IonQ" style="height: 80px; width: auto; margin-bottom: 1rem; object-fit: contain;">
+                    <h4 style="color: var(--color-quantum-blue); margin-bottom: 0.5rem;">IonQ</h4>
+                    <p style="color: var(--color-text-muted); font-size: 0.9em;">backend='ionq'</p>
+                    <p style="color: var(--color-text-secondary); font-size: 0.85em; margin-top: 0.5rem;">Trapped-ion quantum computers with high fidelity</p>
+                </div>
+
+                <div style="background: var(--color-bg-darker); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: var(--radius-md); padding: 2rem; text-align: center; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='rgba(0, 212, 255, 0.5)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(0, 212, 255, 0.2)'">
+                    <img src="microsoft.png" alt="Azure Quantum" style="height: 80px; width: auto; margin-bottom: 1rem; object-fit: contain;">
+                    <h4 style="color: var(--color-quantum-blue); margin-bottom: 0.5rem;">Azure Quantum</h4>
+                    <p style="color: var(--color-text-muted); font-size: 0.9em;">backend='azure_quantum'</p>
+                    <p style="color: var(--color-text-secondary); font-size: 0.85em; margin-top: 0.5rem;">Microsoft's cloud-based quantum computing service</p>
+                </div>
+
+                <div style="background: var(--color-bg-darker); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: var(--radius-md); padding: 2rem; text-align: center; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='rgba(0, 212, 255, 0.5)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(0, 212, 255, 0.2)'">
+                    <img src="aws.jpg" alt="AWS Braket" style="height: 80px; width: auto; margin-bottom: 1rem; object-fit: contain;">
+                    <h4 style="color: var(--color-quantum-blue); margin-bottom: 0.5rem;">AWS Braket</h4>
+                    <p style="color: var(--color-text-muted); font-size: 0.9em;">backend='aws_braket'</p>
+                    <p style="color: var(--color-text-secondary); font-size: 0.85em; margin-top: 0.5rem;">Amazon's quantum computing service with multiple providers</p>
+                </div>
+            </div>
+
+            <div style="border-left: 4px solid var(--color-quantum-blue); padding-left: 2rem; margin: 2rem 0;">
+                <h3 style="font-family: var(--font-code); color: var(--color-quantum-blue);">Backend Usage Example</h3>
+                <pre style="background: var(--color-bg-darker); padding: 1.5rem; border-radius: var(--radius-md); overflow-x: auto;"><code>from bioql import quantum
+
+# Run on IBM Quantum
+result = quantum(
+    program="dock aspirin to COX-1",
+    backend='ibm_quantum',
+    api_key='your_ibm_key',
+    shots=4096
+)
+
+# Run on IonQ
+result = quantum(
+    program="dock aspirin to COX-1",
+    backend='ionq',
+    api_key='your_ionq_key',
+    shots=4096
+)
+
+# Or use the fast simulator for development
+result = quantum(
+    program="dock aspirin to COX-1",
+    backend='simulator',
+    shots=1024
+)</code></pre>
+            </div>
+
+            <p style="margin-top: 3rem; text-align: center;">
+                <a href="docs.html" style="color: var(--color-quantum-blue); font-weight: 600;">← Back to Documentation</a>
+            </p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 BioQL by SpectrixRD. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

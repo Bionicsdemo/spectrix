@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - BioQL</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <div class="logo">
+                    <img src="logo.jpeg" alt="Spectrix Logo" style="height: 40px; width: auto; margin-right: 0.5rem;">
+                    <span>BioQL</span>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="docs.html">Docs</a></li>
+                <li><a href="agent.html">Agent</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section style="position: relative; padding: 8rem 2rem 4rem; background: var(--color-bg-dark); text-align: center; overflow: hidden;">
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0;">
+            <img src="quantum-lab.jpg" alt="Quantum Background" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.2; filter: blur(1px);">
+            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(10, 10, 15, 0.9) 0%, rgba(10, 10, 15, 0.8) 50%, rgba(10, 10, 15, 0.9) 100%);"></div>
+        </div>
+        <div class="container" style="position: relative; z-index: 1;">
+            <h1 style="font-size: 3rem; margin-bottom: 1rem;">About BioQL</h1>
+            <p style="font-size: 1.25rem; color: var(--color-text-secondary); max-width: 700px; margin: 0 auto;">Revolutionizing pharmaceutical research with quantum computing</p>
+        </div>
+    </section>
+
+    <div style="max-width: 900px; margin: 4rem auto; padding: 0 2rem;">
+        <div style="background: var(--color-bg-card); border-radius: var(--radius-xl); padding: 3rem;">
+            <h2 style="font-size: 2rem; margin-bottom: 2rem;">Our Mission</h2>
+            <p style="color: var(--color-text-secondary); line-height: 1.8; font-size: 1.125rem;">
+                BioQL was founded by SpectrixRD to democratize access to quantum computing for drug discovery. 
+                We believe that quantum algorithms can accelerate pharmaceutical research by orders of magnitude, 
+                making life-saving treatments available faster and more affordably.
+            </p>
+
+            <h2 style="font-size: 2rem; margin: 3rem 0 2rem;">What We Do</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 2rem 0;">
+                <div style="background: rgba(0, 212, 255, 0.05); padding: 2rem; border-radius: var(--radius-md); border: 1px solid rgba(0, 212, 255, 0.2);">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">⚛️</div>
+                    <h3 style="margin-bottom: 1rem;">Quantum Computing</h3>
+                    <p style="color: var(--color-text-secondary);">Access to IBM Quantum, IonQ, Google, Azure, and AWS quantum processors</p>
+                </div>
+                <div style="background: rgba(0, 212, 255, 0.05); padding: 2rem; border-radius: var(--radius-md); border: 1px solid rgba(0, 212, 255, 0.2);">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">💊</div>
+                    <h3 style="margin-bottom: 1rem;">Drug Discovery</h3>
+                    <p style="color: var(--color-text-secondary);">Complete pipeline from docking to toxicity prediction</p>
+                </div>
+                <div style="background: rgba(0, 212, 255, 0.05); padding: 2rem; border-radius: var(--radius-md); border: 1px solid rgba(0, 212, 255, 0.2);">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">🧬</div>
+                    <h3 style="margin-bottom: 1rem;">Gene Editing</h3>
+                    <p style="color: var(--color-text-secondary);">CRISPR-QAI for optimized guide RNA design</p>
+                </div>
+            </div>
+
+            <h2 style="font-size: 2rem; margin: 3rem 0 2rem;">Our Team</h2>
+            <p style="color: var(--color-text-secondary); line-height: 1.8;">
+                Founded in 2024, BioQL is developed by a team of quantum physicists, computational chemists, 
+                and software engineers at SpectrixRD. Our multidisciplinary approach combines cutting-edge 
+                quantum algorithms with deep pharmaceutical domain expertise.
+            </p>
+
+            <h2 style="font-size: 2rem; margin: 3rem 0 2rem;">Technology</h2>
+            <ul style="color: var(--color-text-secondary); line-height: 2;">
+                <li>✅ 164B+ natural language patterns for quantum programming</li>
+                <li>✅ 6 production-ready drug discovery modules</li>
+                <li>✅ Integration with 5 major quantum backends</li>
+                <li>✅ 21 CFR Part 11 compliance for pharmaceutical research</li>
+                <li>✅ Real-time cost optimization and error mitigation</li>
+            </ul>
+
+            <div style="text-align: center; margin-top: 3rem; padding-top: 3rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                <p style="color: var(--color-text-secondary); margin-bottom: 1.5rem;">Ready to get started?</p>
+                <a href="index.html#pricing" style="display: inline-block; padding: 1rem 2rem; background: var(--gradient-primary); color: white; text-decoration: none; border-radius: var(--radius-lg); font-weight: 600;">Start Free Trial</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 BioQL by SpectrixRD. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
