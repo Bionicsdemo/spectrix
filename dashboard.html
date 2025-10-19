@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Dashboard - BioQL</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        .dashboard-container {
+            margin-top: 80px;
+            padding: 2rem 0;
+        }
+
+        .dashboard-header {
+            background: var(--gradient-primary);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url('quantum-bg-1.png') center/cover;
+            opacity: 0.1;
+            filter: blur(2px);
+        }
+
+        .dashboard-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .dashboard-header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+            position: relative;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--color-bg-card);
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all var(--transition-normal);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
+            border-color: var(--color-quantum-blue);
+        }
+
+        .stat-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card-icon {
+            font-size: 2rem;
+        }
+
+        .stat-card-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card-label {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .chart-container {
+            background: var(--color-bg-card);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .chart-container h3 {
+            margin-bottom: 1.5rem;
+            color: var(--color-text-primary);
+        }
+
+        .billing-section {
+            background: var(--color-bg-card);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .billing-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .billing-header h3 {
+            color: var(--color-text-primary);
+            font-size: 1.5rem;
+        }
+
+        .balance-display {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .balance-amount {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-quantum-purple);
+        }
+
+        .balance-amount.negative {
+            color: #ff3b30;
+        }
+
+        .pay-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .pay-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .pay-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+
+        .invoice-table th {
+            text-align: left;
+            padding: 1rem;
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--color-text-primary);
+            font-weight: 600;
+            border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .invoice-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--color-text-secondary);
+        }
+
+        .invoice-table tr:hover {
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-paid {
+            background: rgba(6, 255, 165, 0.2);
+            color: var(--color-bio-green);
+        }
+
+        .status-pending {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--color-accent-gold);
+        }
+
+        .status-overdue {
+            background: rgba(255, 59, 48, 0.2);
+            color: #ff3b30;
+        }
+
+        .support-section {
+            background: var(--color-bg-card);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            border: 1px solid rgba(157, 78, 221, 0.2);
+        }
+
+        .support-section h3 {
+            color: var(--color-text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .support-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            color: var(--color-text-primary);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 0.875rem;
+            background: var(--color-bg-darker);
+            border: 1px solid rgba(157, 78, 221, 0.2);
+            border-radius: var(--radius-md);
+            color: var(--color-text-primary);
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            transition: border-color var(--transition-normal);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-quantum-purple);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .support-btn {
+            background: var(--gradient-secondary);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .support-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(157, 78, 221, 0.3);
+        }
+
+        .api-key-section {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--color-quantum-blue);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .api-key-section h4 {
+            color: var(--color-quantum-blue);
+            margin-bottom: 1rem;
+        }
+
+        .api-key-display {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--color-bg-darker);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            font-family: var(--font-code);
+            color: var(--color-quantum-blue);
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background: rgba(0, 212, 255, 0.2);
+            border: 1px solid var(--color-quantum-blue);
+            color: var(--color-quantum-blue);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all var(--transition-normal);
+        }
+
+        .copy-btn:hover {
+            background: rgba(0, 212, 255, 0.3);
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1rem;
+        }
+
+        .alert-success {
+            background: rgba(6, 255, 165, 0.1);
+            border: 1px solid var(--color-bio-green);
+            color: var(--color-bio-green);
+        }
+
+        .alert-error {
+            background: rgba(255, 59, 48, 0.1);
+            border: 1px solid #ff3b30;
+            color: #ff3b30;
+        }
+
+        .alert-info {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--color-quantum-blue);
+            color: var(--color-quantum-blue);
+        }
+
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-overlay.show {
+            display: flex;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(0, 212, 255, 0.3);
+            border-top-color: var(--color-quantum-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .usage-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .usage-item {
+            background: rgba(157, 78, 221, 0.1);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            border: 1px solid rgba(157, 78, 221, 0.2);
+        }
+
+        .usage-item-label {
+            color: var(--color-text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .usage-item-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-quantum-purple);
+        }
+
+        .logout-btn {
+            background: rgba(255, 59, 48, 0.2);
+            border: 1px solid #ff3b30;
+            color: #ff3b30;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 59, 48, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .billing-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .invoice-table {
+                font-size: 0.85rem;
+            }
+
+            .invoice-table th,
+            .invoice-table td {
+                padding: 0.75rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <div class="logo">
+                    <img src="logo.jpeg" alt="BioQL Logo" style="height: 40px; width: auto; margin-right: 0.5rem;">
+                    <span>BioQL</span>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="docs.html">Docs</a></li>
+                <li><a href="api.html">API</a></li>
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="container">
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <h1>Welcome back, <span id="user-name">Loading...</span>! 👋</h1>
+                <p>Your quantum drug discovery analytics and billing at a glance</p>
+            </div>
+
+            <!-- Alerts -->
+            <div id="alert-container"></div>
+
+            <!-- API Key Section -->
+            <div class="api-key-section">
+                <h4>🔑 Your API Key</h4>
+                <div class="api-key-display">
+                    <code id="api-key-text">bioql_••••••••••••••••••••••••••••••</code>
+                    <button class="copy-btn" onclick="copyApiKey()">Copy</button>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-card-icon">⚛️</span>
+                    </div>
+                    <div class="stat-card-value" id="total-shots">0</div>
+                    <div class="stat-card-label">Total Quantum Shots</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-card-icon">💰</span>
+                    </div>
+                    <div class="stat-card-value" id="total-spent">$0.00</div>
+                    <div class="stat-card-label">Total Spent</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-card-icon">🧬</span>
+                    </div>
+                    <div class="stat-card-value" id="molecules-designed">0</div>
+                    <div class="stat-card-label">Molecules Designed</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-card-icon">🖥️</span>
+                    </div>
+                    <div class="stat-card-value" id="backends-used">0</div>
+                    <div class="stat-card-label">Backends Used</div>
+                </div>
+            </div>
+
+            <!-- Usage Chart -->
+            <div class="chart-container">
+                <h3>📊 Usage Over Time (Last 30 Days)</h3>
+                <canvas id="usage-chart"></canvas>
+            </div>
+
+            <!-- Backend Usage Breakdown -->
+            <div class="chart-container">
+                <h3>🔧 Backend Usage Distribution</h3>
+                <div class="usage-breakdown" id="backend-breakdown">
+                    <!-- Populated dynamically -->
+                </div>
+                <canvas id="backend-chart" style="margin-top: 2rem;"></canvas>
+            </div>
+
+            <!-- Billing Section -->
+            <div class="billing-section">
+                <div class="billing-header">
+                    <h3>💳 Billing & Payments</h3>
+                    <div class="balance-display">
+                        <div>
+                            <div style="font-size: 0.9rem; color: var(--color-text-secondary);">Current Balance</div>
+                            <div class="balance-amount" id="current-balance">$0.00</div>
+                        </div>
+                        <button class="pay-btn" id="pay-btn" onclick="payBalance()" disabled>
+                            Pay Now
+                        </button>
+                    </div>
+                </div>
+
+                <table class="invoice-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="invoice-table-body">
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 2rem;">Loading invoices...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Support Section -->
+            <div class="support-section">
+                <h3>🛟 Technical Support</h3>
+                <p style="color: var(--color-text-secondary); margin-bottom: 1.5rem;">
+                    Need help? Submit a support ticket and our team will get back to you within 24 hours.
+                </p>
+                <form class="support-form" id="support-form" onsubmit="submitSupport(event)">
+                    <div class="form-group">
+                        <label for="support-priority">Priority</label>
+                        <select id="support-priority" name="priority" required>
+                            <option value="low">Low - General Question</option>
+                            <option value="medium" selected>Medium - Technical Issue</option>
+                            <option value="high">High - Service Disruption</option>
+                            <option value="critical">Critical - Production Down</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="support-subject">Subject</label>
+                        <input type="text" id="support-subject" name="subject" required
+                               placeholder="Brief description of your issue">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="support-message">Message</label>
+                        <textarea id="support-message" name="message" required
+                                  placeholder="Please describe your issue in detail. Include any error messages, API keys used, and steps to reproduce."></textarea>
+                    </div>
+
+                    <button type="submit" class="support-btn">Submit Support Ticket</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 BioQL by SpectrixRD. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script>
+        // Configuration
+        const CONFIG = {
+            STRIPE_PUBLISHABLE_KEY: 'pk_live_51SG9nS8N85z8U7algbG3PoqbZc5kCC1ECveDawmt8jtTdfLCN1Z0U8uKCjfVvHYADp5qvXe28zZMhW8AbIuTty7F006eI727wu',
+            BIOQL_SERVER_URL: 'http://127.0.0.1:5001'
+        };
+
+        // Initialize Stripe
+        const stripe = Stripe(CONFIG.STRIPE_PUBLISHABLE_KEY);
+
+        // Global state
+        let userData = null;
+        let usageData = null;
+        let charts = {};
+
+        // Authentication check
+        function checkAuth() {
+            const apiKey = localStorage.getItem('bioql_api_key');
+            if (!apiKey) {
+                window.location.href = 'signup.html';
+                return null;
+            }
+            return apiKey;
+        }
+
+        // Logout
+        function logout() {
+            localStorage.removeItem('bioql_api_key');
+            window.location.href = 'index.html';
+        }
+
+        // Show/hide loading
+        function showLoading(show = true) {
+            document.getElementById('loading-overlay').classList.toggle('show', show);
+        }
+
+        // Show alert
+        function showAlert(message, type = 'info') {
+            const alertContainer = document.getElementById('alert-container');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            alertContainer.appendChild(alert);
+            setTimeout(() => alert.remove(), 5000);
+        }
+
+        // Copy API key
+        function copyApiKey() {
+            const apiKey = localStorage.getItem('bioql_api_key');
+            navigator.clipboard.writeText(apiKey);
+            showAlert('API key copied to clipboard!', 'success');
+        }
+
+        // Fetch user data
+        async function fetchUserData() {
+            const apiKey = checkAuth();
+            if (!apiKey) return;
+
+            try {
+                const response = await fetch(`${CONFIG.BIOQL_SERVER_URL}/auth/user`, {
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user data');
+                }
+
+                userData = await response.json();
+                updateUserInfo();
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+                showAlert('Failed to load user data', 'error');
+            }
+        }
+
+        // Fetch usage statistics
+        async function fetchUsageStats() {
+            const apiKey = checkAuth();
+            if (!apiKey) return;
+
+            try {
+                const response = await fetch(`${CONFIG.BIOQL_SERVER_URL}/analytics/usage`, {
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch usage stats');
+                }
+
+                usageData = await response.json();
+                updateStats();
+                updateCharts();
+            } catch (error) {
+                console.error('Error fetching usage stats:', error);
+                showAlert('Failed to load usage statistics', 'error');
+            }
+        }
+
+        // Fetch billing data
+        async function fetchBillingData() {
+            const apiKey = checkAuth();
+            if (!apiKey) return;
+
+            try {
+                const response = await fetch(`${CONFIG.BIOQL_SERVER_URL}/dashboard/invoices`, {
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch billing data');
+                }
+
+                const billingData = await response.json();
+                updateBillingInfo(billingData);
+            } catch (error) {
+                console.error('Error fetching billing data:', error);
+                showAlert('Failed to load billing data', 'error');
+            }
+        }
+
+        // Update user info
+        function updateUserInfo() {
+            if (!userData) return;
+
+            document.getElementById('user-name').textContent = userData.name || 'User';
+            document.getElementById('api-key-text').textContent = localStorage.getItem('bioql_api_key');
+        }
+
+        // Update stats
+        function updateStats() {
+            if (!usageData) return;
+
+            document.getElementById('total-shots').textContent = (usageData.total_shots || 0).toLocaleString();
+            document.getElementById('total-spent').textContent = `$${(usageData.total_spent || 0).toFixed(2)}`;
+            document.getElementById('molecules-designed').textContent = (usageData.molecules_designed || 0).toLocaleString();
+            document.getElementById('backends-used').textContent = usageData.backends_used || 0;
+
+            // Update backend breakdown
+            const backendBreakdown = document.getElementById('backend-breakdown');
+            backendBreakdown.innerHTML = '';
+
+            if (usageData.backends) {
+                Object.entries(usageData.backends).forEach(([backend, count]) => {
+                    const item = document.createElement('div');
+                    item.className = 'usage-item';
+                    item.innerHTML = `
+                        <div class="usage-item-label">${backend}</div>
+                        <div class="usage-item-value">${count.toLocaleString()}</div>
+                    `;
+                    backendBreakdown.appendChild(item);
+                });
+            }
+        }
+
+        // Update charts
+        function updateCharts() {
+            if (!usageData) return;
+
+            // Usage over time chart
+            const usageCtx = document.getElementById('usage-chart').getContext('2d');
+            if (charts.usage) charts.usage.destroy();
+
+            const dates = usageData.daily_usage?.dates || [];
+            const shots = usageData.daily_usage?.shots || [];
+
+            charts.usage = new Chart(usageCtx, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: 'Quantum Shots',
+                        data: shots,
+                        borderColor: '#00D4FF',
+                        backgroundColor: 'rgba(0, 212, 255, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#B4B9D2' }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { color: '#B4B9D2' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        },
+                        x: {
+                            ticks: { color: '#B4B9D2' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        }
+                    }
+                }
+            });
+
+            // Backend distribution chart
+            const backendCtx = document.getElementById('backend-chart').getContext('2d');
+            if (charts.backend) charts.backend.destroy();
+
+            const backendLabels = Object.keys(usageData.backends || {});
+            const backendData = Object.values(usageData.backends || {});
+
+            charts.backend = new Chart(backendCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: backendLabels,
+                    datasets: [{
+                        data: backendData,
+                        backgroundColor: [
+                            '#00D4FF',
+                            '#9D4EDD',
+                            '#FF006E',
+                            '#06FFA5',
+                            '#00FFF5',
+                            '#FFD700'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#B4B9D2' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update billing info
+        function updateBillingInfo(billingData) {
+            const currentBalance = billingData.current_balance || 0;
+            const balanceElement = document.getElementById('current-balance');
+            const payBtn = document.getElementById('pay-btn');
+
+            balanceElement.textContent = `$${Math.abs(currentBalance).toFixed(2)}`;
+
+            if (currentBalance > 0) {
+                balanceElement.classList.add('negative');
+                payBtn.disabled = false;
+            } else {
+                balanceElement.classList.remove('negative');
+                payBtn.disabled = true;
+            }
+
+            // Update invoice table
+            const tbody = document.getElementById('invoice-table-body');
+            tbody.innerHTML = '';
+
+            if (!billingData.invoices || billingData.invoices.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 2rem;">No invoices yet</td></tr>';
+                return;
+            }
+
+            billingData.invoices.forEach(invoice => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${new Date(invoice.date).toLocaleDateString()}</td>
+                    <td>${invoice.description}</td>
+                    <td>$${invoice.amount.toFixed(2)}</td>
+                    <td><span class="status-badge status-${invoice.status}">${invoice.status.toUpperCase()}</span></td>
+                    <td>
+                        ${invoice.status === 'pending' ?
+                            `<button class="pay-btn" style="padding: 0.5rem 1rem; font-size: 0.9rem;" onclick="payInvoice('${invoice.id}')">Pay</button>` :
+                            '<span style="color: var(--color-text-muted);">—</span>'}
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Pay balance
+        async function payBalance() {
+            const apiKey = checkAuth();
+            if (!apiKey) return;
+
+            showLoading();
+
+            try {
+                const response = await fetch(`${CONFIG.BIOQL_SERVER_URL}/billing/create-payment`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        amount: parseFloat(document.getElementById('current-balance').textContent.replace('$', ''))
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Payment failed');
+                }
+
+                // Redirect to Stripe Checkout
+                const result = await stripe.redirectToCheckout({
+                    sessionId: data.session_id
+                });
+
+                if (result.error) {
+                    throw new Error(result.error.message);
+                }
+            } catch (error) {
+                console.error('Payment error:', error);
+                showAlert('Payment failed: ' + error.message, 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // Pay individual invoice
+        async function payInvoice(invoiceId) {
+            showAlert('Processing payment for invoice...', 'info');
+            await payBalance();
+        }
+
+        // Submit support ticket
+        async function submitSupport(event) {
+            event.preventDefault();
+
+            const apiKey = checkAuth();
+            if (!apiKey) return;
+
+            const formData = {
+                priority: document.getElementById('support-priority').value,
+                subject: document.getElementById('support-subject').value,
+                message: document.getElementById('support-message').value
+            };
+
+            showLoading();
+
+            try {
+                const response = await fetch(`${CONFIG.BIOQL_SERVER_URL}/support/ticket`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to submit support ticket');
+                }
+
+                showAlert('Support ticket submitted successfully! We\'ll get back to you within 24 hours.', 'success');
+                document.getElementById('support-form').reset();
+            } catch (error) {
+                console.error('Support ticket error:', error);
+                showAlert('Failed to submit support ticket: ' + error.message, 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // Initialize dashboard
+        async function initDashboard() {
+            const apiKey = checkAuth();
+            if (!apiKey) return;
+
+            showLoading();
+
+            try {
+                await Promise.all([
+                    fetchUserData(),
+                    fetchUsageStats(),
+                    fetchBillingData()
+                ]);
+            } catch (error) {
+                console.error('Dashboard initialization error:', error);
+                showAlert('Failed to load dashboard data', 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // Load dashboard on page load
+        document.addEventListener('DOMContentLoaded', initDashboard);
+    </script>
+</body>
+</html>

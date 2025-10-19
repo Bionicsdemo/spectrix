@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Test - Heinz Jungbluth</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+            color: white;
+            padding: 3rem;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(20, 20, 30, 0.8);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        h1 {
+            background: linear-gradient(135deg, #00d4ff 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+        }
+        .info-box {
+            background: rgba(0, 212, 255, 0.1);
+            border-left: 4px solid #00d4ff;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        .api-key {
+            font-family: 'Fira Code', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            color: #00d4ff;
+            word-break: break-all;
+        }
+        .btn {
+            background: linear-gradient(135deg, #00d4ff 0%, #a855f7 100%);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            color: white;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0.5rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .success {
+            background: rgba(6, 255, 165, 0.1);
+            border-left: 4px solid #06ffa5;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            color: #06ffa5;
+        }
+        .test-results {
+            margin-top: 2rem;
+        }
+        .test-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 6px;
+            border-left: 3px solid #06ffa5;
+        }
+        pre {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔬 BioQL Dashboard Test</h1>
+
+        <div class="info-box">
+            <h3 style="margin-top: 0;">👤 Usuario: Heinz Jungbluth</h3>
+            <p><strong>Email:</strong> heinz@bionics-ai.biz</p>
+            <p><strong>User ID:</strong> 13</p>
+            <p><strong>Stripe Customer:</strong> cus_TGIQbkGkNFrWr6</p>
+            <p><strong>API Key:</strong></p>
+            <div class="api-key">bioql_PcYbRIao3CUip5KM3EZ0dlqwvNQiJGDEijyX4LfSaJM</div>
+        </div>
+
+        <div class="success">
+            ✅ API Key guardado en localStorage automáticamente
+        </div>
+
+        <div style="text-align: center; margin: 2rem 0;">
+            <a href="dashboard.html" class="btn">🚀 Abrir Dashboard</a>
+            <button onclick="runTests()" class="btn" style="background: linear-gradient(135deg, #06ffa5 0%, #00d4ff 100%);">
+                🧪 Ejecutar Tests
+            </button>
+        </div>
+
+        <div id="test-results" class="test-results" style="display: none;">
+            <h2>📊 Resultados de Tests:</h2>
+            <div id="results-container"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = 'bioql_PcYbRIao3CUip5KM3EZ0dlqwvNQiJGDEijyX4LfSaJM';
+        const SERVER_URL = 'http://127.0.0.1:5001';
+
+        // Auto-set API key in localStorage
+        localStorage.setItem('bioql_api_key', API_KEY);
+        localStorage.setItem('bioql_user_name', 'Heinz Jungbluth');
+        localStorage.setItem('bioql_user_email', 'heinz@bionics-ai.biz');
+
+        async function runTests() {
+            const resultsDiv = document.getElementById('results-container');
+            const testSection = document.getElementById('test-results');
+            testSection.style.display = 'block';
+            resultsDiv.innerHTML = '<p>Ejecutando tests...</p>';
+
+            const tests = [
+                {
+                    name: 'GET /auth/user',
+                    endpoint: '/auth/user',
+                    method: 'GET'
+                },
+                {
+                    name: 'GET /analytics/usage',
+                    endpoint: '/analytics/usage',
+                    method: 'GET'
+                },
+                {
+                    name: 'GET /dashboard/invoices',
+                    endpoint: '/dashboard/invoices',
+                    method: 'GET'
+                }
+            ];
+
+            let html = '';
+
+            for (const test of tests) {
+                try {
+                    const response = await fetch(`${SERVER_URL}${test.endpoint}`, {
+                        method: test.method,
+                        headers: {
+                            'Authorization': `Bearer ${API_KEY}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    const data = await response.json();
+
+                    html += `
+                        <div class="test-item">
+                            <h3>✅ ${test.name}</h3>
+                            <p><strong>Status:</strong> ${response.status} ${response.statusText}</p>
+                            <p><strong>Response:</strong></p>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        </div>
+                    `;
+                } catch (error) {
+                    html += `
+                        <div class="test-item" style="border-left-color: #ff3b30;">
+                            <h3>❌ ${test.name}</h3>
+                            <p><strong>Error:</strong> ${error.message}</p>
+                        </div>
+                    `;
+                }
+            }
+
+            resultsDiv.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

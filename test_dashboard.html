@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Dashboard Integration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #0A0E27;
+            color: white;
+        }
+        .test-section {
+            background: #12172E;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border: 1px solid #00D4FF;
+        }
+        button {
+            background: linear-gradient(135deg, #00D4FF 0%, #9D4EDD 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        pre {
+            background: #060915;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid #00D4FF;
+        }
+        .success { color: #06FFA5; }
+        .error { color: #ff3b30; }
+        .info { color: #00D4FF; }
+    </style>
+</head>
+<body>
+    <h1>🧪 BioQL Dashboard Integration Test</h1>
+
+    <div class="test-section">
+        <h2>1. Set Dev API Key</h2>
+        <button onclick="setDevApiKey()">Set bioql_dev_test123 API Key</button>
+        <button onclick="clearApiKey()">Clear API Key</button>
+        <pre id="api-key-status">Not set</pre>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Test GET /auth/user</h2>
+        <button onclick="testAuthUser()">Test Auth User Endpoint</button>
+        <pre id="auth-user-result">Click button to test</pre>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Test GET /analytics/usage</h2>
+        <button onclick="testAnalytics()">Test Analytics Endpoint</button>
+        <pre id="analytics-result">Click button to test</pre>
+    </div>
+
+    <div class="test-section">
+        <h2>4. Test GET /dashboard/invoices</h2>
+        <button onclick="testInvoices()">Test Invoices Endpoint</button>
+        <pre id="invoices-result">Click button to test</pre>
+    </div>
+
+    <div class="test-section">
+        <h2>5. Test POST /billing/create-payment</h2>
+        <button onclick="testPayment()">Test Payment Endpoint</button>
+        <pre id="payment-result">Click button to test</pre>
+    </div>
+
+    <div class="test-section">
+        <h2>6. Test POST /support/ticket</h2>
+        <button onclick="testSupport()">Test Support Endpoint</button>
+        <pre id="support-result">Click button to test</pre>
+    </div>
+
+    <div class="test-section">
+        <h2>7. Open Real Dashboard</h2>
+        <button onclick="openDashboard()">Open Dashboard with Dev Key</button>
+        <p class="info">This will set the dev API key and redirect to dashboard.html</p>
+    </div>
+
+    <script>
+        const API_URL = 'http://127.0.0.1:5001';
+
+        function setDevApiKey() {
+            localStorage.setItem('bioql_api_key', 'bioql_dev_test123');
+            localStorage.setItem('bioql_user_name', 'BioQL Developer');
+            localStorage.setItem('bioql_user_email', 'dev@bioql.local');
+            document.getElementById('api-key-status').innerHTML = '<span class="success">✅ API Key set: bioql_dev_test123</span>';
+        }
+
+        function clearApiKey() {
+            localStorage.removeItem('bioql_api_key');
+            localStorage.removeItem('bioql_user_name');
+            localStorage.removeItem('bioql_user_email');
+            document.getElementById('api-key-status').innerHTML = '<span class="error">❌ API Key cleared</span>';
+        }
+
+        async function testAuthUser() {
+            const apiKey = localStorage.getItem('bioql_api_key');
+            if (!apiKey) {
+                document.getElementById('auth-user-result').innerHTML = '<span class="error">❌ No API key set. Click "Set Dev API Key" first.</span>';
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/auth/user`, {
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`
+                    }
+                });
+
+                const data = await response.json();
+                document.getElementById('auth-user-result').innerHTML =
+                    `<span class="success">✅ Success (${response.status})</span>\n${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                document.getElementById('auth-user-result').innerHTML =
+                    `<span class="error">❌ Error: ${error.message}</span>`;
+            }
+        }
+
+        async function testAnalytics() {
+            const apiKey = localStorage.getItem('bioql_api_key');
+            if (!apiKey) {
+                document.getElementById('analytics-result').innerHTML = '<span class="error">❌ No API key set.</span>';
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/analytics/usage`, {
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`
+                    }
+                });
+
+                const data = await response.json();
+                document.getElementById('analytics-result').innerHTML =
+                    `<span class="success">✅ Success (${response.status})</span>\n${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                document.getElementById('analytics-result').innerHTML =
+                    `<span class="error">❌ Error: ${error.message}</span>`;
+            }
+        }
+
+        async function testInvoices() {
+            const apiKey = localStorage.getItem('bioql_api_key');
+            if (!apiKey) {
+                document.getElementById('invoices-result').innerHTML = '<span class="error">❌ No API key set.</span>';
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/dashboard/invoices`, {
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`
+                    }
+                });
+
+                const data = await response.json();
+                document.getElementById('invoices-result').innerHTML =
+                    `<span class="success">✅ Success (${response.status})</span>\n${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                document.getElementById('invoices-result').innerHTML =
+                    `<span class="error">❌ Error: ${error.message}</span>`;
+            }
+        }
+
+        async function testPayment() {
+            const apiKey = localStorage.getItem('bioql_api_key');
+            if (!apiKey) {
+                document.getElementById('payment-result').innerHTML = '<span class="error">❌ No API key set.</span>';
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/billing/create-payment`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ amount: 350.00 })
+                });
+
+                const data = await response.json();
+                document.getElementById('payment-result').innerHTML =
+                    `<span class="success">✅ Success (${response.status})</span>\n${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                document.getElementById('payment-result').innerHTML =
+                    `<span class="error">❌ Error: ${error.message}</span>`;
+            }
+        }
+
+        async function testSupport() {
+            const apiKey = localStorage.getItem('bioql_api_key');
+            if (!apiKey) {
+                document.getElementById('support-result').innerHTML = '<span class="error">❌ No API key set.</span>';
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/support/ticket`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        priority: 'medium',
+                        subject: 'Test ticket from integration test',
+                        message: 'This is a test ticket created from the test page.'
+                    })
+                });
+
+                const data = await response.json();
+                document.getElementById('support-result').innerHTML =
+                    `<span class="success">✅ Success (${response.status})</span>\n${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                document.getElementById('support-result').innerHTML =
+                    `<span class="error">❌ Error: ${error.message}</span>`;
+            }
+        }
+
+        function openDashboard() {
+            setDevApiKey();
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 500);
+        }
+
+        // Show current API key status on load
+        window.onload = function() {
+            const apiKey = localStorage.getItem('bioql_api_key');
+            if (apiKey) {
+                document.getElementById('api-key-status').innerHTML =
+                    `<span class="success">✅ Current API Key: ${apiKey}</span>`;
+            }
+        };
+    </script>
+</body>
+</html>
