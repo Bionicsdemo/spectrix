@@ -206,18 +206,64 @@ body {
     bottom: 0;
     background: radial-gradient(circle at 20% 50%, rgba(157, 78, 221, 0.15) 0%, transparent 50%),
                 radial-gradient(circle at 80% 50%, rgba(0, 212, 255, 0.15) 0%, transparent 50%);
+    overflow: hidden;
 }
 
-.hero-bg-image {
+.hero-bg-main {
     position: absolute;
     top: 0;
-    right: 0;
-    width: 50%;
+    left: 0;
+    width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.3;
-    mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
-    -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    opacity: 0.25;
+    filter: blur(1px);
+}
+
+.hero-bg-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+
+.overlay-1 {
+    top: 0;
+    left: 0;
+    opacity: 0.15;
+    animation: floatOverlay1 20s ease-in-out infinite;
+}
+
+.overlay-2 {
+    top: 0;
+    right: 0;
+    opacity: 0.12;
+    animation: floatOverlay2 25s ease-in-out infinite;
+}
+
+@keyframes floatOverlay1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(20px, -20px) scale(1.05); }
+}
+
+@keyframes floatOverlay2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-20px, 20px) scale(1.05); }
+}
+
+.hero-gradient-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg,
+        rgba(10, 10, 15, 0.85) 0%,
+        rgba(10, 10, 15, 0.7) 50%,
+        rgba(10, 10, 15, 0.85) 100%);
+    pointer-events: none;
 }
 
 .quantum-particles {
@@ -401,17 +447,38 @@ body {
 }
 
 .feature-card {
-    background: var(--color-bg-card);
+    background: rgba(20, 20, 30, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: var(--spacing-xl);
     border-radius: var(--radius-xl);
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top right, rgba(0, 212, 255, 0.1), transparent 60%);
+    opacity: 0;
+    transition: opacity var(--transition-normal);
 }
 
 .feature-card:hover {
     transform: translateY(-4px);
     border-color: var(--color-quantum-blue);
-    box-shadow: var(--shadow-glow);
+    box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3),
+                0 0 20px rgba(157, 78, 221, 0.2);
+}
+
+.feature-card:hover::before {
+    opacity: 1;
 }
 
 .feature-icon {
@@ -454,7 +521,9 @@ body {
 }
 
 .module-card {
-    background: var(--color-bg-card);
+    background: rgba(20, 20, 30, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: var(--spacing-xl);
     border-radius: var(--radius-xl);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -463,11 +532,30 @@ body {
     gap: var(--spacing-lg);
     align-items: start;
     transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.module-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at bottom left, rgba(157, 78, 221, 0.1), transparent 60%);
+    opacity: 0;
+    transition: opacity var(--transition-normal);
 }
 
 .module-card:hover {
-    border-color: var(--color-quantum-blue);
-    box-shadow: var(--shadow-glow);
+    border-color: var(--color-quantum-purple);
+    box-shadow: 0 10px 40px rgba(157, 78, 221, 0.3),
+                0 0 20px rgba(0, 212, 255, 0.2);
+}
+
+.module-card:hover::before {
+    opacity: 1;
 }
 
 .module-number {
@@ -771,8 +859,44 @@ body {
    ============================================ */
 
 .demo {
+    position: relative;
     padding: var(--spacing-3xl) 0;
     background: var(--color-bg-dark);
+    overflow: hidden;
+}
+
+.demo-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+.demo-bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.15;
+    filter: blur(2px);
+}
+
+.demo-gradient-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg,
+        rgba(10, 10, 15, 0.95) 0%,
+        rgba(10, 10, 15, 0.85) 50%,
+        rgba(10, 10, 15, 0.95) 100%);
+}
+
+.demo .container {
+    position: relative;
+    z-index: 1;
 }
 
 .demo-container {
