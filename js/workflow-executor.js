@@ -79,6 +79,19 @@ class WorkflowExecutor {
                         window.workflowCanvas.setNodeStatus(nodeId, 'completed');
                         window.workflowCanvas.logConsole('success', `✓ ${node.type} completed`);
                     }
+
+                    // Handle export nodes - auto download
+                    if (node.type === 'export-json' && result.data && result.data.file_data) {
+                        this.downloadFile(result.data.file_data, result.data.filename || 'workflow_export.json', 'application/json');
+                        if (window.workflowCanvas) {
+                            window.workflowCanvas.logConsole('success', `📥 Downloaded ${result.data.filename}`);
+                        }
+                    } else if (node.type === 'export-csv' && result.data && result.data.file_data) {
+                        this.downloadFile(result.data.file_data, result.data.filename || 'workflow_export.csv', 'text/csv');
+                        if (window.workflowCanvas) {
+                            window.workflowCanvas.logConsole('success', `📥 Downloaded ${result.data.filename}`);
+                        }
+                    }
                 } else {
                     if (window.workflowCanvas) {
                         window.workflowCanvas.setNodeStatus(nodeId, 'error');
@@ -283,6 +296,35 @@ class WorkflowExecutor {
         console.error(message);
         if (window.workflowCanvas) {
             window.workflowCanvas.logConsole('error', message);
+        }
+    }
+
+    downloadFile(fileData, filename, mimeType) {
+        try {
+            // Create blob from file data
+            const blob = new Blob([fileData], { type: mimeType });
+
+            // Create download link
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = filename;
+
+            // Trigger download
+            document.body.appendChild(a);
+            a.click();
+
+            // Cleanup
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+
+            console.log(`✅ Downloaded: ${filename}`);
+        } catch (error) {
+            console.error(`❌ Download failed: ${error.message}`);
+            if (window.workflowCanvas) {
+                window.workflowCanvas.logConsole('error', `Download failed: ${error.message}`);
+            }
         }
     }
 }
