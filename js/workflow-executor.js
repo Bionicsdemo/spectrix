@@ -16,7 +16,7 @@ class WorkflowExecutor {
                             !window.location.hostname.includes('localhost');
 
         return isProduction
-            ? 'https://spectrix--bioql-workflow-fastapi-app.modal.run'
+            ? 'https://api.bioql.bio/workflow'
             : 'http://127.0.0.1:5002/workflow';
     }
 
