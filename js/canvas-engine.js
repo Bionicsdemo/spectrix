@@ -597,7 +597,27 @@ class CanvasEngine {
             }
         };
 
+        const upHandler = (e) => {
+            // Find if mouse is over a port when released
+            const elements = document.elementsFromPoint(e.clientX, e.clientY);
+            const targetPort = elements.find(el => el.classList.contains('node-port'));
+
+            if (targetPort && this.connectionStart) {
+                const nodeId = targetPort.dataset.nodeId;
+                const portType = targetPort.dataset.portType;
+
+                // Only connect if it's an input port and different node
+                if (portType === 'input' && this.connectionStart.nodeId !== nodeId) {
+                    this.createConnection(this.connectionStart.nodeId, nodeId);
+                }
+            }
+
+            this.endTempConnection();
+            document.removeEventListener('mouseup', upHandler);
+        };
+
         document.addEventListener('mousemove', moveHandler);
+        document.addEventListener('mouseup', upHandler);
         this.tempConnectionMoveHandler = moveHandler;
     }
 
