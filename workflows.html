@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioQL Workflow Studio | Visual Drug Discovery Automation</title>
+    <meta name="description" content="Visual workflow builder for quantum drug discovery - drag-and-drop molecular docking, ADME prediction, CRISPR design, and more">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/workflow.css">
+    <link rel="stylesheet" href="css/canvas.css">
+    <link rel="stylesheet" href="css/nodes.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-bg-dark: #0a0a0f;
+            --color-bg-card: #12121a;
+            --color-bg-hover: #1a1a24;
+            --color-primary: #00d4ff;
+            --color-secondary: #9d4edd;
+            --color-success: #00ff88;
+            --color-warning: #ffaa00;
+            --color-error: #ff3366;
+            --color-text: #e8e8f0;
+            --color-text-secondary: #a0a0b8;
+            --color-border: #2a2a38;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--color-bg-dark);
+            color: var(--color-text);
+            overflow: hidden;
+        }
+
+        /* Top Navigation */
+        .workflow-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--color-bg-card);
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1000;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .workflow-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .workflow-title input {
+            background: transparent;
+            border: none;
+            color: var(--color-text);
+            font-size: 16px;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .workflow-title input:hover {
+            background: var(--color-bg-hover);
+        }
+
+        .workflow-title input:focus {
+            outline: none;
+            background: var(--color-bg-hover);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--color-bg-hover);
+            color: var(--color-text);
+            border: 1px solid var(--color-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-border);
+        }
+
+        .btn-icon {
+            background: transparent;
+            border: none;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .btn-icon:hover {
+            background: var(--color-bg-hover);
+            color: var(--color-primary);
+        }
+
+        /* Layout Container */
+        .workflow-container {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+        }
+
+        /* Left Sidebar - Node Panel */
+        .node-panel {
+            width: 280px;
+            background: var(--color-bg-card);
+            border-right: 1px solid var(--color-border);
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .node-category {
+            margin-bottom: 24px;
+        }
+
+        .category-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .node-item {
+            background: var(--color-bg-dark);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+            cursor: grab;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .node-item:hover {
+            border-color: var(--color-primary);
+            transform: translateX(4px);
+            box-shadow: 0 2px 8px rgba(0, 212, 255, 0.2);
+        }
+
+        .node-item:active {
+            cursor: grabbing;
+        }
+
+        .node-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .node-icon.input { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .node-icon.quantum { background: linear-gradient(135deg, #00d4ff 0%, #0066ff 100%); }
+        .node-icon.tools { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .node-icon.output { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+
+        .node-info {
+            flex: 1;
+        }
+
+        .node-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text);
+            margin-bottom: 2px;
+        }
+
+        .node-desc {
+            font-size: 11px;
+            color: var(--color-text-secondary);
+        }
+
+        /* Main Canvas */
+        .canvas-container {
+            flex: 1;
+            position: relative;
+            background:
+                linear-gradient(90deg, var(--color-border) 1px, transparent 1px),
+                linear-gradient(var(--color-border) 1px, transparent 1px);
+            background-size: 20px 20px;
+            overflow: hidden;
+        }
+
+        #workflow-canvas {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            cursor: grab;
+        }
+
+        #workflow-canvas:active {
+            cursor: grabbing;
+        }
+
+        /* Workflow Nodes */
+        .workflow-node {
+            position: absolute;
+            background: var(--color-bg-card);
+            border: 2px solid var(--color-border);
+            border-radius: 12px;
+            min-width: 200px;
+            box-shadow: var(--shadow);
+            cursor: move;
+            transition: all 0.2s;
+        }
+
+        .workflow-node:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .workflow-node.selected {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
+        }
+
+        .workflow-node.executing {
+            border-color: var(--color-warning);
+            animation: pulse 2s infinite;
+        }
+
+        .workflow-node.completed {
+            border-color: var(--color-success);
+        }
+
+        .workflow-node.error {
+            border-color: var(--color-error);
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 170, 0, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 170, 0, 0); }
+        }
+
+        .node-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .node-header .node-icon {
+            width: 28px;
+            height: 28px;
+            font-size: 14px;
+        }
+
+        .node-title {
+            flex: 1;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .node-status {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-text-secondary);
+        }
+
+        .node-status.executing {
+            background: var(--color-warning);
+            animation: blink 1s infinite;
+        }
+
+        .node-status.completed {
+            background: var(--color-success);
+        }
+
+        .node-status.error {
+            background: var(--color-error);
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.3; }
+        }
+
+        .node-body {
+            padding: 16px;
+        }
+
+        .node-param {
+            margin-bottom: 12px;
+        }
+
+        .param-label {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .param-input {
+            width: 100%;
+            background: var(--color-bg-dark);
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: var(--color-text);
+            font-size: 13px;
+        }
+
+        .param-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        select.param-input {
+            cursor: pointer;
+        }
+
+        /* Connection Ports */
+        .node-port {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid var(--color-primary);
+            background: var(--color-bg-dark);
+            cursor: crosshair;
+            transition: all 0.2s;
+        }
+
+        .node-port:hover {
+            width: 16px;
+            height: 16px;
+            background: var(--color-primary);
+            box-shadow: 0 0 12px var(--color-primary);
+        }
+
+        .node-port.input {
+            left: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .node-port.output {
+            right: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Connections SVG */
+        #connections-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .connection-line {
+            fill: none;
+            stroke: var(--color-primary);
+            stroke-width: 2;
+            opacity: 0.6;
+            transition: all 0.2s;
+        }
+
+        .connection-line:hover {
+            stroke-width: 3;
+            opacity: 1;
+            filter: drop-shadow(0 0 6px var(--color-primary));
+        }
+
+        .connection-line.active {
+            stroke: var(--color-warning);
+            opacity: 1;
+            animation: dash 1s linear infinite;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: 20;
+            }
+        }
+
+        /* Right Sidebar - Node Properties */
+        .properties-panel {
+            width: 320px;
+            background: var(--color-bg-card);
+            border-left: 1px solid var(--color-border);
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .properties-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .property-group {
+            margin-bottom: 24px;
+        }
+
+        .property-group-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        /* Execution Console */
+        .execution-console {
+            position: fixed;
+            bottom: 0;
+            left: 280px;
+            right: 320px;
+            height: 200px;
+            background: var(--color-bg-card);
+            border-top: 1px solid var(--color-border);
+            transform: translateY(100%);
+            transition: transform 0.3s;
+            z-index: 100;
+        }
+
+        .execution-console.open {
+            transform: translateY(0);
+        }
+
+        .console-header {
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .console-title {
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .console-body {
+            padding: 16px 20px;
+            height: calc(100% - 50px);
+            overflow-y: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+        }
+
+        .console-log {
+            margin-bottom: 8px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .log-time {
+            color: var(--color-text-secondary);
+        }
+
+        .log-level {
+            font-weight: 600;
+        }
+
+        .log-level.info { color: var(--color-primary); }
+        .log-level.success { color: var(--color-success); }
+        .log-level.warning { color: var(--color-warning); }
+        .log-level.error { color: var(--color-error); }
+
+        .log-message {
+            flex: 1;
+        }
+
+        /* Progress Bar */
+        .execution-progress {
+            position: fixed;
+            top: 60px;
+            left: 280px;
+            right: 320px;
+            height: 3px;
+            background: var(--color-bg-dark);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .execution-progress.active {
+            opacity: 1;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            width: 0%;
+            transition: width 0.5s;
+        }
+
+        /* Minimap */
+        .minimap {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 200px;
+            height: 150px;
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 10px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .minimap:hover {
+            opacity: 1;
+        }
+
+        .minimap-title {
+            font-size: 11px;
+            color: var(--color-text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .minimap-canvas {
+            width: 100%;
+            height: calc(100% - 20px);
+            background: var(--color-bg-dark);
+            border-radius: 4px;
+        }
+
+        /* Zoom Controls */
+        .zoom-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .zoom-btn {
+            width: 36px;
+            height: 36px;
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--color-text);
+            transition: all 0.2s;
+        }
+
+        .zoom-btn:hover {
+            background: var(--color-bg-hover);
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .zoom-level {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Context Menu */
+        .context-menu {
+            position: fixed;
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 8px 0;
+            box-shadow: var(--shadow);
+            display: none;
+            z-index: 2000;
+            min-width: 180px;
+        }
+
+        .context-menu.active {
+            display: block;
+        }
+
+        .context-menu-item {
+            padding: 10px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--color-text);
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+
+        .context-menu-item:hover {
+            background: var(--color-bg-hover);
+        }
+
+        .context-menu-item i {
+            width: 16px;
+        }
+
+        .context-menu-divider {
+            height: 1px;
+            background: var(--color-border);
+            margin: 4px 0;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--color-bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <div class="workflow-header">
+        <div class="header-left">
+            <div class="logo">
+                <i class="fas fa-atom"></i>
+                BioQL Workflow Studio
+            </div>
+            <div class="workflow-title">
+                <i class="fas fa-project-diagram"></i>
+                <input type="text" id="workflow-name" value="Untitled Workflow" placeholder="Workflow name...">
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="btn-icon" id="save-btn" title="Save Workflow (Ctrl+S)">
+                <i class="fas fa-save"></i>
+            </button>
+            <button class="btn-icon" id="load-btn" title="Load Workflow">
+                <i class="fas fa-folder-open"></i>
+            </button>
+            <button class="btn-icon" id="undo-btn" title="Undo (Ctrl+Z)">
+                <i class="fas fa-undo"></i>
+            </button>
+            <button class="btn-icon" id="redo-btn" title="Redo (Ctrl+Y)">
+                <i class="fas fa-redo"></i>
+            </button>
+            <button class="btn-secondary" id="clear-btn">
+                <i class="fas fa-trash"></i>
+                Clear
+            </button>
+            <button class="btn-primary" id="execute-btn">
+                <i class="fas fa-play"></i>
+                Run Workflow
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Layout -->
+    <div class="workflow-container">
+        <!-- Left Sidebar - Node Library -->
+        <div class="node-panel" id="node-panel">
+            <!-- INPUT NODES -->
+            <div class="node-category">
+                <div class="category-title">
+                    <i class="fas fa-download"></i>
+                    Input Nodes
+                </div>
+                <div class="node-item" draggable="true" data-node-type="upload-pdb">
+                    <div class="node-icon input"><i class="fas fa-file-code"></i></div>
+                    <div class="node-info">
+                        <div class="node-name">Upload PDB</div>
+                        <div class="node-desc">Upload protein structure</div>
+                    </div>
+                </div>
+                <div class="node-item" draggable="true" data-node-type="upload-molecule">
+                    <div class="node-icon input"><i class="fas fa-flask"></i></div>
+                    <div class="node-info">
+                        <div class="node-name">Upload Molecule</div>
+                        <div class="node-desc">MOL2, SDF, SMILES</div>
+                    </div>
+                </div>
+                <div class="node-item" draggable="true" data-node-type="text-input">
+                    <div class="node-icon input"><i class="fas fa-keyboard"></i></div>
+                    <div class="node-info">
+                        <div class="node-name">Text Input</div>
+                        <div class="node-desc">Free text input</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QUANTUM NODES -->
+            <div class="node-category">
+                <div class="category-title">
+                    <i class="fas fa-atom"></i>
+                    Quantum Computing
+                </div>
+                <div class="node-item" draggable="true" data-node-type="vina-docking">
+                    <div class="node-icon quantum"><i class="fas fa-magnet"></i></div>
+                    <div class="node-info">
+                        <div class="node-name">Vina Docking</div>
+                        <div class="node-desc">Molecular docking</div>
+                    </div>
+                </div>
+                <div class="node-item" draggable="true" data-node-type="adme-prediction">
+                    <div class="node-icon quantum"><i class="fas fa-pills"></i></div>
+                    <div class="node-info">
+                        <div class="node-name">ADME Prediction</div>
+                        <div class="node-desc">Drug properties</div>
+                    </div>
+                </div>
+                <div class="node-item" draggable="true" data-node-type="toxicity-prediction">
+                    <div class="node-icon quantum"><i class="fas fa-skull-crossbones"></i></div>
+                    <div class="node-info">
+                        <div class="node-name">Toxicity</div>
+                        <div class="node-desc">Predict toxicity</div>
+                    </div>
+                </div>
+                <div class="node-item" draggable="true" data-node-type="crispr-design">
+                    <div class="node-icon quantum"><i class="fas fa-dna"></i></div>
+                    <div class="node-info">
+                        <div class="node-name">CRISPR Design</div>
+                        <div class="node-desc">Guide sequences</div>
+                    </div>
+                </div>
+                <div class="node-item" draggable="true" data-node-type="denovo-designer">
+                    <div class="node-icon quantum"><i class="fas fa-wand-magic-sparkles"></i></div>
+                    <div class="node-info">
+                        <div class="node-name">De Novo Designer</div>
+                        <div class="node-desc">Generate molecules</div>
+                    </div>
+                </div>
+                <div class="node-item" draggable="true" data-node-type="virtual-screening">
+                    <div class="node-icon quantum"><i class="fas fa-filter"></i></div>
+                    <div class="node-info">
+                        <div class="node-name">Virtual Screening</div>
+                        <div class="node-desc">Screen libraries</div>
+                    </div>
+                </div>
+                <div class="node-item" draggable="true" data-node-type="binding-affinity">
+                    <div class="node-icon quantum"><i class="fas fa-link"></i></div>
+                    <div class="node-info">
+                        <div class="node-name">Binding Affinity</div>
+                        <div class="node-desc">Calculate binding</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DATA PROCESSING -->
+            <div class="node-category">
+                <div class="category-title">
+                    <i class="fas fa-cogs"></i>
+                    Data Processing
+                </div>
+                <div class="node-item" draggable="true" data-node-type="filter">
+                    <div class="node-icon tools"><i class="fas fa-filter"></i></div>
+                    <div class="node-info">
+                        <div class="node-name">Filter</div>
+                        <div class="node-desc">Filter by criteria</div>
+                    </div>
+                </div>
+                <div class="node-item" draggable="true" data-node-type="sort">
+                    <div class="node-icon tools"><i class="fas fa-sort"></i></div>
+                    <div class="node-info">
+                        <div class="node-name">Sort</div>
+                        <div class="node-desc">Sort results</div>
+                    </div>
+                </div>
+                <div class="node-item" draggable="true" data-node-type="if-then">
+                    <div class="node-icon tools"><i class="fas fa-code-branch"></i></div>
+                    <div class="node-info">
+                        <div class="node-name">If/Then</div>
+                        <div class="node-desc">Conditional logic</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OUTPUT NODES -->
+            <div class="node-category">
+                <div class="category-title">
+                    <i class="fas fa-upload"></i>
+                    Output Nodes
+                </div>
+                <div class="node-item" draggable="true" data-node-type="export-csv">
+                    <div class="node-icon output"><i class="fas fa-file-csv"></i></div>
+                    <div class="node-info">
+                        <div class="node-name">Export CSV</div>
+                        <div class="node-desc">Export to CSV</div>
+                    </div>
+                </div>
+                <div class="node-item" draggable="true" data-node-type="export-json">
+                    <div class="node-icon output"><i class="fas fa-file-code"></i></div>
+                    <div class="node-info">
+                        <div class="node-name">Export JSON</div>
+                        <div class="node-desc">Export to JSON</div>
+                    </div>
+                </div>
+                <div class="node-item" draggable="true" data-node-type="visualize">
+                    <div class="node-icon output"><i class="fas fa-eye"></i></div>
+                    <div class="node-info">
+                        <div class="node-name">Visualize</div>
+                        <div class="node-desc">3D visualization</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Canvas -->
+        <div class="canvas-container">
+            <div class="execution-progress" id="execution-progress">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+
+            <svg id="connections-svg"></svg>
+
+            <div id="workflow-canvas"></div>
+
+            <!-- Zoom Controls -->
+            <div class="zoom-controls">
+                <button class="zoom-btn" id="zoom-in" title="Zoom In">
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div class="zoom-level" id="zoom-level">100%</div>
+                <button class="zoom-btn" id="zoom-out" title="Zoom Out">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button class="zoom-btn" id="zoom-reset" title="Reset Zoom">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </div>
+
+            <!-- Minimap -->
+            <div class="minimap">
+                <div class="minimap-title">Minimap</div>
+                <canvas class="minimap-canvas" id="minimap-canvas"></canvas>
+            </div>
+        </div>
+
+        <!-- Right Sidebar - Properties -->
+        <div class="properties-panel" id="properties-panel">
+            <div class="properties-title">
+                <i class="fas fa-sliders-h"></i>
+                Node Properties
+            </div>
+            <div id="properties-content">
+                <div style="text-align: center; padding: 40px 20px; color: var(--color-text-secondary);">
+                    <i class="fas fa-hand-pointer" style="font-size: 48px; margin-bottom: 16px; opacity: 0.3;"></i>
+                    <p>Select a node to view its properties</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Execution Console -->
+    <div class="execution-console" id="execution-console">
+        <div class="console-header">
+            <div class="console-title">
+                <i class="fas fa-terminal"></i>
+                Execution Console
+            </div>
+            <button class="btn-icon" id="console-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="console-body" id="console-body">
+            <div class="console-log">
+                <span class="log-time">00:00:00</span>
+                <span class="log-level info">[INFO]</span>
+                <span class="log-message">BioQL Workflow Studio ready.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Context Menu -->
+    <div class="context-menu" id="context-menu">
+        <div class="context-menu-item" data-action="copy">
+            <i class="fas fa-copy"></i>
+            Copy Node
+        </div>
+        <div class="context-menu-item" data-action="paste">
+            <i class="fas fa-paste"></i>
+            Paste Node
+        </div>
+        <div class="context-menu-divider"></div>
+        <div class="context-menu-item" data-action="duplicate">
+            <i class="fas fa-clone"></i>
+            Duplicate
+        </div>
+        <div class="context-menu-divider"></div>
+        <div class="context-menu-item" data-action="delete">
+            <i class="fas fa-trash" style="color: var(--color-error);"></i>
+            Delete Node
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="js/canvas-engine.js"></script>
+    <script src="js/workflow-executor.js"></script>
+    <script src="js/websocket-client.js"></script>
+
+    <script>
+        // ============= AUTHENTICATION CHECK =============
+        function checkAuthentication() {
+            // Check if user is logged in
+            const apiKey = localStorage.getItem('bioql_api_key');
+            const userEmail = localStorage.getItem('bioql_user_email');
+
+            if (!apiKey || !userEmail) {
+                // Not logged in - redirect to login page
+                console.warn('⚠️  Not authenticated - redirecting to login');
+                window.location.href = 'login.html?redirect=workflows.html';
+                return false;
+            }
+
+            console.log(`✅ Authenticated as: ${userEmail}`);
+            console.log(`🔑 API Key: ${apiKey.substring(0, 20)}...`);
+
+            // Store globally for use in workflow execution
+            window.BIOQL_API_KEY = apiKey;
+            window.BIOQL_USER_EMAIL = userEmail;
+
+            return true;
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('bioql_api_key');
+            localStorage.removeItem('bioql_user_email');
+            window.location.href = 'index.html';
+        }
+
+        // Initialize workflow studio
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 BioQL Workflow Studio initializing...');
+
+            // FIRST: Check authentication
+            if (!checkAuthentication()) {
+                return; // Will redirect to login
+            }
+
+            // Show user info in header
+            const logo = document.querySelector('.logo');
+            if (logo && window.BIOQL_USER_EMAIL) {
+                logo.innerHTML = `
+                    <i class="fas fa-atom"></i>
+                    BioQL Workflow Studio
+                    <span style="font-size: 12px; color: var(--color-text-secondary); margin-left: 16px;">
+                        ${window.BIOQL_USER_EMAIL}
+                    </span>
+                `;
+            }
+
+            // Add logout button
+            const headerActions = document.querySelector('.header-actions');
+            if (headerActions) {
+                const logoutBtn = document.createElement('button');
+                logoutBtn.className = 'btn-icon';
+                logoutBtn.title = 'Logout';
+                logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i>';
+                logoutBtn.onclick = logout;
+                headerActions.appendChild(logoutBtn);
+            }
+
+            // Initialize canvas engine
+            if (typeof CanvasEngine !== 'undefined') {
+                window.workflowCanvas = new CanvasEngine('workflow-canvas');
+                console.log('✅ Canvas engine loaded');
+            }
+
+            // Initialize workflow executor
+            if (typeof WorkflowExecutor !== 'undefined') {
+                window.workflowExecutor = new WorkflowExecutor();
+                console.log('✅ Workflow executor loaded');
+            }
+
+            // Initialize WebSocket connection
+            if (typeof WebSocketClient !== 'undefined') {
+                window.wsClient = new WebSocketClient('wss://api.bioql.bio/ws');
+                console.log('✅ WebSocket client loaded');
+            }
+
+            // Welcome message
+            console.log('%c BioQL Workflow Studio v1.0.0 ', 'background: linear-gradient(135deg, #00d4ff, #9d4edd); color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold;');
+            console.log('Drag nodes from the left panel to the canvas to start building your workflow!');
+            console.log(`🔑 Using API key: ${window.BIOQL_API_KEY.substring(0, 20)}...`);
+        });
+    </script>
+</body>
+</html>
