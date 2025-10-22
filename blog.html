@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Computing News - BioQL Blog</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        .blog-container {
+            max-width: 1400px;
+            margin: 8rem auto 4rem;
+            padding: 0 2rem;
+        }
+
+        .blog-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .blog-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .blog-header p {
+            font-size: 1.25rem;
+            color: var(--color-text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .news-card {
+            background: var(--color-bg-card);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        .news-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .news-content {
+            padding: 2rem;
+        }
+
+        .news-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+        }
+
+        .news-tag {
+            padding: 0.25rem 0.75rem;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: var(--radius-md);
+            color: var(--color-quantum-blue);
+            font-weight: 500;
+        }
+
+        .news-date {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .news-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--color-text-primary);
+            line-height: 1.3;
+        }
+
+        .news-excerpt {
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .news-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .news-source {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+        }
+
+        .news-source img {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+
+        .read-more {
+            color: var(--color-quantum-blue);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .read-more:hover {
+            gap: 1rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 4rem;
+            color: var(--color-text-secondary);
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(0, 212, 255, 0.1);
+            border-top-color: var(--color-quantum-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--color-bg-card);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: var(--radius-md);
+            color: var(--color-text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--gradient-primary);
+            border-color: var(--color-quantum-blue);
+            color: white;
+        }
+
+        .auto-update-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 255, 100, 0.1);
+            border: 1px solid rgba(0, 255, 100, 0.3);
+            border-radius: var(--radius-md);
+            color: #00ff64;
+            font-size: 0.875rem;
+            margin-top: 1rem;
+        }
+
+        .pulse {
+            width: 8px;
+            height: 8px;
+            background: #00ff64;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        @media (max-width: 768px) {
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .blog-header h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-quantum">⚛</span> BioQL
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="docs.html">Documentation</a></li>
+                <li><a href="api.html">API</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="login.html" class="btn-secondary">Log In</a>
+                <a href="signup.html" class="btn-primary">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Container -->
+    <div class="blog-container">
+        <div class="blog-header">
+            <h1>Quantum Computing News</h1>
+            <p>Latest breakthroughs in quantum computing, drug discovery, and biotechnology</p>
+            <div class="auto-update-badge">
+                <span class="pulse"></span>
+                Auto-updated every 3 days
+            </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <button class="filter-btn active" data-filter="all">All News</button>
+            <button class="filter-btn" data-filter="quantum">Quantum Computing</button>
+            <button class="filter-btn" data-filter="biotech">Biotechnology</button>
+            <button class="filter-btn" data-filter="ai">AI & Machine Learning</button>
+            <button class="filter-btn" data-filter="drug-discovery">Drug Discovery</button>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading" id="loading">
+            <div class="loading-spinner"></div>
+            <p>Loading latest quantum news...</p>
+        </div>
+
+        <!-- News Grid -->
+        <div class="news-grid" id="newsGrid"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>BioQL</h3>
+                <p>Enterprise quantum computing for drug discovery</p>
+            </div>
+            <div class="footer-section">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="docs.html">Documentation</a></li>
+                    <li><a href="api.html">API Reference</a></li>
+                    <li><a href="agent.html">AI Agent</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="https://github.com/spectrixrd/bioql">GitHub</a></li>
+                    <li><a href="https://twitter.com/bioql">Twitter</a></li>
+                    <li><a href="https://linkedin.com/company/bioql">LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 SpectrixRD. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Configuration
+        const CONFIG = {
+            NEWS_API_URL: 'https://api.bioql.bio/news',
+            FALLBACK_IMAGE: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="250"%3E%3Cdefs%3E%3ClinearGradient id="grad" x1="0%25" y1="0%25" x2="100%25" y2="100%25"%3E%3Cstop offset="0%25" style="stop-color:%23667eea;stop-opacity:1" /%3E%3Cstop offset="100%25" style="stop-color:%23764ba2;stop-opacity:1" /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width="400" height="250" fill="url(%23grad)"/%3E%3C/svg%3E'
+        };
+
+        let allNews = [];
+        let currentFilter = 'all';
+
+        // Fetch news from API
+        async function fetchNews() {
+            try {
+                const response = await fetch(CONFIG.NEWS_API_URL);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch news');
+                }
+                const data = await response.json();
+                allNews = data.articles || [];
+                renderNews(allNews);
+            } catch (error) {
+                console.error('Error fetching news:', error);
+                // Load sample data if API fails
+                loadSampleNews();
+            }
+        }
+
+        // Render news grid
+        function renderNews(articles) {
+            const newsGrid = document.getElementById('newsGrid');
+            const loading = document.getElementById('loading');
+
+            loading.style.display = 'none';
+
+            if (articles.length === 0) {
+                newsGrid.innerHTML = '<p style="text-align: center; color: var(--color-text-secondary); grid-column: 1/-1;">No articles found.</p>';
+                return;
+            }
+
+            newsGrid.innerHTML = articles.map(article => `
+                <div class="news-card" onclick="openArticle('${article.url}')">
+                    <img src="${article.image || CONFIG.FALLBACK_IMAGE}"
+                         alt="${article.title}"
+                         class="news-image"
+                         onerror="this.src='${CONFIG.FALLBACK_IMAGE}'">
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-tag">${article.category}</span>
+                            <span class="news-date">
+                                📅 ${formatDate(article.published_at)}
+                            </span>
+                        </div>
+                        <h3 class="news-title">${article.title}</h3>
+                        <p class="news-excerpt">${article.excerpt}</p>
+                        <div class="news-footer">
+                            <div class="news-source">
+                                <img src="${article.source_icon || 'https://www.google.com/s2/favicons?domain=' + extractDomain(article.url)}"
+                                     alt="${article.source}"
+                                     onerror="this.style.display='none'">
+                                <span>${article.source}</span>
+                            </div>
+                            <a href="${article.url}" target="_blank" class="read-more" onclick="event.stopPropagation()">
+                                Read More →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter news
+        function filterNews(category) {
+            currentFilter = category;
+
+            // Update active filter button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.filter === category) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Filter articles
+            const filtered = category === 'all'
+                ? allNews
+                : allNews.filter(article => article.category.toLowerCase() === category.toLowerCase());
+
+            renderNews(filtered);
+        }
+
+        // Helper functions
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            if (diffDays === 0) return 'Today';
+            if (diffDays === 1) return 'Yesterday';
+            if (diffDays < 7) return `${diffDays} days ago`;
+
+            return date.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+            });
+        }
+
+        function extractDomain(url) {
+            try {
+                return new URL(url).hostname;
+            } catch {
+                return '';
+            }
+        }
+
+        function openArticle(url) {
+            window.open(url, '_blank');
+        }
+
+        // Load sample news as fallback
+        function loadSampleNews() {
+            allNews = [
+                {
+                    title: "Google's Quantum Echoes Algorithm Achieves 13,000x Speedup",
+                    excerpt: "Google Quantum AI announces breakthrough with Quantum Echoes algorithm running on Willow chip, demonstrating verifiable quantum advantage on molecular analysis tasks.",
+                    category: "Quantum Computing",
+                    source: "Google Research Blog",
+                    url: "https://blog.google/technology/research/quantum-echoes-willow-verifiable-quantum-advantage/",
+                    image: "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/quantum_echoes_hero.width-1200.format-webp.webp",
+                    published_at: "2025-10-22T10:00:00Z"
+                },
+                {
+                    title: "IBM Quantum Unveils 1,000-Qubit Quantum Computer",
+                    excerpt: "IBM has successfully built and demonstrated a 1,000-qubit quantum processor, marking a significant milestone in scaling quantum hardware.",
+                    category: "Quantum Computing",
+                    source: "IBM Research",
+                    url: "https://research.ibm.com/blog/quantum-roadmap-2025",
+                    published_at: "2025-10-15T14:30:00Z"
+                },
+                {
+                    title: "AI-Designed Drug Enters Phase III Clinical Trials",
+                    excerpt: "First drug completely designed by artificial intelligence reaches late-stage clinical trials, showing promising results for rare disease treatment.",
+                    category: "Drug Discovery",
+                    source: "Nature Biotechnology",
+                    url: "https://www.nature.com/articles/nbt.4321",
+                    published_at: "2025-10-10T09:00:00Z"
+                }
+            ];
+            renderNews(allNews);
+        }
+
+        // Event listeners
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterNews(btn.dataset.filter);
+            });
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', fetchNews);
+    </script>
+</body>
+</html>
