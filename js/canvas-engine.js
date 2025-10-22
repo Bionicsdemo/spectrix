@@ -761,36 +761,55 @@ class CanvasEngine {
     }
 
     // ============= KEYBOARD SHORTCUTS =============
+    // Helper function to check if user is typing in an input field
+    isUserTyping() {
+        const activeElement = document.activeElement;
+        return activeElement && (
+            activeElement.tagName === 'INPUT' ||
+            activeElement.tagName === 'TEXTAREA' ||
+            activeElement.isContentEditable
+        );
+    }
+
     setupKeyboardShortcuts() {
         document.addEventListener('keydown', (e) => {
-            // Delete node
+            // Delete node - BUT NOT when typing in an input/textarea
             if ((e.key === 'Delete' || e.key === 'Backspace') && this.selectedNode) {
-                e.preventDefault();
-                this.deleteNode(this.selectedNode);
+                // Only delete node if NOT typing
+                if (!this.isUserTyping()) {
+                    e.preventDefault();
+                    this.deleteNode(this.selectedNode);
+                }
             }
 
-            // Copy (Ctrl/Cmd + C)
+            // Copy (Ctrl/Cmd + C) - NOT when typing
             if ((e.ctrlKey || e.metaKey) && e.key === 'c' && this.selectedNode) {
-                e.preventDefault();
-                this.copyNode();
+                if (!this.isUserTyping()) {
+                    e.preventDefault();
+                    this.copyNode();
+                }
             }
 
-            // Paste (Ctrl/Cmd + V)
+            // Paste (Ctrl/Cmd + V) - NOT when typing
             if ((e.ctrlKey || e.metaKey) && e.key === 'v' && this.clipboard) {
-                e.preventDefault();
-                this.pasteNode();
+                if (!this.isUserTyping()) {
+                    e.preventDefault();
+                    this.pasteNode();
+                }
             }
 
-            // Save (Ctrl/Cmd + S)
+            // Save (Ctrl/Cmd + S) - Allow even when typing (always want to save)
             if ((e.ctrlKey || e.metaKey) && e.key === 's') {
                 e.preventDefault();
                 this.saveWorkflow();
             }
 
-            // Select All (Ctrl/Cmd + A)
+            // Select All (Ctrl/Cmd + A) - NOT when typing
             if ((e.ctrlKey || e.metaKey) && e.key === 'a') {
-                e.preventDefault();
-                // TODO: Select all nodes
+                if (!this.isUserTyping()) {
+                    e.preventDefault();
+                    // TODO: Select all nodes
+                }
             }
         });
     }
