@@ -1068,11 +1068,17 @@ class CanvasEngine {
         console.scrollTop = console.scrollHeight;
     }
 
-    setNodeStatus(nodeId, status) {
+    setNodeStatus(nodeId, status, resultData = null) {
         const node = this.nodes.get(nodeId);
         if (!node) return;
 
         node.status = status;
+
+        // Store result data if provided
+        if (resultData) {
+            node.resultData = resultData;
+        }
+
         const element = node.element;
         const statusDot = element.querySelector('.node-status');
 

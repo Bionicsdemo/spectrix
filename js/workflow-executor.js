@@ -76,8 +76,18 @@ class WorkflowExecutor {
                 // Set node as completed or error
                 if (result.success) {
                     if (window.workflowCanvas) {
-                        window.workflowCanvas.setNodeStatus(nodeId, 'completed');
-                        window.workflowCanvas.logConsole('success', `✓ ${node.type} completed`);
+                        window.workflowCanvas.setNodeStatus(nodeId, 'completed', result.data);
+
+                        // Log completion with IBM job link if available
+                        let completionMsg = `✓ ${node.type} completed`;
+                        if (result.data && result.data.job_id) {
+                            completionMsg += ` | IBM Job: ${result.data.job_id}`;
+                            window.workflowCanvas.logConsole('info', `🔗 View on IBM: https://quantum.ibm.com/jobs/${result.data.job_id}`);
+                        }
+                        if (result.data && result.data.execution_time) {
+                            completionMsg += ` (${result.data.execution_time.toFixed(1)}s)`;
+                        }
+                        window.workflowCanvas.logConsole('success', completionMsg);
                     }
 
                     // Handle export nodes - auto download
