@@ -495,8 +495,22 @@
             width: 340px;
             background: var(--color-bg-card);
             border-left: 1px solid var(--color-border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .properties-section {
+            flex: 0 0 50%;
             overflow-y: auto;
             padding: 24px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .results-section {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            background: var(--color-bg-dark);
         }
 
         .properties-title {
@@ -526,6 +540,162 @@
             margin-bottom: 16px;
             padding-bottom: 8px;
             border-bottom: 1px solid var(--color-border);
+        }
+
+        /* Results Panel Styles */
+        .results-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--color-text-secondary);
+        }
+
+        .results-empty i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.3;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--color-primary);
+        }
+
+        .result-header-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon-small {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            color: var(--color-text-secondary);
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .btn-icon-small:hover {
+            background: var(--color-bg-hover);
+            color: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+
+        .result-metadata {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .metadata-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .metadata-row:last-child {
+            border-bottom: none;
+        }
+
+        .metadata-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metadata-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-text);
+            font-family: 'Fira Code', monospace;
+        }
+
+        .metadata-value.success {
+            color: var(--color-success);
+        }
+
+        .metadata-value.link {
+            color: var(--color-primary);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .metadata-value.link:hover {
+            color: var(--color-secondary);
+        }
+
+        .result-json {
+            background: #0d0d12;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+            overflow-x: auto;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .json-key {
+            color: #9d4edd;
+            font-weight: 600;
+        }
+
+        .json-string {
+            color: #00ff88;
+        }
+
+        .json-number {
+            color: #00d4ff;
+        }
+
+        .json-boolean {
+            color: #ffaa00;
+            font-weight: 600;
+        }
+
+        .json-null {
+            color: #ff3366;
+            font-weight: 600;
+        }
+
+        .json-bracket {
+            color: var(--color-text-secondary);
+        }
+
+        .json-expandable {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .json-expandable:hover {
+            background: var(--color-bg-hover);
+        }
+
+        .json-collapsed {
+            display: inline;
+            color: var(--color-text-secondary);
+            font-style: italic;
         }
 
         /* Execution Console */
@@ -971,16 +1141,33 @@
             </div>
         </div>
 
-        <!-- Right Sidebar - Properties -->
+        <!-- Right Sidebar - Properties & Results -->
         <div class="properties-panel" id="properties-panel">
-            <div class="properties-title">
-                <i class="fas fa-sliders-h"></i>
-                Node Properties
+            <!-- Properties Section (Top Half) -->
+            <div class="properties-section">
+                <div class="properties-title">
+                    <i class="fas fa-sliders-h"></i>
+                    Node Properties
+                </div>
+                <div id="properties-content">
+                    <div style="text-align: center; padding: 40px 20px; color: var(--color-text-secondary);">
+                        <i class="fas fa-hand-pointer" style="font-size: 48px; margin-bottom: 16px; opacity: 0.3;"></i>
+                        <p>Select a node to view its properties</p>
+                    </div>
+                </div>
             </div>
-            <div id="properties-content">
-                <div style="text-align: center; padding: 40px 20px; color: var(--color-text-secondary);">
-                    <i class="fas fa-hand-pointer" style="font-size: 48px; margin-bottom: 16px; opacity: 0.3;"></i>
-                    <p>Select a node to view its properties</p>
+
+            <!-- Results Section (Bottom Half) -->
+            <div class="results-section">
+                <div class="properties-title">
+                    <i class="fas fa-chart-bar"></i>
+                    Execution Results
+                </div>
+                <div id="results-content">
+                    <div class="results-empty">
+                        <i class="fas fa-flask"></i>
+                        <p>Execute a node to view results</p>
+                    </div>
                 </div>
             </div>
         </div>

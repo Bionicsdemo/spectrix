@@ -1103,6 +1103,188 @@ class CanvasEngine {
             }
         }
     }
+
+    displayResults(nodeId, resultData) {
+        const resultsContainer = document.getElementById('results-content');
+        if (!resultsContainer) return;
+
+        if (!resultData) {
+            resultsContainer.innerHTML = `
+                <div class="results-empty">
+                    <i class="fas fa-flask"></i>
+                    <p>No results available</p>
+                </div>
+            `;
+            return;
+        }
+
+        const node = this.nodes.get(nodeId);
+        const nodeType = node ? node.type : 'unknown';
+
+        // Build results HTML
+        let html = `
+            <div class="result-header">
+                <div class="result-header-title">
+                    <i class="fas fa-check-circle"></i>
+                    ${nodeType} Results
+                </div>
+                <div class="result-actions">
+                    <button class="btn-icon-small" onclick="window.workflowCanvas.copyResults('${nodeId}')" title="Copy JSON">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                    <button class="btn-icon-small" onclick="window.workflowCanvas.downloadResults('${nodeId}')" title="Download JSON">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+
+        // Metadata section
+        if (resultData.job_id || resultData.execution_time || resultData.backend_used) {
+            html += `<div class="result-metadata">`;
+
+            if (resultData.job_id) {
+                html += `
+                    <div class="metadata-row">
+                        <span class="metadata-label">IBM Job ID</span>
+                        <span class="metadata-value link" onclick="window.open('https://quantum.ibm.com/jobs/${resultData.job_id}', '_blank')">
+                            ${resultData.job_id}
+                        </span>
+                    </div>
+                `;
+            }
+
+            if (resultData.backend_used) {
+                html += `
+                    <div class="metadata-row">
+                        <span class="metadata-label">Backend</span>
+                        <span class="metadata-value success">${resultData.backend_used}</span>
+                    </div>
+                `;
+            }
+
+            if (resultData.execution_time) {
+                html += `
+                    <div class="metadata-row">
+                        <span class="metadata-label">Execution Time</span>
+                        <span class="metadata-value">${resultData.execution_time.toFixed(2)}s</span>
+                    </div>
+                `;
+            }
+
+            if (resultData.shots_used) {
+                html += `
+                    <div class="metadata-row">
+                        <span class="metadata-label">Shots</span>
+                        <span class="metadata-value">${resultData.shots_used}</span>
+                    </div>
+                `;
+            }
+
+            if (resultData.cost_usd) {
+                html += `
+                    <div class="metadata-row">
+                        <span class="metadata-label">Cost</span>
+                        <span class="metadata-value">$${resultData.cost_usd}</span>
+                    </div>
+                `;
+            }
+
+            html += `</div>`;
+        }
+
+        // JSON viewer
+        html += `<div class="result-json">${this.formatJSON(resultData, 0)}</div>`;
+
+        resultsContainer.innerHTML = html;
+    }
+
+    formatJSON(obj, depth = 0) {
+        const indent = '  '.repeat(depth);
+        const nextIndent = '  '.repeat(depth + 1);
+
+        if (obj === null) {
+            return `<span class="json-null">null</span>`;
+        }
+
+        if (typeof obj === 'boolean') {
+            return `<span class="json-boolean">${obj}</span>`;
+        }
+
+        if (typeof obj === 'number') {
+            return `<span class="json-number">${obj}</span>`;
+        }
+
+        if (typeof obj === 'string') {
+            return `<span class="json-string">"${this.escapeHTML(obj)}"</span>`;
+        }
+
+        if (Array.isArray(obj)) {
+            if (obj.length === 0) return `<span class="json-bracket">[]</span>`;
+
+            let result = `<span class="json-bracket">[</span>\n`;
+            obj.forEach((item, i) => {
+                result += nextIndent + this.formatJSON(item, depth + 1);
+                if (i < obj.length - 1) result += '<span class="json-bracket">,</span>';
+                result += '\n';
+            });
+            result += indent + `<span class="json-bracket">]</span>`;
+            return result;
+        }
+
+        if (typeof obj === 'object') {
+            const keys = Object.keys(obj);
+            if (keys.length === 0) return `<span class="json-bracket">{}</span>`;
+
+            let result = `<span class="json-bracket">{</span>\n`;
+            keys.forEach((key, i) => {
+                result += nextIndent + `<span class="json-key">"${this.escapeHTML(key)}"</span>: `;
+                result += this.formatJSON(obj[key], depth + 1);
+                if (i < keys.length - 1) result += '<span class="json-bracket">,</span>';
+                result += '\n';
+            });
+            result += indent + `<span class="json-bracket">}</span>`;
+            return result;
+        }
+
+        return String(obj);
+    }
+
+    escapeHTML(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+
+    copyResults(nodeId) {
+        const node = this.nodes.get(nodeId);
+        if (!node || !node.resultData) return;
+
+        const jsonString = JSON.stringify(node.resultData, null, 2);
+        navigator.clipboard.writeText(jsonString).then(() => {
+            this.logConsole('success', '📋 Results copied to clipboard');
+        }).catch(err => {
+            this.logConsole('error', 'Failed to copy results');
+        });
+    }
+
+    downloadResults(nodeId) {
+        const node = this.nodes.get(nodeId);
+        if (!node || !node.resultData) return;
+
+        const jsonString = JSON.stringify(node.resultData, null, 2);
+        const blob = new Blob([jsonString], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${node.type}-results-${Date.now()}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        this.logConsole('success', `📥 Downloaded ${a.download}`);
+    }
 }
 
 // Export for use in other modules

@@ -78,6 +78,9 @@ class WorkflowExecutor {
                     if (window.workflowCanvas) {
                         window.workflowCanvas.setNodeStatus(nodeId, 'completed', result.data);
 
+                        // Display results in results panel
+                        window.workflowCanvas.displayResults(nodeId, result.data);
+
                         // Log completion with IBM job link if available
                         let completionMsg = `✓ ${node.type} completed`;
                         if (result.data && result.data.job_id) {
