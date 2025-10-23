@@ -1028,6 +1028,34 @@
                         <div class="node-desc">Guide sequences</div>
                     </div>
                 </div>
+                <div class="node-item" draggable="true" data-node-type="offtarget-screening">
+                    <i class="fas fa-dna"></i>
+                    <div class="node-info">
+                        <div class="node-name">Off-Target Screen</div>
+                        <div class="node-desc">Screen for CRISPR off-targets</div>
+                    </div>
+                </div>
+                <div class="node-item" draggable="true" data-node-type="batch-guide-ranking">
+                    <i class="fas fa-sort-amount-down"></i>
+                    <div class="node-info">
+                        <div class="node-name">Batch Guide Rank</div>
+                        <div class="node-desc">Rank multiple CRISPR guides</div>
+                    </div>
+                </div>
+                <div class="node-item" draggable="true" data-node-type="resistance-analysis">
+                    <i class="fas fa-shield-virus"></i>
+                    <div class="node-info">
+                        <div class="node-name">Resistance Analysis</div>
+                        <div class="node-desc">Analyze mutation resistance</div>
+                    </div>
+                </div>
+                <div class="node-item" draggable="true" data-node-type="offtarget-phenotype">
+                    <i class="fas fa-microscope"></i>
+                    <div class="node-info">
+                        <div class="node-name">Off-Target Effect</div>
+                        <div class="node-desc">Predict phenotypic effects</div>
+                    </div>
+                </div>
                 <div class="node-item" draggable="true" data-node-type="denovo-designer">
                     <div class="node-icon quantum"><i class="fas fa-wand-magic-sparkles"></i></div>
                     <div class="node-info">
@@ -1047,6 +1075,103 @@
                     <div class="node-info">
                         <div class="node-name">Binding Affinity</div>
                         <div class="node-desc">Calculate binding</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QUANTUM ANALYSIS -->
+            <div class="node-category">
+                <div class="category-title">
+                    <i class="fas fa-chart-line"></i>
+                    Quantum Analysis
+                </div>
+                <div class="node-item" draggable="true" data-node-type="quantum-noise-analysis">
+                    <i class="fas fa-wave-square"></i>
+                    <div class="node-info">
+                        <div class="node-name">Noise Analysis</div>
+                        <div class="node-desc">Analyze quantum noise</div>
+                    </div>
+                </div>
+
+                <div class="node-item" draggable="true" data-node-type="error-mitigation">
+                    <i class="fas fa-eraser"></i>
+                    <div class="node-info">
+                        <div class="node-name">Error Mitigation</div>
+                        <div class="node-desc">Mitigate quantum errors</div>
+                    </div>
+                </div>
+
+                <div class="node-item" draggable="true" data-node-type="quantum-classical-correlation">
+                    <i class="fas fa-balance-scale"></i>
+                    <div class="node-info">
+                        <div class="node-name">Q-C Correlation</div>
+                        <div class="node-desc">Compare quantum vs classical</div>
+                    </div>
+                </div>
+
+                <div class="node-item" draggable="true" data-node-type="enhanced-quantum">
+                    <i class="fas fa-rocket"></i>
+                    <div class="node-info">
+                        <div class="node-name">Enhanced Quantum</div>
+                        <div class="node-desc">Advanced quantum execution</div>
+                    </div>
+                </div>
+
+                <div class="node-item" draggable="true" data-node-type="validate-hamiltonian">
+                    <i class="fas fa-check-double"></i>
+                    <div class="node-info">
+                        <div class="node-name">Validate Hamiltonian</div>
+                        <div class="node-desc">Check Hamiltonian validity</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MOLECULAR CHEMISTRY -->
+            <div class="node-category">
+                <div class="category-title">
+                    <i class="fas fa-flask"></i>
+                    Molecular Chemistry
+                </div>
+                <div class="node-item" draggable="true" data-node-type="bioisostere-replacement">
+                    <i class="fas fa-exchange-alt"></i>
+                    <div class="node-info">
+                        <div class="node-name">Bioisostere Replace</div>
+                        <div class="node-desc">Suggest molecular replacements</div>
+                    </div>
+                </div>
+                <div class="node-item" draggable="true" data-node-type="smiles-to-geometry">
+                    <i class="fas fa-cube"></i>
+                    <div class="node-info">
+                        <div class="node-name">SMILES → 3D</div>
+                        <div class="node-desc">Convert to 3D geometry</div>
+                    </div>
+                </div>
+                <div class="node-item" draggable="true" data-node-type="local-adme">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <div class="node-info">
+                        <div class="node-name">Local ADME</div>
+                        <div class="node-desc">Fast ADME (no quantum)</div>
+                    </div>
+                </div>
+                <div class="node-item" draggable="true" data-node-type="local-toxicity">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <div class="node-info">
+                        <div class="node-name">Local Toxicity</div>
+                        <div class="node-desc">Fast toxicity (no quantum)</div>
+                    </div>
+                </div>
+                <div class="node-item" draggable="true" data-node-type="molecular-hamiltonian">
+                    <i class="fas fa-atom"></i>
+                    <div class="node-info">
+                        <div class="node-name">Build Hamiltonian</div>
+                        <div class="node-desc">Molecular Hamiltonian matrix</div>
+                    </div>
+                </div>
+                <div class="node-item" draggable="true" data-node-type="extract-quantum-features">
+                    <i class="fas fa-project-diagram"></i>
+                    <div class="node-info">
+                        <div class="node-name">Quantum Features</div>
+                        <div class="node-desc">Extract quantum properties</div>
                     </div>
                 </div>
             </div>
@@ -1076,6 +1201,100 @@
                     <div class="node-info">
                         <div class="node-name">If/Then</div>
                         <div class="node-desc">Conditional logic</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BENCHMARKING & UTILITIES -->
+            <div class="node-category">
+                <div class="category-title">
+                    <i class="fas fa-toolbox"></i>
+                    Benchmarking &amp; Utilities
+                </div>
+                <div class="node-item" draggable="true" data-node-type="benchmark">
+                    <i class="fas fa-stopwatch"></i>
+                    <div class="node-info">
+                        <div class="node-name">Benchmark</div>
+                        <div class="node-desc">Run quantum benchmark</div>
+                    </div>
+                </div>
+
+                <div class="node-item" draggable="true" data-node-type="quick-benchmark">
+                    <i class="fas fa-bolt"></i>
+                    <div class="node-info">
+                        <div class="node-name">Quick Benchmark</div>
+                        <div class="node-desc">Fast installation test</div>
+                    </div>
+                </div>
+
+                <div class="node-item" draggable="true" data-node-type="pipeline">
+                    <i class="fas fa-project-diagram"></i>
+                    <div class="node-info">
+                        <div class="node-name">Complete Pipeline</div>
+                        <div class="node-desc">Full drug discovery flow</div>
+                    </div>
+                </div>
+
+                <div class="node-item" draggable="true" data-node-type="interpret-bio-results">
+                    <i class="fas fa-book-medical"></i>
+                    <div class="node-info">
+                        <div class="node-name">Interpret Results</div>
+                        <div class="node-desc">Biological interpretation</div>
+                    </div>
+                </div>
+
+                <div class="node-item" draggable="true" data-node-type="docking-smiles">
+                    <i class="fas fa-link"></i>
+                    <div class="node-info">
+                        <div class="node-name">Direct Docking</div>
+                        <div class="node-desc">SMILES to receptor dock</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BACKEND & RESOURCES -->
+            <div class="node-category">
+                <div class="category-title">
+                    <i class="fas fa-server"></i>
+                    Backend &amp; Resources
+                </div>
+                <div class="node-item" draggable="true" data-node-type="list-backends">
+                    <i class="fas fa-server"></i>
+                    <div class="node-info">
+                        <div class="node-name">List Backends</div>
+                        <div class="node-desc">Show available backends</div>
+                    </div>
+                </div>
+
+                <div class="node-item" draggable="true" data-node-type="check-installation">
+                    <i class="fas fa-check-circle"></i>
+                    <div class="node-info">
+                        <div class="node-name">Check Install</div>
+                        <div class="node-desc">Verify BioQL setup</div>
+                    </div>
+                </div>
+
+                <div class="node-item" draggable="true" data-node-type="get-bioql-info">
+                    <i class="fas fa-info-circle"></i>
+                    <div class="node-info">
+                        <div class="node-name">BioQL Info</div>
+                        <div class="node-desc">Version and capabilities</div>
+                    </div>
+                </div>
+
+                <div class="node-item" draggable="true" data-node-type="resource-estimation">
+                    <i class="fas fa-chart-line"></i>
+                    <div class="node-info">
+                        <div class="node-name">Estimate Resources</div>
+                        <div class="node-desc">Calculate requirements</div>
+                    </div>
+                </div>
+
+                <div class="node-item" draggable="true" data-node-type="auto-select-active-space">
+                    <i class="fas fa-magic"></i>
+                    <div class="node-info">
+                        <div class="node-name">Auto Active Space</div>
+                        <div class="node-desc">Optimal orbital selection</div>
                     </div>
                 </div>
             </div>
