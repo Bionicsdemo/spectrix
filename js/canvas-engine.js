@@ -504,6 +504,64 @@ class CanvasEngine {
         }
 
         html += `</div>`;
+
+        // Add Quantum Configuration section for quantum nodes
+        const quantumNodeTypes = [
+            'vina-docking', 'adme-prediction', 'toxicity-prediction',
+            'crispr-design', 'denovo-designer', 'molecular-hamiltonian',
+            'extract-quantum-features', 'benchmark', 'enhanced-quantum'
+        ];
+
+        if (quantumNodeTypes.includes(node.type)) {
+            html += `
+            <div class="property-group">
+                <div class="property-group-title">Quantum Configuration</div>
+
+                <div class="node-param">
+                    <div class="param-label">Qubits</div>
+                    <input type="number" class="param-input" data-node="${nodeId}" data-param="num_qubits" name="num_qubits" placeholder="Auto" min="1" max="127">
+                    <small style="display: block; color: var(--color-text-secondary); font-size: 11px; margin-top: 4px;">Number of qubits (leave empty for auto)</small>
+                </div>
+
+                <div class="node-param">
+                    <div class="param-label">Circuit Depth</div>
+                    <input type="number" class="param-input" data-node="${nodeId}" data-param="circuit_depth" name="circuit_depth" placeholder="Auto" min="1">
+                    <small style="display: block; color: var(--color-text-secondary); font-size: 11px; margin-top: 4px;">Circuit depth/layers (leave empty for auto)</small>
+                </div>
+
+                <div class="node-param">
+                    <div class="param-label">Optimization Level</div>
+                    <select class="param-input" data-node="${nodeId}" data-param="optimization_level" name="optimization_level">
+                        <option value="0">0 - No optimization</option>
+                        <option value="1">1 - Light optimization</option>
+                        <option value="2" selected>2 - Medium optimization</option>
+                        <option value="3">3 - Heavy optimization</option>
+                    </select>
+                </div>
+
+                <div class="node-param">
+                    <div class="param-label">Entanglement</div>
+                    <select class="param-input" data-node="${nodeId}" data-param="entanglement" name="entanglement">
+                        <option value="full" selected>Full</option>
+                        <option value="linear">Linear</option>
+                        <option value="circular">Circular</option>
+                        <option value="sca">SCA</option>
+                    </select>
+                </div>
+
+                <div class="node-param">
+                    <div class="param-label">Repetitions</div>
+                    <input type="number" class="param-input" data-node="${nodeId}" data-param="repetitions" name="repetitions" placeholder="Auto" min="1">
+                </div>
+
+                <div class="node-param">
+                    <div class="param-label">Max Time (seconds)</div>
+                    <input type="number" class="param-input" data-node="${nodeId}" data-param="max_time" name="max_time" placeholder="No limit" min="1">
+                </div>
+            </div>
+            `;
+        }
+
         panel.innerHTML = html;
 
         // Add event listeners to update node inputs
