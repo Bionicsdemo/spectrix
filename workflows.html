@@ -276,7 +276,8 @@
             background: var(--color-bg-card);
             border: 2px solid var(--color-border);
             border-radius: 12px;
-            min-width: 200px;
+            min-width: 280px;
+            max-width: 350px;
             box-shadow: var(--shadow);
             cursor: move;
             transition: all 0.2s;
@@ -311,23 +312,30 @@
         }
 
         .node-header {
-            padding: 12px 16px;
+            padding: 14px 18px;
             border-bottom: 1px solid var(--color-border);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .node-header .node-icon {
-            width: 28px;
-            height: 28px;
-            font-size: 14px;
+            width: 32px;
+            height: 32px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .node-title {
             flex: 1;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .node-status {
@@ -356,17 +364,22 @@
         }
 
         .node-body {
-            padding: 16px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
         }
 
         .node-param {
-            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }
 
         .param-label {
-            font-size: 12px;
+            font-size: 13px;
+            font-weight: 500;
             color: var(--color-text-secondary);
-            margin-bottom: 4px;
         }
 
         .param-input {
@@ -374,17 +387,36 @@
             background: var(--color-bg-dark);
             border: 1px solid var(--color-border);
             border-radius: 6px;
-            padding: 8px 12px;
+            padding: 10px 14px;
             color: var(--color-text);
-            font-size: 13px;
+            font-size: 14px;
+            box-sizing: border-box;
         }
 
         .param-input:focus {
             outline: none;
             border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
         }
 
         select.param-input {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300d4ff' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 36px;
+        }
+
+        textarea.param-input {
+            resize: vertical;
+            min-height: 60px;
+            font-family: 'Courier New', monospace;
+            line-height: 1.5;
+        }
+
+        input[type="checkbox"].param-input {
+            width: auto;
             cursor: pointer;
         }
 
