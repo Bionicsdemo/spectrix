@@ -39,7 +39,7 @@
         </div>
         <div class="container" style="position: relative; z-index: 1;">
             <h1 style="font-size: 3rem; margin-bottom: 1rem;">API Reference</h1>
-            <p style="font-size: 1.25rem; color: var(--color-text-secondary);">Complete API documentation for BioQL v5.7.5</p>
+            <p style="font-size: 1.25rem; color: var(--color-text-secondary);">Complete API documentation for BioQL v6.0.0</p>
         </div>
     </section>
 
@@ -90,6 +90,142 @@ results = run_complete_pipeline(
                 <h4 style="color: var(--color-quantum-blue); font-family: var(--font-code);">ToxicityPredictionCircuit</h4>
                 <p style="color: var(--color-text-secondary);">Multi-endpoint toxicity screening with quantum classifiers.</p>
                 <p style="color: var(--color-text-muted); font-size: 0.9em;">Methods: predict_toxicity(), get_alerts(), calculate_risk_score()</p>
+            </div>
+
+            <h2 style="font-size: 2rem; margin: 3rem 0 2rem; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Multi-Omics Functions (v6.0.0)</h2>
+
+            <div style="border-left: 4px solid var(--color-quantum-blue); padding-left: 2rem; margin: 2rem 0;">
+                <h3 style="font-family: var(--font-code); color: var(--color-quantum-blue);">analyze_protein_sequence(sequence, analysis_type, shots)</h3>
+                <p style="color: var(--color-text-secondary); margin: 1rem 0;">Analyze protein sequences for physicochemical properties, secondary structure, and functional domains.</p>
+                <pre style="background: var(--color-bg-darker); padding: 1.5rem; border-radius: var(--radius-md); overflow-x: auto;"><code>from bioql.omics import ProteomicsCircuit
+
+circuit = ProteomicsCircuit(backend='ibm_quantum')
+result = circuit.analyze_protein_sequence(
+    sequence="MKLLVLCLAAALARPKHPIKHQGLPQEVLNENLLRFFVAPFPEVFGK",
+    analysis_type="comprehensive",
+    shots=4096
+)
+
+print(result.molecular_weight)
+print(result.isoelectric_point)
+print(result.secondary_structure)</code></pre>
+            </div>
+
+            <div style="border-left: 4px solid var(--color-quantum-blue); padding-left: 2rem; margin: 2rem 0;">
+                <h3 style="font-family: var(--font-code); color: var(--color-quantum-blue);">predict_ptm_sites(sequence, modification_types, confidence_threshold)</h3>
+                <p style="color: var(--color-text-secondary); margin: 1rem 0;">Predict post-translational modification sites including phosphorylation, acetylation, and methylation.</p>
+                <pre style="background: var(--color-bg-darker); padding: 1.5rem; border-radius: var(--radius-md); overflow-x: auto;"><code>from bioql.omics import ProteomicsCircuit
+
+circuit = ProteomicsCircuit(backend='ionq')
+ptm_result = circuit.predict_ptm_sites(
+    sequence="MKLLVLCLAAALARPKHPIKHQGLPQEVLNENLLRFFVAPFPEVFGK",
+    modification_types=['phosphorylation', 'acetylation'],
+    confidence_threshold=0.75
+)
+
+for site in ptm_result.predicted_sites:
+    print(f"Position {site.position}: {site.modification_type}")
+    print(f"Confidence: {site.confidence}")</code></pre>
+            </div>
+
+            <div style="border-left: 4px solid var(--color-quantum-blue); padding-left: 2rem; margin: 2rem 0;">
+                <h3 style="font-family: var(--font-code); color: var(--color-quantum-blue);">identify_metabolite(mass_spectrum, ionization_mode, database)</h3>
+                <p style="color: var(--color-text-secondary); margin: 1rem 0;">Identify metabolites from mass spectrometry data using quantum similarity search.</p>
+                <pre style="background: var(--color-bg-darker); padding: 1.5rem; border-radius: var(--radius-md); overflow-x: auto;"><code>from bioql.omics import MetabolomicsCircuit
+
+circuit = MetabolomicsCircuit(backend='ibm_quantum')
+result = circuit.identify_metabolite(
+    mass_spectrum={
+        'peaks': [180.063, 342.116, 504.169],
+        'intensities': [100, 85, 45]
+    },
+    ionization_mode='positive',
+    database='hmdb',
+    shots=4096
+)
+
+print(f"Match: {result.top_match.name}")
+print(f"Score: {result.top_match.score}")</code></pre>
+            </div>
+
+            <div style="border-left: 4px solid var(--color-quantum-blue); padding-left: 2rem; margin: 2rem 0;">
+                <h3 style="font-family: var(--font-code); color: var(--color-quantum-blue);">analyze_metabolic_pathway(pathway_id, metabolite_concentrations, conditions)</h3>
+                <p style="color: var(--color-text-secondary); margin: 1rem 0;">Analyze metabolic pathways and predict flux distributions using QAOA optimization.</p>
+                <pre style="background: var(--color-bg-darker); padding: 1.5rem; border-radius: var(--radius-md); overflow-x: auto;"><code>from bioql.omics import MetabolomicsCircuit
+
+circuit = MetabolomicsCircuit(backend='simulator')
+pathway_result = circuit.analyze_metabolic_pathway(
+    pathway_id='glycolysis',
+    metabolite_concentrations={
+        'glucose': 5.0,
+        'pyruvate': 0.8,
+        'lactate': 1.2
+    },
+    conditions={'pH': 7.4, 'temperature': 37}
+)
+
+print(f"Pathway Flux: {pathway_result.total_flux}")
+print(f"Bottleneck: {pathway_result.bottleneck_reaction}")</code></pre>
+            </div>
+
+            <div style="border-left: 4px solid var(--color-quantum-blue); padding-left: 2rem; margin: 2rem 0;">
+                <h3 style="font-family: var(--font-code); color: var(--color-quantum-blue);">integrate_omics_layers(genomics_data, transcriptomics_data, proteomics_data, metabolomics_data)</h3>
+                <p style="color: var(--color-text-secondary); margin: 1rem 0;">Integrate multiple omics layers for cross-layer correlation and pathway enrichment analysis.</p>
+                <pre style="background: var(--color-bg-darker); padding: 1.5rem; border-radius: var(--radius-md); overflow-x: auto;"><code>from bioql.omics import MultiOmicsIntegrator
+
+integrator = MultiOmicsIntegrator(backend='ibm_quantum')
+result = integrator.integrate_omics_layers(
+    genomics_data={'variants': ['rs123456', 'rs789012']},
+    transcriptomics_data={'gene_expression': {'EGFR': 8.5}},
+    proteomics_data={'protein_abundance': {'EGFR': 12.3}},
+    metabolomics_data={'metabolites': {'glucose': 5.0}},
+    integration_method='quantum_correlation',
+    shots=8192
+)
+
+print(f"Integration Score: {result.integration_score}")
+for corr in result.correlations:
+    print(f"{corr.layer1} - {corr.layer2}: r={corr.coefficient}")</code></pre>
+            </div>
+
+            <div style="border-left: 4px solid var(--color-quantum-blue); padding-left: 2rem; margin: 2rem 0;">
+                <h3 style="font-family: var(--font-code); color: var(--color-quantum-blue);">call_variants(bam_file, reference_genome, min_quality, min_depth)</h3>
+                <p style="color: var(--color-text-secondary); margin: 1rem 0;">Call genetic variants from sequencing data with quantum-enhanced accuracy.</p>
+                <pre style="background: var(--color-bg-darker); padding: 1.5rem; border-radius: var(--radius-md); overflow-x: auto;"><code>from bioql.omics import GenomicsCircuit
+
+circuit = GenomicsCircuit(backend='ibm_quantum')
+variants = circuit.call_variants(
+    bam_file='sample_aligned.bam',
+    reference_genome='hg38',
+    min_quality=30,
+    min_depth=10,
+    shots=4096
+)
+
+print(f"Total Variants: {len(variants.variants)}")
+print(f"SNPs: {variants.num_snps}")
+print(f"Indels: {variants.num_indels}")</code></pre>
+            </div>
+
+            <div style="border-left: 4px solid var(--color-quantum-blue); padding-left: 2rem; margin: 2rem 0;">
+                <h3 style="font-family: var(--font-code); color: var(--color-quantum-blue);">analyze_rna_seq(counts_matrix, sample_groups, normalization, fdr_threshold)</h3>
+                <p style="color: var(--color-text-secondary); margin: 1rem 0;">Perform differential gene expression analysis using quantum machine learning.</p>
+                <pre style="background: var(--color-bg-darker); padding: 1.5rem; border-radius: var(--radius-md); overflow-x: auto;"><code>from bioql.omics import GenomicsCircuit
+
+circuit = GenomicsCircuit(backend='ionq')
+rna_result = circuit.analyze_rna_seq(
+    counts_matrix='gene_counts.csv',
+    sample_groups={
+        'control': ['S1', 'S2', 'S3'],
+        'treatment': ['S4', 'S5', 'S6']
+    },
+    normalization='tmm',
+    fdr_threshold=0.05
+)
+
+print(f"DEGs: {len(rna_result.deg_list)}")
+print(f"Upregulated: {rna_result.num_upregulated}")
+print(f"Downregulated: {rna_result.num_downregulated}")</code></pre>
             </div>
 
             <h2 style="font-size: 2rem; margin: 3rem 0 2rem; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Quantum Backends</h2>

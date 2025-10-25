@@ -204,7 +204,7 @@
         <div class="container">
             <h1>Documentation</h1>
             <p style="font-size: 1.25rem; color: var(--color-text-secondary); max-width: 600px; margin: 1rem auto;">
-                Complete guides, API reference, and examples for BioQL v5.7.5
+                Complete guides, API reference, and examples for BioQL v6.0.0
             </p>
         </div>
     </section>
@@ -237,6 +237,10 @@
                         <li><a href="#adme">ADME Prediction</a></li>
                         <li><a href="#toxicity">Toxicity</a></li>
                         <li><a href="#crispr">CRISPR-QAI</a></li>
+                        <li><a href="#proteomics">Proteomics</a></li>
+                        <li><a href="#metabolomics">Metabolomics</a></li>
+                        <li><a href="#multi-omics">Multi-Omics Integration</a></li>
+                        <li><a href="#genomics">Advanced Genomics</a></li>
                     </ul>
 
                     <h3>Resources</h3>
@@ -527,10 +531,282 @@ code --install-extension bioql-assistant-4.13.5.vsix
                     </div>
                 </section>
 
+                <section id="proteomics">
+                    <h2>Proteomics Module</h2>
+                    <p>Quantum-enhanced protein sequence analysis, post-translational modification prediction, and protein structure characterization.</p>
+
+                    <h3>Protein Sequence Analysis</h3>
+                    <pre><code><span class="keyword">from</span> bioql.omics <span class="keyword">import</span> ProteomicsCircuit
+
+circuit = ProteomicsCircuit(
+    backend=<span class="string">'ibm_quantum'</span>,
+    api_key=<span class="string">'your_api_key'</span>
+)
+
+<span class="comment"># Analyze protein sequence</span>
+result = circuit.analyze_protein_sequence(
+    sequence=<span class="string">"MKLLVLCLAAALARPKHPIKHQGLPQEVLNENLLRFFVAPFPEVFGK"</span>,
+    analysis_type=<span class="string">"comprehensive"</span>,
+    shots=<span class="number">4096</span>
+)
+
+<span class="keyword">print</span>(f<span class="string">"Molecular Weight: {result.molecular_weight} Da"</span>)
+<span class="keyword">print</span>(f<span class="string">"Isoelectric Point: {result.isoelectric_point}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Hydrophobicity Score: {result.hydrophobicity}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Secondary Structure: {result.secondary_structure}"</span>)</code></pre>
+
+                    <h3>Post-Translational Modification Prediction</h3>
+                    <p>Predict phosphorylation, acetylation, methylation, and ubiquitination sites using quantum machine learning.</p>
+
+                    <pre><code><span class="keyword">from</span> bioql.omics <span class="keyword">import</span> ProteomicsCircuit
+
+circuit = ProteomicsCircuit(backend=<span class="string">'ionq'</span>)
+
+<span class="comment"># Predict PTM sites</span>
+ptm_result = circuit.predict_ptm_sites(
+    sequence=<span class="string">"MKLLVLCLAAALARPKHPIKHQGLPQEVLNENLLRFFVAPFPEVFGK"</span>,
+    modification_types=[<span class="string">'phosphorylation'</span>, <span class="string">'acetylation'</span>, <span class="string">'methylation'</span>],
+    confidence_threshold=<span class="number">0.75</span>
+)
+
+<span class="keyword">for</span> site <span class="keyword">in</span> ptm_result.predicted_sites:
+    <span class="keyword">print</span>(f<span class="string">"Position {site.position}: {site.modification_type}"</span>)
+    <span class="keyword">print</span>(f<span class="string">"  Confidence: {site.confidence:.2f}"</span>)
+    <span class="keyword">print</span>(f<span class="string">"  Residue: {site.residue}"</span>)</code></pre>
+
+                    <div class="docs-card">
+                        <h4>🧪 Proteomics Capabilities</h4>
+                        <ul style="color: var(--color-text-secondary); line-height: 2;">
+                            <li>Sequence composition and physicochemical properties</li>
+                            <li>PTM site prediction with 85%+ accuracy</li>
+                            <li>Protein-protein interaction prediction</li>
+                            <li>Domain and motif identification</li>
+                            <li>Stability and aggregation analysis</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="metabolomics">
+                    <h2>Metabolomics Module</h2>
+                    <p>Quantum algorithms for metabolite identification, pathway analysis, and metabolic flux prediction.</p>
+
+                    <h3>Metabolite Identification</h3>
+                    <pre><code><span class="keyword">from</span> bioql.omics <span class="keyword">import</span> MetabolomicsCircuit
+
+circuit = MetabolomicsCircuit(
+    backend=<span class="string">'ibm_quantum'</span>,
+    api_key=<span class="string">'your_api_key'</span>
+)
+
+<span class="comment"># Identify metabolite from mass spectrum</span>
+result = circuit.identify_metabolite(
+    mass_spectrum={
+        <span class="string">'peaks'</span>: [<span class="number">180.063</span>, <span class="number">342.116</span>, <span class="number">504.169</span>],
+        <span class="string">'intensities'</span>: [<span class="number">100</span>, <span class="number">85</span>, <span class="number">45</span>]
+    },
+    ionization_mode=<span class="string">'positive'</span>,
+    database=<span class="string">'hmdb'</span>,
+    shots=<span class="number">4096</span>
+)
+
+<span class="keyword">print</span>(f<span class="string">"Top Match: {result.top_match.name}"</span>)
+<span class="keyword">print</span>(f<span class="string">"HMDB ID: {result.top_match.hmdb_id}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Match Score: {result.top_match.score:.3f}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Formula: {result.top_match.molecular_formula}"</span>)</code></pre>
+
+                    <h3>Metabolic Pathway Analysis</h3>
+                    <p>Analyze metabolic pathways and predict flux distributions using quantum optimization.</p>
+
+                    <pre><code><span class="keyword">from</span> bioql.omics <span class="keyword">import</span> MetabolomicsCircuit
+
+circuit = MetabolomicsCircuit(backend=<span class="string">'simulator'</span>)
+
+<span class="comment"># Analyze metabolic pathway</span>
+pathway_result = circuit.analyze_metabolic_pathway(
+    pathway_id=<span class="string">'glycolysis'</span>,
+    metabolite_concentrations={
+        <span class="string">'glucose'</span>: <span class="number">5.0</span>,
+        <span class="string">'pyruvate'</span>: <span class="number">0.8</span>,
+        <span class="string">'lactate'</span>: <span class="number">1.2</span>
+    },
+    conditions={<span class="string">'pH'</span>: <span class="number">7.4</span>, <span class="string">'temperature'</span>: <span class="number">37</span>}
+)
+
+<span class="keyword">print</span>(f<span class="string">"Pathway Flux: {pathway_result.total_flux} mmol/L/h"</span>)
+<span class="keyword">print</span>(f<span class="string">"Rate-Limiting Step: {pathway_result.bottleneck_reaction}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Pathway Efficiency: {pathway_result.efficiency:.2%}"</span>)
+
+<span class="keyword">for</span> enzyme <span class="keyword">in</span> pathway_result.enzyme_activities:
+    <span class="keyword">print</span>(f<span class="string">"  {enzyme.name}: {enzyme.activity} U/mL"</span>)</code></pre>
+
+                    <div class="docs-card">
+                        <h4>🔬 Metabolomics Features</h4>
+                        <ul style="color: var(--color-text-secondary); line-height: 2;">
+                            <li>MS/MS spectral matching with quantum similarity search</li>
+                            <li>Metabolic pathway flux analysis (QAOA optimization)</li>
+                            <li>Integration with HMDB, KEGG, and MetaCyc databases</li>
+                            <li>Isotopologue pattern recognition</li>
+                            <li>Biomarker discovery and differential analysis</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="multi-omics">
+                    <h2>Multi-Omics Integration</h2>
+                    <p>Integrate genomics, transcriptomics, proteomics, and metabolomics data for comprehensive biological insights using quantum algorithms.</p>
+
+                    <h3>Multi-Layer Omics Integration</h3>
+                    <pre><code><span class="keyword">from</span> bioql.omics <span class="keyword">import</span> MultiOmicsIntegrator
+
+integrator = MultiOmicsIntegrator(
+    backend=<span class="string">'ibm_quantum'</span>,
+    api_key=<span class="string">'your_api_key'</span>
+)
+
+<span class="comment"># Integrate multiple omics layers</span>
+result = integrator.integrate_omics_layers(
+    genomics_data={
+        <span class="string">'variants'</span>: [<span class="string">'rs123456'</span>, <span class="string">'rs789012'</span>],
+        <span class="string">'copy_number'</span>: {<span class="string">'EGFR'</span>: <span class="number">3.2</span>, <span class="string">'TP53'</span>: <span class="number">1.0</span>}
+    },
+    transcriptomics_data={
+        <span class="string">'gene_expression'</span>: {<span class="string">'EGFR'</span>: <span class="number">8.5</span>, <span class="string">'TP53'</span>: <span class="number">6.2</span>}
+    },
+    proteomics_data={
+        <span class="string">'protein_abundance'</span>: {<span class="string">'EGFR'</span>: <span class="number">12.3</span>, <span class="string">'TP53'</span>: <span class="number">5.8</span>}
+    },
+    metabolomics_data={
+        <span class="string">'metabolites'</span>: {<span class="string">'glucose'</span>: <span class="number">5.0</span>, <span class="string">'lactate'</span>: <span class="number">2.1</span>}
+    },
+    integration_method=<span class="string">'quantum_correlation'</span>,
+    shots=<span class="number">8192</span>
+)
+
+<span class="keyword">print</span>(f<span class="string">"Integration Score: {result.integration_score:.3f}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Key Correlations:"</span>)
+<span class="keyword">for</span> corr <span class="keyword">in</span> result.correlations:
+    <span class="keyword">print</span>(f<span class="string">"  {corr.layer1} - {corr.layer2}: r={corr.coefficient:.3f}"</span>)
+
+<span class="keyword">print</span>(f<span class="string">"\nPathway Enrichment:"</span>)
+<span class="keyword">for</span> pathway <span class="keyword">in</span> result.enriched_pathways:
+    <span class="keyword">print</span>(f<span class="string">"  {pathway.name}: p={pathway.p_value:.2e}"</span>)</code></pre>
+
+                    <h3>Network Analysis</h3>
+                    <p>Build multi-omics interaction networks using quantum graph algorithms.</p>
+
+                    <pre><code><span class="keyword">from</span> bioql.omics <span class="keyword">import</span> MultiOmicsIntegrator
+
+integrator = MultiOmicsIntegrator(backend=<span class="string">'simulator'</span>)
+
+<span class="comment"># Build interaction network</span>
+network = integrator.build_interaction_network(
+    omics_data=result,
+    network_type=<span class="string">'correlation'</span>,
+    threshold=<span class="number">0.7</span>
+)
+
+<span class="keyword">print</span>(f<span class="string">"Network Nodes: {network.num_nodes}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Network Edges: {network.num_edges}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Hub Genes: {network.hub_nodes}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Communities Detected: {len(network.communities)}"</span>)</code></pre>
+
+                    <div class="docs-card">
+                        <h4>🧬 Multi-Omics Capabilities</h4>
+                        <ul style="color: var(--color-text-secondary); line-height: 2;">
+                            <li>Cross-layer correlation analysis with quantum speedup</li>
+                            <li>Pathway enrichment across all omics layers</li>
+                            <li>Network-based biomarker discovery</li>
+                            <li>Causal inference and regulatory network reconstruction</li>
+                            <li>Disease subtype classification</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="genomics">
+                    <h2>Advanced Genomics</h2>
+                    <p>Quantum algorithms for variant calling, RNA-seq analysis, and genome-wide association studies.</p>
+
+                    <h3>Variant Calling</h3>
+                    <pre><code><span class="keyword">from</span> bioql.omics <span class="keyword">import</span> GenomicsCircuit
+
+circuit = GenomicsCircuit(
+    backend=<span class="string">'ibm_quantum'</span>,
+    api_key=<span class="string">'your_api_key'</span>
+)
+
+<span class="comment"># Call variants from sequencing data</span>
+variants = circuit.call_variants(
+    bam_file=<span class="string">'sample_aligned.bam'</span>,
+    reference_genome=<span class="string">'hg38'</span>,
+    min_quality=<span class="number">30</span>,
+    min_depth=<span class="number">10</span>,
+    shots=<span class="number">4096</span>
+)
+
+<span class="keyword">print</span>(f<span class="string">"Total Variants Called: {len(variants.variants)}"</span>)
+<span class="keyword">print</span>(f<span class="string">"SNPs: {variants.num_snps}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Indels: {variants.num_indels}"</span>)
+
+<span class="keyword">for</span> variant <span class="keyword">in</span> variants.high_impact_variants:
+    <span class="keyword">print</span>(f<span class="string">"  {variant.chromosome}:{variant.position}"</span>)
+    <span class="keyword">print</span>(f<span class="string">"    {variant.ref} -> {variant.alt}"</span>)
+    <span class="keyword">print</span>(f<span class="string">"    Impact: {variant.impact_prediction}"</span>)</code></pre>
+
+                    <h3>RNA-Seq Differential Expression</h3>
+                    <p>Quantum machine learning for differential gene expression analysis.</p>
+
+                    <pre><code><span class="keyword">from</span> bioql.omics <span class="keyword">import</span> GenomicsCircuit
+
+circuit = GenomicsCircuit(backend=<span class="string">'ionq'</span>)
+
+<span class="comment"># Analyze RNA-seq data</span>
+rna_result = circuit.analyze_rna_seq(
+    counts_matrix=<span class="string">'gene_counts.csv'</span>,
+    sample_groups={
+        <span class="string">'control'</span>: [<span class="string">'S1'</span>, <span class="string">'S2'</span>, <span class="string">'S3'</span>],
+        <span class="string">'treatment'</span>: [<span class="string">'S4'</span>, <span class="string">'S5'</span>, <span class="string">'S6'</span>]
+    },
+    normalization=<span class="string">'tmm'</span>,
+    fdr_threshold=<span class="number">0.05</span>
+)
+
+<span class="keyword">print</span>(f<span class="string">"Differentially Expressed Genes: {len(rna_result.deg_list)}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Upregulated: {rna_result.num_upregulated}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Downregulated: {rna_result.num_downregulated}"</span>)
+
+<span class="keyword">print</span>(f<span class="string">"\nTop Upregulated Genes:"</span>)
+<span class="keyword">for</span> gene <span class="keyword">in</span> rna_result.top_upregulated(<span class="number">5</span>):
+    <span class="keyword">print</span>(f<span class="string">"  {gene.name}: log2FC={gene.log2fc:.2f}, padj={gene.padj:.2e}"</span>)</code></pre>
+
+                    <div class="docs-card">
+                        <h4>🧬 Advanced Genomics Features</h4>
+                        <ul style="color: var(--color-text-secondary); line-height: 2;">
+                            <li>Quantum-enhanced variant calling with improved accuracy</li>
+                            <li>Differential expression analysis using quantum ML</li>
+                            <li>Genome-wide association studies (GWAS)</li>
+                            <li>Structural variant detection</li>
+                            <li>Transcript isoform quantification</li>
+                            <li>ChIP-seq peak calling and motif discovery</li>
+                        </ul>
+                    </div>
+                </section>
+
                 <section id="changelog">
                     <h2>Changelog</h2>
 
-                    <h3>v5.7.5 (Current - October 2025)</h3>
+                    <h3>v6.0.0 (Current - October 2025)</h3>
+                    <ul style="color: var(--color-text-secondary); line-height: 2;">
+                        <li>🎉 NEW: Multi-Omics Platform with 4 new modules</li>
+                        <li>🧪 NEW: Proteomics module with PTM prediction</li>
+                        <li>🔬 NEW: Metabolomics module with pathway analysis</li>
+                        <li>🧬 NEW: Multi-Omics integration with quantum correlation</li>
+                        <li>📊 NEW: Advanced genomics with variant calling and RNA-seq</li>
+                        <li>✅ Enhanced quantum network analysis algorithms</li>
+                        <li>✅ Integration with HMDB, KEGG, and MetaCyc databases</li>
+                        <li>✅ Cross-omics pathway enrichment analysis</li>
+                    </ul>
+
+                    <h3>v5.7.5 (October 2025)</h3>
                     <ul style="color: var(--color-text-secondary); line-height: 2;">
                         <li>✅ Complete drug discovery pipeline with 7 modules</li>
                         <li>✅ De novo drug design module for novel molecule generation</li>
