@@ -3,6 +3,47 @@
 // ============================================
 
 // ============================================
+// Mobile Menu Toggle
+// ============================================
+const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+const navMenu = document.querySelector('.nav-menu');
+const navActions = document.querySelector('.nav-actions');
+
+if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener('click', () => {
+        mobileMenuToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        navActions.classList.toggle('active');
+
+        // Prevent body scroll when menu is open
+        document.body.style.overflow = mobileMenuToggle.classList.contains('active') ? 'hidden' : '';
+    });
+
+    // Close menu when clicking on a link
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenuToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            navActions.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!navMenu.contains(e.target) &&
+            !mobileMenuToggle.contains(e.target) &&
+            !navActions.contains(e.target) &&
+            mobileMenuToggle.classList.contains('active')) {
+            mobileMenuToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            navActions.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+}
+
+// ============================================
 // Smooth Scrolling
 // ============================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
