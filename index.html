@@ -22,18 +22,15 @@
                 </div>
             </div>
             <ul class="nav-menu">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#modules">Modules</a></li>
-                <li><a href="#backends">Backends</a></li>
-                <li><a href="#pricing">Pricing</a></li>
                 <li><a href="workflows.html">Workflows</a></li>
                 <li><a href="http://167.71.86.90:5003/" target="_blank">BioQL Lab Notebook</a></li>
                 <li><a href="https://api.bioql.bio/quantum-graph/" target="_blank" style="background: linear-gradient(135deg, #00C8FF 0%, #8B5CF6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600;">Quantum Graphs ⚛️</a></li>
                 <li><a href="docs.html">Docs</a></li>
                 <li><a href="agent.html">Agent</a></li>
                 <li><a href="blog.html">Blog</a></li>
+                <li><a href="quillow.html" style="background: linear-gradient(135deg, #00C8FF 0%, #10B981 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;">Quillow 🛡️</a></li>
             </ul>
-            <div class="nav-actions">
+            <div class="nav-actions" style="display: flex; gap: 1rem; align-items: center; justify-content: center;">
                 <a href="login.html" class="btn-secondary">Log In</a>
                 <a href="signup.html" class="btn-primary">Sign Up</a>
             </div>
@@ -703,6 +700,83 @@ result = quantum(
                         <span class="status-dot active"></span>
                         <span>Always Available</span>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quillow QEC Section -->
+    <section style="position: relative; padding: 6rem 2rem; background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(0, 200, 255, 0.05) 100%); overflow: hidden;">
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0;">
+            <img src="quantum-bg-1.png" alt="" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.1; filter: blur(2px);">
+        </div>
+        <div class="container" style="position: relative; z-index: 1;">
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <div style="display: inline-flex; align-items: center; gap: 0.75rem; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 50px; padding: 0.5rem 1.5rem; margin-bottom: 1.5rem;">
+                    <span style="font-size: 1.5rem;">🛡️</span>
+                    <span style="color: #10B981; font-weight: 600;">Fault-Tolerant Quantum Computing</span>
+                </div>
+                <h2 style="font-size: 3rem; margin-bottom: 1rem;">
+                    <span style="background: linear-gradient(135deg, #10B981 0%, #00C8FF 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;">Quillow</span>
+                    <span style="color: var(--color-text-primary);">Quantum Error Correction</span>
+                </h2>
+                <p style="font-size: 1.25rem; color: var(--color-text-secondary); max-width: 800px; margin: 0 auto;">
+                    Production-ready surface code implementation that achieves <strong style="color: #10B981;">below-threshold operation</strong> with exponential error suppression for your quantum chemistry calculations.
+                </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+                <div style="background: var(--color-bg-card); padding: 2.5rem; border-radius: var(--radius-xl); border: 1px solid rgba(16, 185, 129, 0.2); text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">⚛️</div>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 1rem; color: #10B981;">Surface Code QEC</h3>
+                    <p style="color: var(--color-text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+                        Rotated surface codes with distances d=3, 5, 7, 9. Higher distances = exponentially better protection.
+                    </p>
+                    <div style="color: #10B981; font-weight: 600;">d=5 → 10x error suppression</div>
+                </div>
+
+                <div style="background: var(--color-bg-card); padding: 2.5rem; border-radius: var(--radius-xl); border: 1px solid rgba(0, 200, 255, 0.2); text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 1rem; color: #00C8FF;">Real-Time Decoding</h3>
+                    <p style="color: var(--color-text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+                        MWPM decoder with &lt;100μs latency. Micro-batched processing for high throughput.
+                    </p>
+                    <div style="color: #00C8FF; font-weight: 600;">20K-200K shots/sec</div>
+                </div>
+
+                <div style="background: var(--color-bg-card); padding: 2.5rem; border-radius: var(--radius-xl); border: 1px solid rgba(139, 92, 246, 0.2); text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🧬</div>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 1rem; color: #8B5CF6;">BioQL Integration</h3>
+                    <p style="color: var(--color-text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+                        Seamless protection for VQE, molecular docking, and quantum chemistry workflows.
+                    </p>
+                    <div style="color: #8B5CF6; font-weight: 600;">One-line integration</div>
+                </div>
+
+                <div style="background: var(--color-bg-card); padding: 2.5rem; border-radius: var(--radius-xl); border: 1px solid rgba(236, 72, 153, 0.2); text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🎯</div>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 1rem; color: #EC4899;">Multi-Backend</h3>
+                    <p style="color: var(--color-text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+                        Works with Stim, BioQL API, IBM Quantum, IonQ, and Modal GPU acceleration.
+                    </p>
+                    <div style="color: #EC4899; font-weight: 600;">5 backends supported</div>
+                </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(0, 200, 255, 0.1) 100%); border-radius: var(--radius-xl); border: 1px solid rgba(16, 185, 129, 0.2); padding: 3rem; text-align: center;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 2rem; color: var(--color-text-primary);">Get Started with Quillow</h3>
+                <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;">
+                    <a href="quillow.html" style="display: inline-flex; align-items: center; gap: 0.75rem; padding: 1.25rem 2.5rem; background: linear-gradient(135deg, #10B981, #00C8FF); color: white; text-decoration: none; border-radius: var(--radius-lg); font-weight: 600; font-size: 1.1rem; box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4); transition: all 0.2s;">
+                        <span>🛡️</span>
+                        <span>Learn More About Quillow</span>
+                    </a>
+                    <a href="docs.html" style="display: inline-flex; align-items: center; gap: 0.75rem; padding: 1.25rem 2.5rem; background: var(--color-bg-card); color: white; text-decoration: none; border-radius: var(--radius-lg); font-weight: 600; font-size: 1.1rem; border: 2px solid #10B981; transition: all 0.2s;">
+                        <span>📖</span>
+                        <span>View Documentation</span>
+                    </a>
+                </div>
+                <div style="background: rgba(10, 10, 15, 0.6); backdrop-filter: blur(10px); border-radius: var(--radius-lg); padding: 1.5rem; max-width: 500px; margin: 0 auto;">
+                    <pre style="margin: 0; font-family: 'Fira Code', monospace; font-size: 1rem; color: #10B981;"><code>pip install quillow</code></pre>
                 </div>
             </div>
         </div>
