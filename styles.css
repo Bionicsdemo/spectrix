@@ -141,7 +141,7 @@ img, video, iframe {
 .nav-menu {
     display: flex;
     list-style: none;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-md);
     align-items: center;
     flex: 1;
     justify-content: center;
@@ -1184,6 +1184,18 @@ img, video, iframe {
 /* ============================================
    Responsive Design
    ============================================ */
+
+@media (max-width: 1280px) {
+    /* Tighter navigation spacing for medium screens with 8 menu items */
+    .nav-menu {
+        gap: var(--spacing-sm);
+    }
+
+    .nav-menu a {
+        font-size: 0.875rem;
+        padding: 0.5rem 0.15rem;
+    }
+}
 
 @media (max-width: 1024px) {
     .hero .container {
