@@ -116,11 +116,12 @@ img, video, iframe {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 2rem;
+    gap: 1rem;
+    max-width: 1400px;
 }
 
 .nav-brand {
-    min-width: 200px;
+    min-width: 180px;
     flex-shrink: 0;
 }
 
@@ -173,11 +174,18 @@ img, video, iframe {
 
 .nav-actions {
     display: flex;
-    gap: var(--spacing-sm);
+    gap: 0.75rem;
     align-items: center;
-    min-width: 180px;
+    min-width: 200px;
     justify-content: flex-end;
     flex-shrink: 0;
+}
+
+.nav-actions .btn-secondary,
+.nav-actions .btn-primary {
+    padding: 0.65rem 1.25rem;
+    font-size: 0.9rem;
+    white-space: nowrap;
 }
 
 /* Mobile Menu Toggle */
