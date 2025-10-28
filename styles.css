@@ -119,6 +119,11 @@ img, video, iframe {
     gap: 2rem;
 }
 
+.nav-brand {
+    min-width: 200px;
+    flex-shrink: 0;
+}
+
 .nav-brand .logo {
     display: flex;
     align-items: center;
@@ -143,8 +148,10 @@ img, video, iframe {
     list-style: none;
     gap: var(--spacing-md);
     align-items: center;
-    flex: 1;
+    flex: 0 1 auto;
     justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .nav-menu a {
@@ -168,6 +175,9 @@ img, video, iframe {
     display: flex;
     gap: var(--spacing-sm);
     align-items: center;
+    min-width: 180px;
+    justify-content: flex-end;
+    flex-shrink: 0;
 }
 
 /* Mobile Menu Toggle */
