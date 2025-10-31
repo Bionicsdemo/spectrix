@@ -15,12 +15,12 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
-            <div class="nav-brand">
+            <a href="index.html" class="nav-brand" aria-label="Return to BioQL home">
                 <div class="logo">
                     <img src="logo.jpeg" alt="Spectrix Logo" style="height: 60px; width: auto; margin-right: 0.75rem;">
                     <span>BioQL</span>
                 </div>
-            </div>
+            </a>
             <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
                 <span></span>
                 <span></span>
@@ -1466,6 +1466,76 @@ result = quantum(
 }</code></pre>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Free Simulator API Section -->
+    <section id="try-free" class="section" style="background: radial-gradient(circle at 20% 20%, rgba(102,126,234,0.12), transparent 55%), radial-gradient(circle at 80% 80%, rgba(0,212,255,0.12), transparent 55%);">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
+                <span class="section-badge" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.25rem; border-radius: 999px; background: linear-gradient(135deg, rgba(102,126,234,0.3) 0%, rgba(0,212,255,0.3) 100%); color: #ffffff; font-weight: 600; letter-spacing: 0.08em;">TRY FREE NOW!</span>
+                <h2 class="section-title">Experiment with the BioQL Simulator</h2>
+                <p class="section-subtitle" style="max-width: 760px; margin: 0 auto;">
+                    Use our sandbox API key to run unlimited simulations on the BioQL quantum simulator. Perfect for prototyping before moving to live hardware.
+                </p>
+            </div>
+            <div class="grid-2" style="gap: 2rem;">
+                <div style="background: rgba(16,20,40,0.85); border: 1px solid rgba(255,255,255,0.08); border-radius: 1.25rem; padding: 2rem; box-shadow: 0 18px 45px rgba(0,0,0,0.35);">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: #ffffff;">Sandbox API Key</h3>
+                    <p style="color: #94a3b8; margin-bottom: 1.5rem;">
+                        This key only works with the <strong>simulator</strong> backend and never consumes your paid balance.
+                    </p>
+                    <div class="code-block" style="margin-bottom: 1.5rem;">
+                        <div class="code-header">
+                            <span>API Key</span>
+                        </div>
+<pre><code>bioql_fa389901656bb996c17117b168495985</code></pre>
+                    </div>
+                    <ul style="list-style: none; padding: 0; margin: 0; color: #cbd5f5; display: grid; gap: 0.75rem;">
+                        <li style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                            <i class="fas fa-check" style="color: #38bdf8; margin-top: 0.2rem;"></i>
+                            <span>Unlimited requests against the simulator backend.</span>
+                        </li>
+                        <li style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                            <i class="fas fa-check" style="color: #38bdf8; margin-top: 0.2rem;"></i>
+                            <span>No Stripe account required for this sandbox key.</span>
+                        </li>
+                        <li style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                            <i class="fas fa-check" style="color: #38bdf8; margin-top: 0.2rem;"></i>
+                            <span>Upgrade any time to unlock IBM Quantum, IonQ, and AWS Braket hardware.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div style="background: rgba(10,14,32,0.85); border: 1px solid rgba(102,126,234,0.3); border-radius: 1.25rem; padding: 2rem; box-shadow: 0 18px 45px rgba(0,0,0,0.35);">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: #ffffff;">Quick Start</h3>
+                    <ol style="color: #cbd5f5; margin-left: 1rem; margin-bottom: 1.5rem; display: grid; gap: 0.75rem;">
+                        <li>
+                            <code style="background: rgba(15,23,42,0.7); padding: 0.35rem 0.6rem; border-radius: 0.5rem;">export BIOQL_API_KEY=&quot;bioql_fa389901656bb996c17117b168495985&quot;</code>
+                        </li>
+                        <li>
+                            Target the simulator backend in every request:<br>
+                            <code style="background: rgba(15,23,42,0.7); padding: 0.35rem 0.6rem; border-radius: 0.5rem;">"backend": "simulator"</code>
+                        </li>
+                        <li>
+                            Send your query to the public endpoint below.
+                        </li>
+                    </ol>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>cURL Example</span>
+                        </div>
+<pre><code>curl https://api.bioql.bio/api/quantum/execute  -H "Content-Type: application/json"  -d '{
+   "program": "dock aspirin to COX-1",
+   "api_key": "bioql_fa389901656bb996c17117b168495985",
+   "backend": "simulator",
+   "shots": 1024
+ }'</code></pre>
+                    </div>
+                    <p style="color: #94a3b8; margin-top: 1rem;">
+                        ✅ Responses include counts, binding estimates, and BioQL annotations. Switch to a paid plan when you're ready for real hardware.
+                    </p>
                 </div>
             </div>
         </div>
