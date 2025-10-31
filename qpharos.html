@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
+<body class="qpharos-page">
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
@@ -41,67 +41,113 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <section class="hero qpharos-hero">
+        <div class="hero-background">
+            <img src="quantum-hero.jpg" alt="Quantum drug discovery background" class="hero-bg-main">
+            <img src="quantum-bg-1.png" alt="Quantum overlay" class="hero-bg-overlay overlay-1">
+            <img src="quantum-bg-2.png" alt="Quantum overlay" class="hero-bg-overlay overlay-2">
+            <div class="quantum-particles"></div>
+            <div class="hero-gradient-overlay"></div>
+        </div>
         <div class="container">
-            <div class="hero-content" style="text-align: center;">
-                <h1 style="font-size: 3.5rem; margin-bottom: 1rem;">
-                    🔶 QPHAROS
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-icon">🔶</span>
+                    <span>QPHAROS · BioQL Quantum Drug Discovery Suite</span>
+                </div>
+                <h1 class="hero-title">
+                    Quantum Pharmaceutical Optimization
+                    <span class="gradient-text">System</span>
                 </h1>
-                <p style="font-size: 1.5rem; margin-bottom: 0.5rem;">
-                    Quantum Pharmaceutical Optimization System
+                <p class="hero-subtitle">
+                    A production-ready 5-layer quantum pipeline for molecular docking, ADMET prediction,
+                    and de novo drug design on IBM Quantum hardware.
                 </p>
-                <p style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem;">
-                    5-Layer Quantum Architecture for Drug Discovery
-                </p>
-                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <a href="#install" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">
-                        <i class="fas fa-download"></i> Install QPHAROS
+                <div class="hero-cta hero-cta--wrap">
+                    <a href="#install" class="btn-large btn-primary">
+                        <span>Install QPHAROS</span>
+                        <i class="fas fa-download"></i>
                     </a>
-                    <a href="#examples" class="btn-secondary" style="font-size: 1.1rem; padding: 1rem 2rem; background: white; color: #667eea;">
-                        <i class="fas fa-code"></i> See Examples
+                    <a href="#examples" class="btn-large btn-secondary">
+                        <i class="fas fa-code"></i>
+                        <span>See Usage Schemas</span>
                     </a>
-                    <a href="https://pypi.org/project/qpharos/" target="_blank" class="btn-secondary" style="font-size: 1.1rem; padding: 1rem 2rem; background: rgba(255,255,255,0.2); border: 2px solid white;">
-                        <i class="fab fa-python"></i> PyPI Package
+                </div>
+                <div class="hero-supporting-links">
+                    <a href="https://pypi.org/project/qpharos/" target="_blank" rel="noopener" class="hero-link">
+                        <i class="fab fa-python"></i> View on PyPI
                     </a>
+                    <span class="hero-link-divider">•</span>
+                    <a href="#architecture" class="hero-link">
+                        Explore 5-layer architecture
+                    </a>
+                </div>
+                <div class="hero-pill-group">
+                    <span class="hero-pill">Molecular Docking</span>
+                    <span class="hero-pill">ADMET Prediction</span>
+                    <span class="hero-pill">De Novo Design</span>
+                    <span class="hero-pill">Quantum Error Correction</span>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="code-window">
+                    <div class="code-header">
+                        <div class="code-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="code-title">quantum_docking.py</div>
+                    </div>
+                    <pre class="code-content"><code><span class="keyword">from</span> qpharos.simple <span class="keyword">import</span> quick_dock
+
+<span class="comment"># Dock berberine to GLP1R on IBM Torino</span>
+affinity = quick_dock(
+    <span class="string">'COc1ccc2cc3[n+](cc2c1OC)CCc1cc2c(cc1-3)OCO2'</span>,
+    <span class="string">'6B3J'</span>
+)
+
+<span class="keyword">print</span>(f<span class="string">\"Binding Affinity: {affinity:.2f} kcal/mol\"</span>)</code></pre>
                 </div>
             </div>
         </div>
     </section>
 
+    <main class="qpharos-main">
     <!-- What is QPHAROS Section -->
-    <section class="section">
+    <section class="section qpharos-section">
         <div class="container">
             <h2 class="section-title">What is QPHAROS?</h2>
             <div class="grid-2">
                 <div>
-                    <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
+                    <p class="section-lead">
                         <strong>QPHAROS</strong> (Quantum Pharmaceutical Optimization System) is a production-ready
                         quantum computing platform specifically designed for <strong>drug discovery</strong>.
                     </p>
-                    <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
+                    <p class="section-lead">
                         Built on top of <strong>BioQL v6.0.0</strong>, QPHAROS provides a simplified, structured
                         API for pharmaceutical researchers to harness the power of <strong>IBM Quantum computers</strong>
                         without needing quantum computing expertise.
                     </p>
                     <div class="feature-list">
                         <div class="feature-item">
-                            <i class="fas fa-atom" style="color: #667eea;"></i>
+                            <i class="fas fa-atom"></i>
                             <span><strong>Molecular Docking</strong> - VQE-based binding affinity calculation</span>
                         </div>
                         <div class="feature-item">
-                            <i class="fas fa-flask" style="color: #667eea;"></i>
+                            <i class="fas fa-flask"></i>
                             <span><strong>ADMET Prediction</strong> - Drug-likeness, toxicity, pharmacokinetics</span>
                         </div>
                         <div class="feature-item">
-                            <i class="fas fa-dna" style="color: #667eea;"></i>
+                            <i class="fas fa-dna"></i>
                             <span><strong>De Novo Design</strong> - AI-guided quantum molecule generation</span>
                         </div>
                         <div class="feature-item">
-                            <i class="fas fa-search" style="color: #667eea;"></i>
+                            <i class="fas fa-search"></i>
                             <span><strong>Virtual Screening</strong> - High-throughput compound libraries</span>
                         </div>
                         <div class="feature-item">
-                            <i class="fas fa-shield-alt" style="color: #667eea;"></i>
+                            <i class="fas fa-shield-alt"></i>
                             <span><strong>Quantum Error Correction</strong> - Surface Code QEC built-in</span>
                         </div>
                     </div>
@@ -130,10 +176,10 @@ affinity = <span class="function">quick_dock</span>(
     </section>
 
     <!-- 5-Layer Architecture -->
-    <section class="section" style="background: linear-gradient(to bottom, #f7fafc, #edf2f7);">
+    <section id="architecture" class="section qpharos-section qpharos-section--surface">
         <div class="container">
             <h2 class="section-title">5-Layer Quantum Architecture</h2>
-            <p style="text-align: center; font-size: 1.1rem; margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+            <p class="section-subtitle">
                 QPHAROS implements a sophisticated quantum pipeline that transforms molecular structures
                 into quantum states, optimizes conformations, and calculates binding energies with quantum precision.
             </p>
@@ -209,46 +255,54 @@ affinity = <span class="function">quick_dock</span>(
     </section>
 
     <!-- 4 Usage Schemas -->
-    <section class="section">
+    <section class="section qpharos-section">
         <div class="container">
             <h2 class="section-title">4 Usage Schemas for Different Users</h2>
-            <p style="text-align: center; font-size: 1.1rem; margin-bottom: 3rem;">
+            <p class="section-subtitle">
                 QPHAROS provides 4 different APIs designed for users with varying levels of expertise
             </p>
 
-            <div class="grid-2" style="gap: 2rem;">
-                <!-- Schema 1 -->
-                <div class="schema-card">
-                    <div class="schema-header" style="background: linear-gradient(135deg, #667eea, #764ba2);">
-                        <h3>Schema 1: Simple API</h3>
-                        <p>For Beginners & Chemists</p>
+            <div class="schema-grid">
+                <div class="schema-card schema-card--simple">
+                    <div class="schema-header">
+                        <span class="schema-badge">Schema 1</span>
+                        <h3><i class="fas fa-rocket"></i> Simple API</h3>
+                        <p>For beginners and chemists who need instant docking results.</p>
                     </div>
                     <div class="schema-body">
-                        <p><strong>Use when:</strong> You want quick results without configuration</p>
-                        <div class="code-block" style="margin-top: 1rem;">
-                            <pre><code><span class="keyword">from</span> qpharos.simple <span class="keyword">import</span> quick_dock
+                        <p><strong>Use when:</strong> You want one-line quantum docking without configuring backends.</p>
+                        <div class="code-block schema-code">
+                            <div class="code-header">
+                                <span>quick_dock usage</span>
+                                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i></button>
+                            </div>
+<pre><code><span class="keyword">from</span> qpharos.simple <span class="keyword">import</span> quick_dock
 
 affinity = <span class="function">quick_dock</span>(<span class="string">'CCO'</span>, <span class="string">'6B3J'</span>)
-<span class="comment"># Returns: -6.2</span></code></pre>
+<span class="comment"># Returns: -6.2 kcal/mol</span></code></pre>
                         </div>
-                        <ul class="feature-list" style="margin-top: 1rem;">
-                            <li><i class="fas fa-check"></i> 1-2 line functions</li>
-                            <li><i class="fas fa-check"></i> Returns simple values</li>
-                            <li><i class="fas fa-check"></i> No configuration needed</li>
+                        <ul class="feature-list schema-checklist">
+                            <li><i class="fas fa-check"></i> 3-line workflows</li>
+                            <li><i class="fas fa-check"></i> Automatic backend selection</li>
+                            <li><i class="fas fa-check"></i> Pre-configured QEC</li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Schema 2 -->
-                <div class="schema-card">
-                    <div class="schema-header" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
-                        <h3>Schema 2: Functional API</h3>
-                        <p>For Researchers (Default)</p>
+                <div class="schema-card schema-card--functional">
+                    <div class="schema-header">
+                        <span class="schema-badge">Schema 2</span>
+                        <h3><i class="fas fa-code"></i> Functional API</h3>
+                        <p>For researchers who need full control over parameters.</p>
                     </div>
                     <div class="schema-body">
-                        <p><strong>Use when:</strong> You need full control over parameters</p>
-                        <div class="code-block" style="margin-top: 1rem;">
-                            <pre><code><span class="keyword">from</span> qpharos <span class="keyword">import</span> dock
+                        <p><strong>Use when:</strong> You want to customize docking, backends, and ADMET settings.</p>
+                        <div class="code-block schema-code">
+                            <div class="code-header">
+                                <span>dock()</span>
+                                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i></button>
+                            </div>
+<pre><code><span class="keyword">from</span> qpharos <span class="keyword">import</span> dock
 
 result = <span class="function">dock</span>(
     ligand=<span class="string">'CCO'</span>,
@@ -258,57 +312,65 @@ result = <span class="function">dock</span>(
     qec=<span class="keyword">True</span>
 )</code></pre>
                         </div>
-                        <ul class="feature-list" style="margin-top: 1rem;">
+                        <ul class="feature-list schema-checklist">
                             <li><i class="fas fa-check"></i> Full parameter control</li>
                             <li><i class="fas fa-check"></i> Rich result objects</li>
-                            <li><i class="fas fa-check"></i> All QPHAROS functions</li>
+                            <li><i class="fas fa-check"></i> Integrates with pipelines</li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Schema 3 -->
-                <div class="schema-card">
-                    <div class="schema-header" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
-                        <h3>Schema 3: OOP API</h3>
-                        <p>For Engineers & Pipelines</p>
+                <div class="schema-card schema-card--oop">
+                    <div class="schema-header">
+                        <span class="schema-badge">Schema 3</span>
+                        <h3><i class="fas fa-project-diagram"></i> OOP Engine</h3>
+                        <p>For engineering teams orchestrating production workloads.</p>
                     </div>
                     <div class="schema-body">
-                        <p><strong>Use when:</strong> Building production workflows</p>
-                        <div class="code-block" style="margin-top: 1rem;">
-                            <pre><code><span class="keyword">from</span> qpharos <span class="keyword">import</span> QPHAROSAnalyzer
+                        <p><strong>Use when:</strong> You need session management, caching, and reusable workflows.</p>
+                        <div class="code-block schema-code">
+                            <div class="code-header">
+                                <span>QPHAROSAnalyzer</span>
+                                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i></button>
+                            </div>
+<pre><code><span class="keyword">from</span> qpharos <span class="keyword">import</span> QPHAROSAnalyzer
 
-analyzer = <span class="function">QPHAROSAnalyzer</span>(config)
-result = analyzer.<span class="function">full_pipeline</span>(<span class="string">'CCO'</span>, <span class="string">'6B3J'</span>)
-analyzer.<span class="function">save_report</span>(<span class="string">'results.json'</span>)</code></pre>
+engine = <span class="function">QPHAROSAnalyzer</span>(config)
+result = engine.<span class="function">full_pipeline</span>(<span class="string">'CCO'</span>, <span class="string">'6B3J'</span>)
+engine.<span class="function">save_report</span>(<span class="string">'results.json'</span>)</code></pre>
                         </div>
-                        <ul class="feature-list" style="margin-top: 1rem;">
-                            <li><i class="fas fa-check"></i> Session management</li>
+                        <ul class="feature-list schema-checklist">
+                            <li><i class="fas fa-check"></i> Persistent sessions</li>
                             <li><i class="fas fa-check"></i> Batch processing</li>
-                            <li><i class="fas fa-check"></i> Report generation</li>
+                            <li><i class="fas fa-check"></i> Automated reporting</li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Schema 4 -->
-                <div class="schema-card">
-                    <div class="schema-header" style="background: linear-gradient(135deg, #fa709a, #fee140);">
-                        <h3>Schema 4: Layer-by-Layer API</h3>
-                        <p>For Quantum Experts</p>
+                <div class="schema-card schema-card--layered">
+                    <div class="schema-header">
+                        <span class="schema-badge">Schema 4</span>
+                        <h3><i class="fas fa-layer-group"></i> Layer-by-Layer</h3>
+                        <p>For quantum experts customizing each QPHAROS layer.</p>
                     </div>
                     <div class="schema-body">
-                        <p><strong>Use when:</strong> You need full quantum control</p>
-                        <div class="code-block" style="margin-top: 1rem;">
-                            <pre><code><span class="keyword">from</span> qpharos.layers <span class="keyword">import</span> *
+                        <p><strong>Use when:</strong> You need research-grade control over encoding, entanglement, QAOA, and QEC.</p>
+                        <div class="code-block schema-code">
+                            <div class="code-header">
+                                <span>Layer access</span>
+                                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i></button>
+                            </div>
+<pre><code><span class="keyword">from</span> qpharos.layers <span class="keyword">import</span> *
 
 encoder = <span class="function">QuantumFeatureEncoder</span>(backend)
 ligand = encoder.<span class="function">encode_molecule</span>(<span class="string">'CCO'</span>)
 scorer = <span class="function">QuantumScoringFunction</span>(backend)
 affinity = scorer.<span class="function">calculate_binding_affinity</span>()</code></pre>
                         </div>
-                        <ul class="feature-list" style="margin-top: 1rem;">
-                            <li><i class="fas fa-check"></i> Access all 5 layers</li>
-                            <li><i class="fas fa-check"></i> Custom VQE/QAOA</li>
-                            <li><i class="fas fa-check"></i> Research-grade control</li>
+                        <ul class="feature-list schema-checklist">
+                            <li><i class="fas fa-check"></i> Swap algorithms per layer</li>
+                            <li><i class="fas fa-check"></i> Tune QAOA/VQE circuits</li>
+                            <li><i class="fas fa-check"></i> Advanced QEC controls</li>
                         </ul>
                     </div>
                 </div>
@@ -317,13 +379,13 @@ affinity = scorer.<span class="function">calculate_binding_affinity</span>()</co
     </section>
 
     <!-- Installation Section -->
-    <section id="install" class="section" style="background: linear-gradient(to bottom, #f7fafc, #edf2f7);">
+    <section id="install" class="section qpharos-section qpharos-section--surface">
         <div class="container">
             <h2 class="section-title">Installation & Setup</h2>
 
-            <div class="grid-2" style="gap: 2rem; align-items: start;">
+            <div class="grid-2 grid-align-start">
                 <div>
-                    <h3 style="margin-bottom: 1rem;"><i class="fas fa-download"></i> Install QPHAROS</h3>
+                    <h3 class="section-heading"><i class="fas fa-download"></i> Install QPHAROS</h3>
                     <div class="code-block">
                         <div class="code-header">
                             <span>1. Install via pip</span>
@@ -334,7 +396,7 @@ affinity = scorer.<span class="function">calculate_binding_affinity</span>()</co
                         <pre><code>pip install qpharos</code></pre>
                     </div>
 
-                    <div class="code-block" style="margin-top: 1rem;">
+                    <div class="code-block mt-lg">
                         <div class="code-header">
                             <span>2. Set your API key</span>
                             <button class="copy-btn" onclick="copyToClipboard('export BIOQL_API_KEY=your_key_here')">
@@ -344,7 +406,7 @@ affinity = scorer.<span class="function">calculate_binding_affinity</span>()</co
                         <pre><code>export BIOQL_API_KEY='your_key_here'</code></pre>
                     </div>
 
-                    <div class="code-block" style="margin-top: 1rem;">
+                    <div class="code-block mt-lg">
                         <div class="code-header">
                             <span>3. Verify installation</span>
                             <button class="copy-btn" onclick="copyToClipboard('python -c &quot;import qpharos; print(qpharos.__version__)&quot;')">
@@ -355,14 +417,14 @@ affinity = scorer.<span class="function">calculate_binding_affinity</span>()</co
 <span class="comment"># Output: 1.1.0</span></code></pre>
                     </div>
 
-                    <div style="margin-top: 1.5rem; padding: 1rem; background: #e6fffa; border-left: 4px solid #38b2ac; border-radius: 4px;">
+                    <div class="callout callout--success">
                         <p><strong><i class="fas fa-key"></i> Get your API key:</strong></p>
-                        <p style="margin-top: 0.5rem;">Sign up at <a href="signup.html" style="color: #38b2ac; font-weight: bold;">bioql.bio/signup</a> to get your free API key.</p>
+                        <p class="callout-text">Sign up at <a href="signup.html" class="callout-link">bioql.bio/signup</a> to get your free API key.</p>
                     </div>
                 </div>
 
                 <div>
-                    <h3 style="margin-bottom: 1rem;"><i class="fas fa-rocket"></i> Quick Start</h3>
+                    <h3 class="section-heading"><i class="fas fa-rocket"></i> Quick Start</h3>
                     <div class="code-block">
                         <div class="code-header">
                             <span>Your First Quantum Docking</span>
@@ -388,9 +450,9 @@ result = <span class="function">test_molecule</span>(berberina, <span class="str
 <span class="comment"># ✅ Excellent candidate - ready for further testing</span></code></pre>
                     </div>
 
-                    <div style="margin-top: 1.5rem; padding: 1rem; background: #fff5f5; border-left: 4px solid #f56565; border-radius: 4px;">
+                    <div class="callout callout--warning">
                         <p><strong><i class="fas fa-info-circle"></i> Running on Real Quantum Hardware:</strong></p>
-                        <p style="margin-top: 0.5rem; font-size: 0.95rem;">This code executes on <strong>IBM Torino</strong> (133 qubits) with quantum error correction enabled by default!</p>
+                        <p class="callout-text">This code executes on <strong>IBM Torino</strong> (133 qubits) with quantum error correction enabled by default!</p>
                     </div>
                 </div>
             </div>
@@ -398,7 +460,7 @@ result = <span class="function">test_molecule</span>(berberina, <span class="str
     </section>
 
     <!-- Examples Section -->
-    <section id="examples" class="section">
+    <section id="examples" class="section qpharos-section">
         <div class="container">
             <h2 class="section-title">Code Examples</h2>
 
@@ -581,13 +643,13 @@ corrected_affinity = qec.<span class="function">correct_measurement</span>(affin
     </section>
 
     <!-- Features Comparison -->
-    <section class="section" style="background: linear-gradient(to bottom, #f7fafc, #edf2f7);">
+    <section class="section qpharos-section qpharos-section--surface">
         <div class="container">
             <h2 class="section-title">Why Use QPHAROS?</h2>
 
             <div class="grid-3">
                 <div class="feature-card">
-                    <div class="feature-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                    <div class="feature-icon feature-icon--primary">
                         <i class="fas fa-rocket"></i>
                     </div>
                     <h3>Production Ready</h3>
@@ -595,7 +657,7 @@ corrected_affinity = qec.<span class="function">correct_measurement</span>(affin
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                    <div class="feature-icon feature-icon--pink">
                         <i class="fas fa-users"></i>
                     </div>
                     <h3>For All Expertise Levels</h3>
@@ -603,7 +665,7 @@ corrected_affinity = qec.<span class="function">correct_measurement</span>(affin
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                    <div class="feature-icon feature-icon--aqua">
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <h3>Quantum Error Correction</h3>
@@ -611,7 +673,7 @@ corrected_affinity = qec.<span class="function">correct_measurement</span>(affin
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon" style="background: linear-gradient(135deg, #fa709a, #fee140);">
+                    <div class="feature-icon feature-icon--sunrise">
                         <i class="fas fa-atom"></i>
                     </div>
                     <h3>Real Quantum Hardware</h3>
@@ -619,7 +681,7 @@ corrected_affinity = qec.<span class="function">correct_measurement</span>(affin
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon" style="background: linear-gradient(135deg, #30cfd0, #330867);">
+                    <div class="feature-icon feature-icon--teal">
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <h3>Validated Results</h3>
@@ -627,7 +689,7 @@ corrected_affinity = qec.<span class="function">correct_measurement</span>(affin
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon" style="background: linear-gradient(135deg, #a8edea, #fed6e3);">
+                    <div class="feature-icon feature-icon--rose">
                         <i class="fas fa-code"></i>
                     </div>
                     <h3>Open Source</h3>
@@ -638,21 +700,21 @@ corrected_affinity = qec.<span class="function">correct_measurement</span>(affin
     </section>
 
     <!-- VS Code Integration -->
-    <section class="section">
+    <section class="section qpharos-section">
         <div class="container">
             <h2 class="section-title">Use QPHAROS in VS Code</h2>
-            <p style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem;">
+            <p class="section-subtitle">
                 The <strong>BioQL Agent v7.0.4</strong> can generate QPHAROS code directly in VS Code!
             </p>
 
-            <div class="grid-2" style="gap: 2rem;">
+            <div class="grid-2">
                 <div>
-                    <h3>Type in VS Code Chat:</h3>
+                    <h3 class="section-heading">Type in VS Code Chat:</h3>
                     <div class="code-block">
                         <pre><code><span class="string">@bioql Use QPHAROS simple to dock aspirin to COX2</span></code></pre>
                     </div>
 
-                    <h3 style="margin-top: 2rem;">Agent generates:</h3>
+                    <h3 class="section-heading mt-xl">Agent generates:</h3>
                     <div class="code-block">
                         <pre><code><span class="keyword">from</span> qpharos.simple <span class="keyword">import</span> quick_dock
 
@@ -664,23 +726,23 @@ affinity = <span class="function">quick_dock</span>(
 <span class="function">print</span>(<span class="string">f"Affinity: {affinity:.2f} kcal/mol"</span>)</code></pre>
                     </div>
 
-                    <div style="margin-top: 1.5rem; padding: 1rem; background: #e6fffa; border-left: 4px solid #38b2ac; border-radius: 4px;">
+                    <div class="callout callout--success">
                         <p><strong><i class="fas fa-download"></i> Install BioQL Agent:</strong></p>
-                        <p style="margin-top: 0.5rem;">Download the VS Code extension at <a href="agent.html" style="color: #38b2ac; font-weight: bold;">bioql.bio/agent</a></p>
+                        <p class="callout-text">Download the VS Code extension at <a href="agent.html" class="callout-link">bioql.bio/agent</a></p>
                     </div>
                 </div>
 
                 <div>
-                    <h3>Supported Schemas:</h3>
-                    <ul class="feature-list" style="font-size: 1rem;">
+                    <h3 class="section-heading">Supported Schemas:</h3>
+                    <ul class="feature-list feature-list--dense">
                         <li><i class="fas fa-check"></i> <strong>Simple:</strong> <code>@bioql Use QPHAROS simple...</code></li>
                         <li><i class="fas fa-check"></i> <strong>Functional:</strong> <code>@bioql Use QPHAROS...</code> (default)</li>
                         <li><i class="fas fa-check"></i> <strong>OOP:</strong> <code>@bioql Use QPHAROS OOP class...</code></li>
                         <li><i class="fas fa-check"></i> <strong>Layer:</strong> <code>@bioql Use QPHAROS layer expert...</code></li>
                     </ul>
 
-                    <h3 style="margin-top: 2rem;">Agent Features:</h3>
-                    <ul class="feature-list" style="font-size: 1rem;">
+                    <h3 class="section-heading mt-xl">Agent Features:</h3>
+                    <ul class="feature-list feature-list--dense">
                         <li><i class="fas fa-check"></i> Auto-detects SMILES and PDB codes</li>
                         <li><i class="fas fa-check"></i> Configures backend (IBM, IonQ, AWS)</li>
                         <li><i class="fas fa-check"></i> Sets optimal shots for accuracy</li>
@@ -693,13 +755,13 @@ affinity = <span class="function">quick_dock</span>(
     </section>
 
     <!-- Resources -->
-    <section class="section" style="background: linear-gradient(to bottom, #f7fafc, #edf2f7);">
+    <section class="section qpharos-section qpharos-section--surface">
         <div class="container">
             <h2 class="section-title">Resources & Documentation</h2>
 
             <div class="grid-3">
                 <div class="resource-card">
-                    <i class="fab fa-python fa-3x" style="color: #667eea;"></i>
+                    <i class="fab fa-python fa-3x resource-icon resource-icon--primary"></i>
                     <h3>PyPI Package</h3>
                     <p>Official Python package repository</p>
                     <a href="https://pypi.org/project/qpharos/" target="_blank" class="btn-secondary">
@@ -708,7 +770,7 @@ affinity = <span class="function">quick_dock</span>(
                 </div>
 
                 <div class="resource-card">
-                    <i class="fas fa-book fa-3x" style="color: #f093fb;"></i>
+                    <i class="fas fa-book fa-3x resource-icon resource-icon--pink"></i>
                     <h3>Documentation</h3>
                     <p>Complete API reference and guides</p>
                     <a href="docs.html#qpharos" class="btn-secondary">
@@ -717,7 +779,7 @@ affinity = <span class="function">quick_dock</span>(
                 </div>
 
                 <div class="resource-card">
-                    <i class="fas fa-code fa-3x" style="color: #4facfe;"></i>
+                    <i class="fas fa-code fa-3x resource-icon resource-icon--aqua"></i>
                     <h3>Examples</h3>
                     <p>Code examples for all 4 schemas</p>
                     <a href="#examples" class="btn-secondary">
@@ -726,7 +788,7 @@ affinity = <span class="function">quick_dock</span>(
                 </div>
 
                 <div class="resource-card">
-                    <i class="fas fa-download fa-3x" style="color: #fa709a;"></i>
+                    <i class="fas fa-download fa-3x resource-icon resource-icon--sunrise"></i>
                     <h3>VS Code Agent</h3>
                     <p>BioQL Agent v7.0.4 with QPHAROS</p>
                     <a href="agent.html" class="btn-secondary">
@@ -735,7 +797,7 @@ affinity = <span class="function">quick_dock</span>(
                 </div>
 
                 <div class="resource-card">
-                    <i class="fab fa-github fa-3x" style="color: #30cfd0;"></i>
+                    <i class="fab fa-github fa-3x resource-icon resource-icon--teal"></i>
                     <h3>Source Code</h3>
                     <p>Open source on GitHub</p>
                     <a href="https://github.com/spectrixrd/qpharos" target="_blank" class="btn-secondary">
@@ -744,7 +806,7 @@ affinity = <span class="function">quick_dock</span>(
                 </div>
 
                 <div class="resource-card">
-                    <i class="fas fa-envelope fa-3x" style="color: #a8edea;"></i>
+                    <i class="fas fa-envelope fa-3x resource-icon resource-icon--rose"></i>
                     <h3>Support</h3>
                     <p>Get help from the team</p>
                     <a href="contact.html" class="btn-secondary">
@@ -756,25 +818,27 @@ affinity = <span class="function">quick_dock</span>(
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-        <div class="container" style="text-align: center;">
-            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Ready to Start?</h2>
-            <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;">
+    <section class="cta-section qpharos-cta">
+        <div class="container">
+            <h2>Ready to Start?</h2>
+            <p>
                 Install QPHAROS and run your first quantum drug discovery in minutes
             </p>
-            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <a href="signup.html" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2.5rem; background: white; color: #667eea;">
+            <div class="cta-actions">
+                <a href="signup.html" class="btn-primary">
                     <i class="fas fa-user-plus"></i> Sign Up Free
                 </a>
-                <a href="#install" class="btn-secondary" style="font-size: 1.1rem; padding: 1rem 2.5rem; background: rgba(255,255,255,0.2); border: 2px solid white;">
+                <a href="#install" class="btn-secondary">
                     <i class="fas fa-download"></i> Install Now
                 </a>
-                <a href="docs.html" class="btn-secondary" style="font-size: 1.1rem; padding: 1rem 2.5rem; background: rgba(255,255,255,0.2); border: 2px solid white;">
+                <a href="docs.html" class="btn-secondary">
                     <i class="fas fa-book"></i> Read Docs
                 </a>
             </div>
         </div>
     </section>
+
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
