@@ -33,7 +33,7 @@
                 <li><a href="qpharos.html" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;">QPHAROS 🔶</a></li>
                 <li><a href="quillow.html" style="background: linear-gradient(135deg, #00C8FF 0%, #10B981 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;">Quillow 🛡️</a></li>
             </ul>
-            <div class="nav-actions" style="display: flex; gap: 1rem; align-items: center; justify-content: center;">
+            <div class="nav-actions">
                 <a href="login.html" class="btn-secondary">Log In</a>
                 <a href="signup.html" class="btn-primary">Sign Up</a>
             </div>
@@ -117,58 +117,59 @@ affinity = quick_dock(
     <!-- What is QPHAROS Section -->
     <section class="section qpharos-section">
         <div class="container">
-            <h2 class="section-title">What is QPHAROS?</h2>
+            <div class="section-header section-header--center qpharos-section-header">
+                <span class="section-badge section-badge--qpharos">Overview</span>
+                <h2>What is QPHAROS?</h2>
+                <p class="section-subtitle">
+                    Production-ready quantum computing for pharmaceutical R&amp;D, built on BioQL so scientists can tap IBM Quantum hardware without deep quantum expertise.
+                </p>
+            </div>
             <div class="grid-2">
                 <div>
-                    <p class="section-lead">
-                        <strong>QPHAROS</strong> (Quantum Pharmaceutical Optimization System) is a production-ready
-                        quantum computing platform specifically designed for <strong>drug discovery</strong>.
+                    <p class="body-text">
+                        <strong>QPHAROS</strong> (Quantum Pharmaceutical Optimization System) delivers an opinionated, fully managed workflow for molecular docking, ADMET prediction, and de novo design.
+                        Every pipeline is tuned for real quantum devices and ships with validated reference datasets.
                     </p>
-                    <p class="section-lead">
-                        Built on top of <strong>BioQL v6.0.0</strong>, QPHAROS provides a simplified, structured
-                        API for pharmaceutical researchers to harness the power of <strong>IBM Quantum computers</strong>
-                        without needing quantum computing expertise.
+                    <p class="body-text">
+                        Researchers receive a consistent API surface, automated error correction, and preconfigured backends so they can move from hypothesis to quantum execution in minutes.
                     </p>
-                    <div class="feature-list">
+                    <div class="feature-list feature-list--compact">
                         <div class="feature-item">
                             <i class="fas fa-atom"></i>
-                            <span><strong>Molecular Docking</strong> - VQE-based binding affinity calculation</span>
+                            <span><strong>Molecular Docking</strong> · VQE binding affinity with quantum error mitigation</span>
                         </div>
                         <div class="feature-item">
                             <i class="fas fa-flask"></i>
-                            <span><strong>ADMET Prediction</strong> - Drug-likeness, toxicity, pharmacokinetics</span>
+                            <span><strong>ADMET Prediction</strong> · Drug-likeness, toxicity, and PK scoring</span>
                         </div>
                         <div class="feature-item">
                             <i class="fas fa-dna"></i>
-                            <span><strong>De Novo Design</strong> - AI-guided quantum molecule generation</span>
+                            <span><strong>De Novo Design</strong> · AI-guided quantum molecule generation</span>
                         </div>
                         <div class="feature-item">
                             <i class="fas fa-search"></i>
-                            <span><strong>Virtual Screening</strong> - High-throughput compound libraries</span>
+                            <span><strong>Virtual Screening</strong> · High-throughput libraries with quantum acceleration</span>
                         </div>
                         <div class="feature-item">
                             <i class="fas fa-shield-alt"></i>
-                            <span><strong>Quantum Error Correction</strong> - Surface Code QEC built-in</span>
+                            <span><strong>Surface Code QEC</strong> · Reliability on noisy hardware</span>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <div class="code-block">
+                    <div class="code-block code-block--glass">
                         <div class="code-header">
-                            <span>Quick Example - 3 Lines!</span>
+                            <span>Quick Docking (3 lines)</span>
                         </div>
-                        <pre><code><span class="keyword">from</span> qpharos.simple <span class="keyword">import</span> quick_dock
+<pre><code><span class="keyword">from</span> qpharos.simple <span class="keyword">import</span> quick_dock
 
 <span class="comment"># Dock berberine to GLP1R on IBM Torino</span>
-affinity = <span class="function">quick_dock</span>(
+affinity = quick_dock(
     <span class="string">'COc1ccc2cc3[n+](cc2c1OC)CCc1cc2c(cc1-3)OCO2'</span>,
     <span class="string">'6B3J'</span>
 )
 
-<span class="function">print</span>(<span class="string">f"Binding Affinity: {affinity:.2f} kcal/mol"</span>)
-<span class="comment"># Output: Binding Affinity: -8.4 kcal/mol</span>
-
-<span class="comment"># Runs on IBM Torino (133 qubits) with QEC!</span></code></pre>
+<span class="keyword">print</span>(f<span class="string">"Binding Affinity: {affinity:.2f} kcal/mol"</span>)</code></pre>
                     </div>
                 </div>
             </div>
@@ -178,11 +179,13 @@ affinity = <span class="function">quick_dock</span>(
     <!-- 5-Layer Architecture -->
     <section id="architecture" class="section qpharos-section qpharos-section--surface">
         <div class="container">
-            <h2 class="section-title">5-Layer Quantum Architecture</h2>
-            <p class="section-subtitle">
-                QPHAROS implements a sophisticated quantum pipeline that transforms molecular structures
-                into quantum states, optimizes conformations, and calculates binding energies with quantum precision.
-            </p>
+            <div class="section-header section-header--center qpharos-section-header">
+                <span class="section-badge section-badge--qpharos">Architecture</span>
+                <h2>5-Layer Quantum Architecture</h2>
+                <p class="section-subtitle">
+                    A layered pipeline that encodes molecules, entangles ligand-receptor states, explores conformers, scores binding energy, and stabilizes results with quantum error correction.
+                </p>
+            </div>
 
             <div class="architecture-diagram">
                 <div class="layer-card">
@@ -257,10 +260,13 @@ affinity = <span class="function">quick_dock</span>(
     <!-- 4 Usage Schemas -->
     <section class="section qpharos-section">
         <div class="container">
-            <h2 class="section-title">4 Usage Schemas for Different Users</h2>
-            <p class="section-subtitle">
-                QPHAROS provides 4 different APIs designed for users with varying levels of expertise
-            </p>
+            <div class="section-header section-header--center qpharos-section-header">
+                <span class="section-badge section-badge--qpharos">Usage Schemas</span>
+                <h2>4 Ways to Work with QPHAROS</h2>
+                <p class="section-subtitle">
+                    A single codebase that scales from quick experiments to enterprise-grade orchestration and research customization.
+                </p>
+            </div>
 
             <div class="schema-grid">
                 <div class="schema-card schema-card--simple">
@@ -381,7 +387,13 @@ affinity = scorer.<span class="function">calculate_binding_affinity</span>()</co
     <!-- Installation Section -->
     <section id="install" class="section qpharos-section qpharos-section--surface">
         <div class="container">
-            <h2 class="section-title">Installation & Setup</h2>
+            <div class="section-header section-header--center qpharos-section-header">
+                <span class="section-badge section-badge--qpharos">Setup</span>
+                <h2>Installation &amp; First Run</h2>
+                <p class="section-subtitle">
+                    Install the PyPI package, authenticate with your BioQL API key, and launch your first quantum docking workflow in minutes.
+                </p>
+            </div>
 
             <div class="grid-2 grid-align-start">
                 <div>
@@ -462,7 +474,13 @@ result = <span class="function">test_molecule</span>(berberina, <span class="str
     <!-- Examples Section -->
     <section id="examples" class="section qpharos-section">
         <div class="container">
-            <h2 class="section-title">Code Examples</h2>
+            <div class="section-header section-header--center qpharos-section-header">
+                <span class="section-badge section-badge--qpharos">Examples</span>
+                <h2>Code Recipes for Every Schema</h2>
+                <p class="section-subtitle">
+                    Copy‑ready demos that highlight how each abstraction layer works, from quick docking helpers to full quantum pipeline customization.
+                </p>
+            </div>
 
             <!-- Example 1: Simple Docking -->
             <div class="example-card">
@@ -645,7 +663,13 @@ corrected_affinity = qec.<span class="function">correct_measurement</span>(affin
     <!-- Features Comparison -->
     <section class="section qpharos-section qpharos-section--surface">
         <div class="container">
-            <h2 class="section-title">Why Use QPHAROS?</h2>
+            <div class="section-header section-header--center qpharos-section-header">
+                <span class="section-badge section-badge--qpharos">Benefits</span>
+                <h2>Why Teams Choose QPHAROS</h2>
+                <p class="section-subtitle">
+                    Designed for regulated pharma workflows with built-in quantum error correction, device orchestration, and open-source transparency.
+                </p>
+            </div>
 
             <div class="grid-3">
                 <div class="feature-card">
@@ -757,7 +781,13 @@ affinity = <span class="function">quick_dock</span>(
     <!-- Resources -->
     <section class="section qpharos-section qpharos-section--surface">
         <div class="container">
-            <h2 class="section-title">Resources & Documentation</h2>
+            <div class="section-header section-header--center qpharos-section-header">
+                <span class="section-badge section-badge--qpharos">Resources</span>
+                <h2>Resources &amp; Documentation</h2>
+                <p class="section-subtitle">
+                    Everything you need to deploy, extend, and support QPHAROS across your discovery organization.
+                </p>
+            </div>
 
             <div class="grid-3">
                 <div class="resource-card">
