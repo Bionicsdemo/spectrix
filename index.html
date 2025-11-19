@@ -12,6 +12,133 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Intro Splash Screen -->
+    <div id="intro-overlay" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10000;
+        background: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    ">
+        <video id="intro-video" style="
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        " muted playsinline>
+            <source src="assets/media/intro-video.mp4" type="video/mp4">
+        </video>
+        <audio id="intro-audio" preload="auto">
+            <source src="assets/media/intro-music.mp3" type="audio/mpeg">
+        </audio>
+        <div id="skip-intro" style="
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 10001;
+        ">
+            Skip Intro
+        </div>
+    </div>
+
+    <style>
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        .intro-fade-out {
+            animation: fadeOut 1s ease forwards;
+        }
+
+        /* Video background for hero section */
+        .hero-video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            opacity: 0.3;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const introOverlay = document.getElementById('intro-overlay');
+            const introVideo = document.getElementById('intro-video');
+            const introAudio = document.getElementById('intro-audio');
+            const skipButton = document.getElementById('skip-intro');
+
+            // Auto-start intro immediately
+            introVideo.play();
+            introAudio.play().catch(e => {
+                // If autoplay fails due to browser policy, start on first interaction
+                document.addEventListener('click', function startAudio() {
+                    introAudio.play();
+                    document.removeEventListener('click', startAudio);
+                }, { once: true });
+            });
+
+            // Show skip button after 2 seconds
+            setTimeout(() => {
+                skipButton.style.opacity = '1';
+            }, 2000);
+
+            // Auto-transition when video ends
+            introVideo.addEventListener('ended', endIntro);
+
+            // Skip intro on click
+            skipButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                endIntro();
+            });
+
+            // Also allow clicking anywhere on overlay to skip
+            introOverlay.addEventListener('click', function() {
+                endIntro();
+            });
+
+            function endIntro() {
+                if (introOverlay.classList.contains('intro-fade-out')) return;
+
+                // Fade out audio
+                let volume = introAudio.volume;
+                const fadeAudio = setInterval(() => {
+                    if (volume > 0.1) {
+                        volume -= 0.1;
+                        introAudio.volume = volume;
+                    } else {
+                        clearInterval(fadeAudio);
+                        introAudio.pause();
+                    }
+                }, 100);
+
+                // Fade out overlay
+                introOverlay.classList.add('intro-fade-out');
+
+                setTimeout(() => {
+                    introOverlay.style.display = 'none';
+                    introVideo.pause();
+                }, 1000);
+            }
+        });
+    </script>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
@@ -47,7 +174,11 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-background">
-            <img src="quantum-hero.jpg" alt="BioQL Quantum Computing" class="hero-bg-main">
+            <!-- Video Background (muted, looped) -->
+            <video class="hero-video-bg" autoplay loop muted playsinline>
+                <source src="assets/media/intro-video.mp4" type="video/mp4">
+            </video>
+            <img src="quantum-hero.jpg" alt="BioQL Quantum Computing" class="hero-bg-main" style="opacity: 0.5;">
             <img src="quantum-bg-1.png" alt="Quantum Overlay" class="hero-bg-overlay overlay-1">
             <img src="quantum-bg-2.png" alt="Quantum Overlay" class="hero-bg-overlay overlay-2">
             <div class="quantum-particles"></div>
