@@ -75,6 +75,56 @@
             z-index: 0;
             opacity: 0.3;
         }
+
+        /* Dropdown menu styles */
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown .dropdown-toggle {
+            cursor: pointer;
+        }
+
+        .nav-dropdown .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 15, 35, 0.98);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            padding: 0.75rem 0;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            list-style: none;
+            margin-top: 0.5rem;
+        }
+
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-dropdown .dropdown-menu li {
+            padding: 0;
+        }
+
+        .nav-dropdown .dropdown-menu li a {
+            display: block;
+            padding: 0.75rem 1.25rem;
+            color: var(--color-text-primary, #fff);
+            text-decoration: none;
+            transition: background 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .nav-dropdown .dropdown-menu li a:hover {
+            background: rgba(0, 212, 255, 0.1);
+        }
     </style>
 
     <script>
@@ -155,9 +205,18 @@
             </button>
             <ul class="nav-menu" style="gap: 1.25rem; font-size: 0.95rem;">
                 <li><a href="workflows.html">Workflows</a></li>
-                <li><a href="http://167.71.86.90:5003/" target="_blank">Lab Notebook</a></li>
-                <li><a href="https://api.bioql.bio/quantum-graph/" target="_blank" style="background: linear-gradient(135deg, #00C8FF 0%, #8B5CF6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600;">Q-Graphs ⚛️</a></li>
-                <li><a href="https://api.bioql.bio/quantum-docking/" target="_blank" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600;">Q-Docking 🧬</a></li>
+                <li class="nav-dropdown">
+                    <a href="#" class="dropdown-toggle" style="display: flex; align-items: center; gap: 0.25rem;">
+                        Services <span style="font-size: 0.7rem;">▼</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://167.71.86.90:5003/" target="_blank">Lab Notebook</a></li>
+                        <li><a href="https://api.bioql.bio/quantum-graph/" target="_blank" style="background: linear-gradient(135deg, #00C8FF 0%, #8B5CF6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600;">Q-Graphs ⚛️</a></li>
+                        <li><a href="https://api.bioql.bio/quantum-docking/" target="_blank" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600;">Q-Docking 🧬</a></li>
+                        <li><a href="http://165.227.121.158:5055" target="_blank" style="background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600;">NeuroQubit 🧠</a></li>
+                        <li><a href="http://165.227.121.158:5003" target="_blank" style="background: linear-gradient(135deg, #F093FB 0%, #F5576C 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600;">Quantum Bio-HNET ⚛️</a></li>
+                    </ul>
+                </li>
                 <li><a href="docs.html">Docs</a></li>
                 <li><a href="agent.html">Agent</a></li>
                 <li><a href="qpharos.html" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;">QPHAROS 🔶</a></li>
